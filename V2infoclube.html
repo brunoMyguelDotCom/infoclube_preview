@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoClube - Central de Serviços</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fff;
+    padding-top: 88px;
+  }
+  body.modal-open { overflow: hidden; }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr) auto minmax(240px, 1fr);
+    align-items: center;
+    padding: 19px 48px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    transition: padding 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  nav.scrolled {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    box-shadow: 0 12px 30px rgba(5, 11, 20, 0.08);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-icon img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+  }
+  .logo-text h1 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1;
+  }
+  .logo-text h1 span { color: #f5a623; }
+  .logo-text p {
+    font-size: 13px;
+    color: #888;
+  }
+  .nav-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(5, 11, 20, 0.12);
+    border-radius: 6px;
+    background: #fff;
+    color: #050B14;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .nav-toggle:hover,
+  .nav-toggle:focus-visible {
+    background: rgba(245, 166, 35, 0.1);
+    border-color: rgba(245, 166, 35, 0.25);
+    outline: none;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 19px;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  nav.is-menu-open .nav-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  nav.is-menu-open .nav-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+  nav.is-menu-open .nav-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  .nav-links {
+    display: flex;
+    gap: 14px;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-links > li {
+    position: relative;
+  }
+  .nav-links > li > a,
+  .nav-cta,
+  .social-icons a {
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .nav-links > li > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #1a1a2e;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .nav-links > li > a:hover,
+  .nav-links > li > a:focus-visible {
+    color: #f5a623;
+    background: rgba(245, 166, 35, 0.1);
+    border-color: rgba(245, 166, 35, 0.18);
+    outline: none;
+  }
+  .nav-links > li > a.active {
+    color: #f5a623;
+    background: rgba(245, 166, 35, 0.12);
+    border-color: rgba(245, 166, 35, 0.22);
+  }
+  .nav-dropdown-trigger::after {
+    content: "▾";
+    font-size: 11px;
+    line-height: 1;
+    color: currentColor;
+  }
+  .nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    min-width: 280px;
+    width: max-content;
+    max-width: min(92vw, 860px);
+    padding: 16px;
+    border: 1px solid rgba(5, 11, 20, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 24px 60px rgba(5, 11, 20, 0.14);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
+    z-index: 30;
+  }
+  @keyframes navDropdownFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  .nav-dropdown.is-open .nav-dropdown-menu,
+  .nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+    animation: navDropdownFadeIn 0.28s ease;
+  }
+  .nav-dropdown-menu.nav-dropdown-menu--services {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .nav-dropdown-menu.nav-dropdown-menu--partners {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    gap: 14px;
+    min-width: min(94vw, 980px);
+  }
+  .nav-dropdown-column {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+  .nav-dropdown-column h4,
+  .nav-dropdown-category {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .nav-dropdown-category {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    text-decoration: none;
+    color: #1a1a2e;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(245, 166, 35, 0.22);
+  }
+  .nav-dropdown-category:hover,
+  .nav-dropdown-category:focus-visible {
+    color: #f5a623;
+    outline: none;
+  }
+  .nav-dropdown-menu a.nav-dropdown-link {
+    display: inline-flex;
+    width: fit-content;
+    text-decoration: none;
+    color: #394150;
+    font-size: 14px;
+    line-height: 1.35;
+    padding: 5px 0;
+  }
+  .nav-dropdown-menu a.nav-dropdown-link:hover,
+  .nav-dropdown-menu a.nav-dropdown-link:focus-visible {
+    color: #f5a623;
+    outline: none;
+  }
+  .nav-social {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  .footer-social {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+  .footer-social a:hover,
+  .footer-social a:focus-visible {
+    opacity: 0.8;
+    transform: translateY(-1px);
+    outline: none;
+  }
+  .social-handle {
+    font-size: 13px;
+    color: #888;
+    margin-left: 4px;
+  }
+  .nav-cta {
+    display: inline-block;
+    margin-left: 10px;
+    background: #050B14;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .nav-cta:hover {
+    background: #111827;
+    box-shadow: 0 10px 22px rgba(5, 11, 20, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .section {
+    --section-bg: #fdf6ee;
+    background: var(--section-bg);
+    min-height: calc(84vh - 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 60px;
+    gap: 28px;
+    scroll-margin-top: 105px;
+  }
+  .cover-hero { scroll-margin-top: 105px; }
+  .cover-hero {
+    position: relative;
+    min-height: calc(100vh - 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 90px 48px;
+    background: #050B14;
+    isolation: isolate;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-carousel {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+    object-fit: cover;
+    object-position: var(--hero-position, center center);
+    filter: saturate(0.95) contrast(1.02);
+    pointer-events: none;
+  }
+  .hero-slide.is-active {
+    opacity: 0.82;
+  }
+  .cover-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 11, 20, 0.56);
+    z-index: -1;
+  }
+  .cover-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: -1;
+  }
+  .cover-content {
+    max-width: 980px;
+    color: #fff;
+  }
+  .hero-copy-panel {
+    display: grid;
+    gap: 16px;
+    padding: 28px 34px 30px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.34);
+    max-width: 860px;
+    margin: 0 auto 28px;
+  }
+  .cover-content h1 {
+    font-size: 68px;
+    line-height: 1.05;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  .cover-content p {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 23px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .section:nth-of-type(odd) {
+    --section-bg: #fff;
+    background: var(--section-bg);
+  }
+  .section-text {
+    flex: 1;
+    max-width: 575px;
+  }
+  .section-text h2 {
+    font-size: 53px;
+    font-weight: 900;
+    color: #1a1a2e;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .section-text h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 25px;
+  }
+  .section-text p {
+    font-size: 19px;
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+  .section-text p.small {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  .benefits {
+    list-style: none;
+    display: grid;
+    gap: 13px;
+    margin: 0 0 38px;
+  }
+  .benefits li {
+    position: relative;
+    padding-left: 28px;
+    font-size: 18px;
+    color: #333;
+    line-height: 1.5;
+  }
+  .benefits li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #f5a623;
+  }
+  .btn-orcamento {
+    display: inline-block;
+    background: #050B14;
+    color: #fff;
+    text-decoration: none;
+    padding: 20px 43px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 12px 28px rgba(5, 11, 20, 0.14);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-orcamento:hover {
+    background: #111827;
+    box-shadow: 0 16px 34px rgba(5, 11, 20, 0.22);
+    transform: translateY(-3px);
+  }
+  .btn-orcamento.pulse {
+    animation: ctaPulse 2.7s ease-in-out infinite;
+  }
+
+  .section-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+    max-width: 775px;
+  }
+  .section-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .image-frame {
+    position: relative;
+    width: min(100%, 680px);
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    background: var(--section-bg);
+    background:
+      radial-gradient(circle at 22% 18%, rgba(245, 166, 35, 0.2), transparent 34%),
+      linear-gradient(135deg, color-mix(in srgb, var(--section-bg) 78%, #fff 22%), color-mix(in srgb, var(--section-bg) 82%, #f5a623 18%));
+    border-radius: 8px;
+    box-shadow: 0 24px 55px rgba(5, 11, 20, 0.12);
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .image-frame > img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    border-radius: 6px;
+  }
+  .image-frame .before-after {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  :is(
+    #quem-somos,
+    #videos,
+    #social-media,
+    #jingles,
+    #restauracao-foto,
+    #fita-vhs,
+    #fita-vhsc,
+    #mini-dv,
+    #vinil,
+    #dvd,
+    #fita-cassete,
+    #monoculo
+  ) .section-image {
+    --linked-image-width: 1080;
+    --linked-image-height: 800;
+    min-height: 0;
+    aspect-ratio: var(--linked-image-width) / var(--linked-image-height);
+  }
+  #orcamento .section-image {
+    --linked-image-width: 1080;
+    --linked-image-height: 1080;
+    min-height: 0;
+    aspect-ratio: var(--linked-image-width) / var(--linked-image-height);
+  }
+  :is(
+    #quem-somos,
+    #videos,
+    #social-media,
+    #jingles,
+    #restauracao-foto,
+    #fita-vhs,
+    #fita-vhsc,
+    #mini-dv,
+    #vinil,
+    #dvd,
+    #fita-cassete,
+    #monoculo
+  ) .image-frame,
+  :is(
+    #quem-somos,
+    #videos,
+    #social-media,
+    #jingles,
+    #restauracao-foto,
+    #fita-vhs,
+    #fita-vhsc,
+    #mini-dv,
+    #vinil,
+    #dvd,
+    #fita-cassete,
+    #monoculo
+  ) .before-after {
+    aspect-ratio: var(--linked-image-width) / var(--linked-image-height);
+  }
+  #orcamento .image-frame {
+    aspect-ratio: var(--linked-image-width) / var(--linked-image-height);
+  }
+  .logo-frame {
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+  }
+  .logo-frame > img {
+    position: static;
+    width: min(72%, 360px);
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    object-fit: contain;
+    transform: none;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .stats-section {
+    background: #050B14;
+    color: #fff;
+    display: block;
+    min-height: auto;
+    padding: 54px 48px;
+  }
+  .stats-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .stat-item {
+    border-left: 3px solid #f5a623;
+    padding-left: 18px;
+  }
+  .stat-number {
+    display: block;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .stat-label {
+    display: block;
+    margin-top: 9px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 15px;
+  }
+  .before-after {
+    position: relative;
+    width: min(100%, 650px);
+    aspect-ratio: 1080 / 800;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 22px 55px rgba(5, 11, 20, 0.16);
+    background: #111827;
+  }
+  .before-after img,
+  .before-after .after-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .before-after img {
+    object-fit: cover;
+    display: block;
+  }
+  .before-after .before-img {
+    filter: grayscale(1) sepia(0.35) contrast(0.78) brightness(0.88);
+  }
+  .before-after .after-layer {
+    overflow: hidden;
+    clip-path: inset(0 calc(100% - var(--ba-position, 50%)) 0 0);
+  }
+  .before-after .divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--ba-position, 50%);
+    width: 3px;
+    transform: translateX(-50%);
+    background: #fff;
+    box-shadow: 0 0 18px rgba(5, 11, 20, 0.4);
+    pointer-events: none;
+  }
+  .before-after .divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: #f5a623;
+    border: 3px solid #fff;
+  }
+  .before-after input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+  .ba-label {
+    position: absolute;
+    top: 16px;
+    z-index: 2;
+    background: rgba(5, 11, 20, 0.76);
+    color: #fff;
+    padding: 8px 11px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .ba-label.before { left: 16px; }
+  .ba-label.after { right: 16px; }
+  .partners-section {
+    min-height: calc(100vh - 88px);
+    display: block;
+    padding: 78px 0;
+    overflow: hidden;
+  }
+  .partners-heading {
+    max-width: 1120px;
+    margin: 0 auto 44px;
+    padding: 0 48px;
+    text-align: center;
+  }
+  .partners-heading h2 {
+    font-size: 53px;
+    font-weight: 900;
+    color: #1a1a2e;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .partners-heading p {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 19px;
+    color: #333;
+    line-height: 1.7;
+  }
+  .partners-carousel {
+    width: 100%;
+  }
+  .carousel-viewport {
+    overflow: hidden;
+    background: #fff;
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.45s ease;
+  }
+  .partner-card {
+    flex: 0 0 calc(100% / 3);
+    min-height: 480px;
+    display: grid;
+    place-items: center;
+    padding: 32px;
+    text-align: center;
+    border-right: 1px solid #f0f0f0;
+  }
+  .partner-card img {
+    width: min(96%, 430px);
+    height: 320px;
+    object-fit: contain;
+    margin-bottom: 20px;
+  }
+  .partner-card h4 {
+    font-size: 26px;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+  }
+  .partner-card p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+  }
+  .carousel-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .carousel-btn {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 50%;
+    background: #050B14;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .carousel-btn:hover {
+    background: #f5a623;
+    transform: translateY(-2px);
+  }
+  .whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 90;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 16px 35px rgba(37, 211, 102, 0.34);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .whatsapp-float:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 20px 44px rgba(37, 211, 102, 0.42);
+  }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(5, 11, 20, 0.68);
+  }
+  .modal-overlay.is-open { display: flex; }
+  .modal {
+    width: min(100%, 560px);
+    background: #fff;
+    border-radius: 8px;
+    padding: 34px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(5, 11, 20, 0.35);
+  }
+  .modal h2 {
+    font-size: 31px;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .modal p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 22px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: #111827;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .quote-form {
+    display: grid;
+    gap: 14px;
+  }
+  .quote-form label {
+    display: grid;
+    gap: 7px;
+    color: #1a1a2e;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .quote-form input,
+  .quote-form select,
+  .quote-form textarea {
+    width: 100%;
+    border: 1px solid #d7dce3;
+    border-radius: 4px;
+    padding: 12px 13px;
+    font: inherit;
+  }
+  .quote-form textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  .form-status {
+    min-height: 22px;
+    color: #16833a;
+    font-weight: 700;
+  }
+  .contact-section {
+    background: #fbf6ef;
+    padding: 92px 48px;
+    scroll-margin-top: 105px;
+  }
+  .contact-shell {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1fr);
+    gap: 58px;
+    align-items: center;
+  }
+  .contact-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-copy h2 {
+    max-width: 580px;
+    color: #050B14;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 58px;
+    line-height: 1.05;
+    font-weight: 700;
+    margin-bottom: 22px;
+  }
+  .contact-copy p {
+    max-width: 560px;
+    color: #4f5661;
+    font-size: 17px;
+    line-height: 1.75;
+    margin-bottom: 30px;
+  }
+  .contact-form-card {
+    background: #fff;
+    border: 1px solid rgba(5, 11, 20, 0.08);
+    border-radius: 8px;
+    padding: 34px;
+    box-shadow: 0 24px 60px rgba(5, 11, 20, 0.08);
+  }
+  .contact-form {
+    display: grid;
+    gap: 18px;
+  }
+  .contact-field {
+    display: grid;
+    gap: 8px;
+  }
+  .contact-field label {
+    color: #050B14;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .contact-field input,
+  .contact-field select,
+  .contact-field textarea {
+    width: 100%;
+    border: 1px solid #e1d7c9;
+    border-radius: 6px;
+    background: #fbf6ef;
+    color: #050B14;
+    font: inherit;
+    font-size: 15px;
+    padding: 14px 15px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .contact-field select {
+    appearance: auto;
+  }
+  .contact-field textarea {
+    min-height: 146px;
+    resize: vertical;
+  }
+  .contact-field input:focus,
+  .contact-field select:focus,
+  .contact-field textarea:focus {
+    border-color: #c8962e;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(200, 150, 46, 0.16);
+  }
+  .contact-submit {
+    width: 100%;
+    border: 0;
+    border-radius: 6px;
+    background: #050B14;
+    color: #fff;
+    padding: 16px 22px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .contact-submit:hover {
+    background: #111827;
+    box-shadow: 0 14px 28px rgba(5, 11, 20, 0.18);
+    transform: translateY(-2px);
+  }
+  @keyframes ctaPulse {
+    0%, 100% { box-shadow: 0 12px 28px rgba(5, 11, 20, 0.14), 0 0 0 0 rgba(245, 166, 35, 0.34); }
+    50% { box-shadow: 0 12px 28px rgba(5, 11, 20, 0.14), 0 0 0 12px rgba(245, 166, 35, 0); }
+  }
+
+  footer {
+    background: #050B14;
+    color: #fff;
+    padding: 58px 48px 0;
+  }
+  .footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    gap: 42px;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .footer-logo img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+  }
+  .footer-logo h2 {
+    font-size: 25px;
+    line-height: 1;
+  }
+  .footer-logo h2 span { color: #f5a623; }
+  .footer-brand p,
+  .footer-contact p {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .footer-column h3 {
+    font-size: 17px;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .footer-links {
+    list-style: none;
+    display: grid;
+    gap: 11px;
+  }
+  .footer-links a,
+  .footer-bottom a {
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .footer-links a:hover,
+  .footer-bottom a:hover {
+    color: #f5a623;
+  }
+  .footer-contact {
+    display: grid;
+    gap: 10px;
+  }
+  .footer-contact strong {
+    color: #fff;
+    font-weight: 700;
+  }
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 48px auto 0;
+    padding: 22px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .footer-bottom p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+  }
+  .footer-legal {
+    display: flex;
+    gap: 22px;
+  }
+
+  @media (max-width: 1060px) {
+    nav {
+      display: flex;
+      padding: 19px 24px;
+      gap: 22px;
+      justify-content: space-between;
+    }
+    .nav-links { gap: 18px; }
+    .social-handle { display: none; }
+    .footer-content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-shell {
+      grid-template-columns: 1fr;
+      gap: 38px;
+    }
+    .contact-copy h2 {
+      max-width: 760px;
+    }
+  }
+
+  @media (max-width: 860px) {
+    body { padding-top: 82px; }
+    nav { flex-wrap: wrap; }
+    .nav-links {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      gap: 18px;
+      overflow: visible;
+      padding-top: 10px;
+    }
+    .nav-dropdown-menu {
+      left: 0;
+      transform: translateY(8px);
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu {
+      transform: translateY(0);
+    }
+    .nav-dropdown-menu.nav-dropdown-menu--services {
+      grid-template-columns: repeat(2, minmax(150px, 1fr));
+    }
+    .nav-dropdown-menu.nav-dropdown-menu--partners {
+      grid-template-columns: repeat(2, minmax(150px, 1fr));
+    }
+    .section {
+      min-height: auto;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 44px 24px;
+      gap: 28px;
+    }
+    .cover-hero {
+      min-height: 620px;
+      padding: 76px 24px;
+    }
+    .cover-content h1 { font-size: 46px; }
+    .cover-content p { font-size: 19px; }
+    .section-text,
+    .section-image {
+      max-width: none;
+    }
+    .section-text h2 { font-size: 38px; }
+    .section-text h3 { font-size: 23px; }
+    .section-text p { font-size: 17px; }
+    .section-text p.small { font-size: 15px; }
+    .benefits li { font-size: 16px; }
+    .btn-orcamento {
+      padding: 17px 30px;
+      font-size: 14px;
+    }
+    .section-image { min-height: 320px; }
+    .stats-section { padding: 42px 24px; }
+    .partners-section { padding: 58px 0; }
+    .partners-heading { padding: 0 24px; }
+    .partners-heading h2 { font-size: 38px; }
+    .partners-heading p { font-size: 17px; }
+    .partner-card {
+      flex-basis: 50%;
+      min-height: 360px;
+      padding: 28px 20px;
+    }
+    .partner-card img {
+      width: min(96%, 360px);
+      height: 230px;
+    }
+    .contact-section {
+      padding: 64px 24px;
+    }
+    .contact-copy h2 {
+      font-size: 43px;
+    }
+    .contact-form-card {
+      padding: 28px;
+    }
+    footer { padding: 46px 24px 0; }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 38px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 560px) {
+    body { padding-top: 146px; }
+    nav {
+      padding: 12px 18px;
+      align-items: center;
+    }
+    .logo-text h1 { font-size: 19px; }
+    .nav-social {
+      width: 100%;
+      justify-content: space-between;
+      order: 2;
+    }
+    .nav-cta {
+      margin-left: 0;
+      padding: 9px 12px;
+    }
+    .nav-links {
+      justify-content: center;
+      font-size: 13px;
+    }
+    .nav-dropdown-menu.nav-dropdown-menu--services,
+    .nav-dropdown-menu.nav-dropdown-menu--partners {
+      grid-template-columns: 1fr;
+    }
+    .section { padding: 38px 18px; }
+    .cover-hero {
+      min-height: 540px;
+      padding: 62px 18px;
+    }
+    .cover-content h1 { font-size: 34px; }
+    .cover-content p { font-size: 17px; }
+    .section-text h2 { font-size: 34px; }
+    .section-text h3 { font-size: 21px; }
+    .section-text p { font-size: 16px; }
+    .benefits li { font-size: 15px; }
+    .section-image {
+      min-height: 270px;
+    }
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-number { font-size: 36px; }
+    .partner-card {
+      flex-basis: 100%;
+      min-height: 320px;
+    }
+    .partner-card img {
+      width: min(98%, 320px);
+      height: 210px;
+    }
+    .contact-section {
+      padding: 52px 18px;
+    }
+    .contact-copy h2 {
+      font-size: 36px;
+    }
+    .contact-copy p {
+      font-size: 16px;
+    }
+    .contact-form-card {
+      padding: 22px;
+    }
+    .whatsapp-float {
+      right: 16px;
+      bottom: 16px;
+      width: 54px;
+      height: 54px;
+    }
+    .modal { padding: 28px 20px; }
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: center;
+    }
+    .footer-logo {
+      justify-content: center;
+    }
+    .footer-legal {
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 1180px) {
+    body {
+      padding-top: 72px;
+      overflow-x: hidden;
+    }
+    nav,
+    nav.scrolled {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+    }
+    .logo {
+      min-width: 0;
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .logo-icon,
+    .logo-icon img {
+      width: 44px;
+      height: 44px;
+    }
+    .logo-text {
+      min-width: 0;
+    }
+    .logo-text h1 {
+      font-size: 22px;
+    }
+    .logo-text p {
+      font-size: 12px;
+    }
+    .nav-toggle {
+      display: inline-flex;
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .nav-social {
+      grid-column: 3;
+      grid-row: 1;
+      width: auto;
+      justify-self: end;
+    }
+    .nav-cta {
+      margin-left: 0;
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+    .nav-links {
+      position: absolute;
+      top: calc(100% + 1px);
+      left: 0;
+      right: 0;
+      width: auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 14px 20px 18px;
+      background: rgba(255, 255, 255, 0.98);
+      border-bottom: 1px solid rgba(5, 11, 20, 0.08);
+      box-shadow: 0 24px 42px rgba(5, 11, 20, 0.12);
+      max-height: calc(100svh - 72px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+    }
+    nav.is-menu-open .nav-links {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+    .nav-links > li > a {
+      width: 100%;
+      justify-content: space-between;
+      border-radius: 8px;
+      padding: 11px 12px;
+    }
+    .nav-dropdown-menu {
+      position: static;
+      transform: none;
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+      margin-top: 6px;
+      padding: 12px;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      border-radius: 8px;
+      box-shadow: none;
+      background: rgba(245, 247, 250, 0.92);
+      transition: none;
+      animation: none;
+    }
+    .nav-dropdown.is-open .nav-dropdown-menu,
+    .nav-dropdown:hover .nav-dropdown-menu {
+      transform: none;
+      animation: none;
+    }
+    .nav-dropdown-menu.nav-dropdown-menu--services,
+    .nav-dropdown-menu.nav-dropdown-menu--partners {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 16px;
+      min-width: 0;
+    }
+    .nav-dropdown-column {
+      gap: 6px;
+      min-width: 0;
+    }
+    .nav-dropdown-menu a.nav-dropdown-link,
+    .nav-dropdown-category {
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    .cover-hero {
+      min-height: calc(100svh - 72px);
+      padding: 76px 24px 58px;
+    }
+    .hero-copy-panel {
+      max-width: min(860px, 100%);
+      padding: 26px 30px 28px;
+      border-radius: 16px;
+    }
+    .cover-content h1 {
+      font-size: 48px;
+    }
+    .cover-content p {
+      font-size: 20px;
+    }
+    .section {
+      padding: 48px 34px;
+      gap: 24px;
+    }
+    .section-text h2,
+    .partners-heading h2 {
+      font-size: 44px;
+    }
+    .section-text h3 {
+      font-size: 25px;
+    }
+    .section-text p,
+    .partners-heading p {
+      font-size: 18px;
+    }
+    .stats-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .footer-content {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 860px) {
+    body {
+      padding-top: 72px;
+    }
+    .section {
+      min-height: auto;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 44px 24px;
+    }
+    .section-text,
+    .section-image {
+      max-width: none;
+      width: 100%;
+    }
+    .section-image {
+      min-height: 0;
+    }
+    .image-frame {
+      width: 100%;
+    }
+    .contact-shell {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav-dropdown-menu.nav-dropdown-menu--services,
+    .nav-dropdown-menu.nav-dropdown-menu--partners {
+      grid-template-columns: 1fr;
+    }
+    .partners-section {
+      padding: 52px 0;
+    }
+    .partners-heading {
+      padding: 0 18px;
+    }
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .footer-logo,
+    .footer-social {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding-top: 66px;
+    }
+    nav,
+    nav.scrolled {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 8px;
+      padding: 10px 12px;
+    }
+    .logo {
+      gap: 8px;
+    }
+    .logo-icon,
+    .logo-icon img {
+      width: 38px;
+      height: 38px;
+    }
+    .logo-text h1 {
+      font-size: 18px;
+    }
+    .logo-text p {
+      font-size: 11px;
+    }
+    .nav-toggle {
+      width: 38px;
+      height: 38px;
+    }
+    .nav-cta {
+      padding: 9px 10px;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+    .nav-links {
+      padding: 12px 12px 16px;
+      max-height: calc(100svh - 66px);
+    }
+    .cover-hero {
+      min-height: calc(100svh - 66px);
+      padding: 44px 14px;
+    }
+    .hero-copy-panel {
+      gap: 12px;
+      padding: 18px 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 22px;
+    }
+    .cover-content h1 {
+      font-size: 30px;
+      line-height: 1.08;
+    }
+    .cover-content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .section {
+      padding: 38px 16px;
+      gap: 22px;
+    }
+    .section-text h2,
+    .partners-heading h2,
+    .contact-copy h2 {
+      font-size: 30px;
+      line-height: 1.12;
+    }
+    .section-text h3 {
+      font-size: 20px;
+    }
+    .section-text p,
+    .partners-heading p,
+    .contact-copy p {
+      font-size: 16px;
+    }
+    .btn-orcamento,
+    .contact-submit {
+      width: 100%;
+      text-align: center;
+      padding: 15px 18px;
+      font-size: 13px;
+      letter-spacing: 0.8px;
+      white-space: normal;
+    }
+    .benefits li {
+      font-size: 15px;
+    }
+    .partner-card {
+      flex-basis: 100%;
+      min-height: 300px;
+      padding: 22px 18px;
+    }
+    .partner-card img {
+      width: min(100%, 280px);
+      height: 190px;
+    }
+    .contact-section {
+      padding: 48px 16px;
+    }
+    .contact-form-card {
+      padding: 20px;
+    }
+    .modal {
+      width: min(100%, 360px);
+      padding: 24px 18px;
+    }
+    footer {
+      padding: 42px 18px 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon">
+      <img src="imagens/Logo_InfoClube.png" alt="Logo InfoClube">
+    </div>
+    <div class="logo-text">
+      <h1>Info<span>Clube</span></h1>
+      <p>Central de Serviços</p>
+    </div>
+  </div>
+
+  <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </button>
+
+  <ul class="nav-links">
+    <li><a href="#quem-somos" class="active" data-nav-section="quem-somos">Quem Somos</a></li>
+    <li class="nav-dropdown">
+      <a href="#videos" class="nav-dropdown-trigger" data-nav-section="videos" aria-haspopup="true">Serviços</a>
+      <div class="nav-dropdown-menu nav-dropdown-menu--services" aria-label="Menu de serviços">
+        <a class="nav-dropdown-link" href="#videos">Vídeos</a>
+        <a class="nav-dropdown-link" href="#social-media">Social Media</a>
+        <a class="nav-dropdown-link" href="#jingles">Jingles</a>
+        <a class="nav-dropdown-link" href="#restauracao-foto">Restauração de Foto</a>
+        <a class="nav-dropdown-link" href="#fita-vhs">Fita VHS</a>
+        <a class="nav-dropdown-link" href="#fita-vhsc">Fita VHS-C</a>
+        <a class="nav-dropdown-link" href="#mini-dv">Fita Mini-DV</a>
+        <a class="nav-dropdown-link" href="#vinil">Disco de Vinil</a>
+        <a class="nav-dropdown-link" href="#dvd">DVD</a>
+        <a class="nav-dropdown-link" href="#fita-cassete">Fita Cassete</a>
+        <a class="nav-dropdown-link" href="#monoculo">Monóculo</a>
+      </div>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#parceiros" class="nav-dropdown-trigger" data-nav-section="parceiros" aria-haspopup="true">Parceiros</a>
+      <div class="nav-dropdown-menu nav-dropdown-menu--partners" aria-label="Menu de parceiros">
+        <div class="nav-dropdown-column">
+          <a class="nav-dropdown-category" href="parceiros.html#cinegrafistas">Cinegrafistas</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Lucas Oliveira Pica Pau sobre cinegrafia.">Lucas Oliveira Pica Pau</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Anderson Ferrassa sobre cinegrafia.">Anderson Ferrassa</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Eleandro Rossi sobre cinegrafia.">Eleandro Rossi</a>
+        </div>
+        <div class="nav-dropdown-column">
+          <a class="nav-dropdown-category" href="parceiros.html#fotografos">Fotógrafos</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Andreza Marks sobre fotografia.">Andreza Marks</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Fotógrafo Parceiro sobre fotografia.">Fotógrafo Parceiro</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Estúdio Parceiro sobre fotografia.">Estúdio Parceiro</a>
+        </div>
+        <div class="nav-dropdown-column">
+          <a class="nav-dropdown-category" href="parceiros.html#produtoras">Produtoras</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Borcelle Filmes sobre produção audiovisual.">Borcelle Filmes</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Produtora Parceira sobre produção audiovisual.">Produtora Parceira</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Vídeo Institucional sobre produção audiovisual.">Vídeo Institucional</a>
+        </div>
+        <div class="nav-dropdown-column">
+          <a class="nav-dropdown-category" href="parceiros.html#revelacao">Revelação</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Adonai Revelação Express sobre revelação de fotos.">Adonai Revelação Express</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Álbuns e Molduras sobre revelação de fotos.">Álbuns e Molduras</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Fotos e Presentes sobre revelação de fotos.">Fotos e Presentes</a>
+        </div>
+        <div class="nav-dropdown-column">
+          <a class="nav-dropdown-category" href="parceiros.html#oficinas">Oficinas</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Manutenção de Câmeras sobre assistência técnica.">Manutenção de Câmeras</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Conserto de Equipamentos sobre assistência técnica.">Conserto de Equipamentos</a>
+          <a class="nav-dropdown-link" href="#" data-whatsapp-message="Olá! Quero falar com Assistência Técnica sobre assistência técnica.">Assistência Técnica</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="nav-social">
+    <a class="nav-cta js-open-budget" href="#orcamento">Orçamento</a>
+  </div>
+</nav>
+
+<section class="cover-hero" aria-label="Capa InfoClube">
+  <div class="hero-carousel" aria-hidden="true">
+    <img class="hero-slide is-active" src="imagens/imagens_novas/carrossel_header/carrossel_social_media.jpg" alt="" style="--hero-position: center center;" decoding="async">
+    <img class="hero-slide" src="imagens/imagens_novas/carrossel_header/carrossel_jingle.jpg" alt="" style="--hero-position: center top;" decoding="async">
+    <img class="hero-slide" src="imagens/imagens_novas/carrossel_header/carrossel_rest_fotos.jpg" alt="" style="--hero-position: center 35%;" decoding="async">
+    <img class="hero-slide" src="imagens/imagens_novas/carrossel_header/carrossel_parceiros.jpg" alt="" style="--hero-position: center center;" decoding="async">
+  </div>
+  <div class="cover-content">
+    <div class="hero-copy-panel">
+      <h1>Memórias, mídias e ideias em novas formas</h1>
+      <p>Uma central de serviços para transformar arquivos antigos, registros especiais e projetos criativos em materiais digitais prontos para guardar, compartilhar e usar.</p>
+    </div>
+    <a class="btn-orcamento pulse js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+</section>
+
+<section class="section stats-section" aria-label="Números da InfoClube">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-number" data-count="1200">0</span>
+      <span class="stat-label">mídias digitalizadas</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-count="18">0</span>
+      <span class="stat-label">formatos atendidos</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-count="300">0</span>
+      <span class="stat-label">projetos criativos</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-count="9">0</span>
+      <span class="stat-label">anos de experiência</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="quem-somos">
+  <div class="section-text">
+    <h2>Quem Somos</h2>
+    <h3>Uma central criativa para eternizar</h3>
+    <p>A InfoClube une tecnologia, criatividade e atendimento próximo para transformar memórias, ideias e negócios em conteúdos com mais valor. Digitalizamos memórias, criamos conteúdos, produzimos vídeos, jingles, artes e soluções para empresas, profissionais e projetos especiais.</p>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/Quem Somos.png" alt="Central criativa InfoClube">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="videos">
+  <div class="section-text">
+    <h2>InfoClube Vídeos</h2>
+    <h3>Suas memórias merecem continuar vivas</h3>
+    <p>Transformamos lembranças em arquivos digitais seguros, organizados e prontos para serem revividos. Digitalização de VHS, VHS-C, Hi8, Mini DV, CD, DVD, Blu-Ray, fitas cassete, disco de vinil, monóculos e fotos antigas.</p>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/midias/videos.png" alt="InfoClube Vídeos">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="social-media">
+  <div class="section-text">
+    <h2>Social Media</h2>
+    <h3>Sua marca mais bonita, presente</h3>
+    <p>Sua empresa precisa aparecer com qualidade, frequência e estratégia. Criamos posts, artes, campanhas promocionais e conteúdos para Instagram, Facebook, TikTok, WhatsApp e datas especiais.</p>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/servicos/social_media.png" alt="InfoClube Social Media">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="jingles">
+  <div class="section-text">
+    <h2>Jingles</h2>
+    <h3>Transforme sua mensagem em música</h3>
+    <p>Uma boa marca também precisa ser lembrada pelo som. Jingles para empresas, músicas personalizadas, trilhas para vídeos, campanhas e chamadas comerciais cantadas ou faladas.</p>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/servicos/jingles.png" alt="InfoClube Jingles">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="restauracao-foto">
+  <div class="section-text">
+    <h2>Restauração de Foto</h2>
+    <h3>Recuperação com cuidado e fidelidade</h3>
+    <p>Fotos antigas podem sofrer com rasgos, manchas, desbotamento e perda de nitidez. Corrigimos danos, melhoramos a imagem, colorizamos quando necessário e preservamos a memória original.</p>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <div class="before-after" style="--ba-position: 50%;">
+        <img class="before-img" src="imagens/imagens_novas/servicos/restauracao_fotos.png" alt="Foto antiga antes da restauração">
+        <div class="after-layer">
+          <img src="imagens/imagens_novas/servicos/restauracao_fotos.png" alt="Foto restaurada depois do tratamento">
+        </div>
+        <span class="ba-label before">Antes</span>
+        <span class="ba-label after">Depois</span>
+        <span class="divider" aria-hidden="true"></span>
+        <input type="range" min="5" max="95" value="50" aria-label="Comparar antes e depois da restauração">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="fita-vhs">
+  <div class="section-text">
+    <h2>Fita VHS</h2>
+    <h3>A memória da sua história merece ser preservada</h3>
+    <p>Digitalização de fitas VHS para arquivos digitais, preservando ao máximo o conteúdo original.</p>
+    <ul class="benefits">
+      <li>História: mídia preservada com cuidado e organização.</li>
+      <li>Captura: conversão para arquivo digital.</li>
+      <li>Segurança: conteúdo tratado com atenção.</li>
+      <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
+    </ul>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/midias/vhs.png" alt="Digitalização de fita VHS">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="fita-vhsc">
+  <div class="section-text">
+    <h2>Fita VHS-C</h2>
+    <h3>Suas memórias em vídeo merecem ser preservadas</h3>
+    <p>Digitalização de fitas VHS-C usadas em filmadoras compactas, aniversários, viagens e momentos familiares.</p>
+    <ul class="benefits">
+      <li>História: mídia preservada com cuidado e organização.</li>
+      <li>Captura: conversão para arquivo digital.</li>
+      <li>Segurança: conteúdo tratado com atenção.</li>
+      <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
+    </ul>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/midias/vhs_c.png" alt="Digitalização de fita VHS-C">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="mini-dv">
+  <div class="section-text">
+    <h2>Fita Mini-DV</h2>
+    <h3>Suas memórias digitais merecem ser preservadas</h3>
+    <p>Captura de Mini-DV com organização dos arquivos e preservação do sinal possível.</p>
+    <ul class="benefits">
+      <li>História: mídia preservada com cuidado e organização.</li>
+      <li>Captura: conversão para arquivo digital.</li>
+      <li>Segurança: conteúdo tratado com atenção.</li>
+      <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
+    </ul>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/midias/fita_mini_dv.png" alt="Captura de fita Mini-DV">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="vinil">
+  <div class="section-text">
+    <h2>Disco de Vinil</h2>
+    <h3>O som da sua história merece ser preservado</h3>
+    <p>Digitalização de discos de vinil para ouvir, arquivar e compartilhar com segurança.</p>
+    <ul class="benefits">
+      <li>História: mídia preservada com cuidado e organização.</li>
+      <li>Captura: conversão para arquivo digital.</li>
+      <li>Segurança: conteúdo tratado com atenção.</li>
+      <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
+    </ul>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/midias/vinil.png" alt="Digitalização de disco de vinil">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="dvd">
+  <div class="section-text">
+    <h2>DVD</h2>
+    <h3>Preserve seus vídeos antes que a mídia se perca</h3>
+    <p>Conversão de DVDs e CDs para arquivos digitais com organização e cuidado.</p>
+    <ul class="benefits">
+      <li>História: mídia preservada com cuidado e organização.</li>
+      <li>Captura: conversão para arquivo digital.</li>
+      <li>Segurança: conteúdo tratado com atenção.</li>
+      <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
+    </ul>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/midias/dvd.png" alt="Conversão de DVD e CD">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="fita-cassete">
+  <div class="section-text">
+    <h2>Fita Cassete</h2>
+    <h3>O som das suas lembranças merece ser preservado</h3>
+    <p>Digitalização de fitas cassete com tratamento básico e exportação em arquivos digitais.</p>
+    <ul class="benefits">
+      <li>História: mídia preservada com cuidado e organização.</li>
+      <li>Captura: conversão para arquivo digital.</li>
+      <li>Segurança: conteúdo tratado com atenção.</li>
+      <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
+    </ul>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/midias/cassete.png" alt="Digitalização de fita cassete">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="monoculo">
+  <div class="section-text">
+    <h2>Monóculo</h2>
+    <h3>As memórias que cabem em um clique</h3>
+    <p>Digitalização de slides e monóculos para recuperar imagens antigas e preservar registros familiares.</p>
+    <ul class="benefits">
+      <li>História: mídia preservada com cuidado e organização.</li>
+      <li>Captura: conversão para arquivo digital.</li>
+      <li>Segurança: conteúdo tratado com atenção.</li>
+      <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
+    </ul>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Solicitar Orçamento</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame">
+      <img src="imagens/imagens_novas/midias/monoculos.png" alt="Digitalização de monóculo">
+    </div>
+  </div>
+</section>
+
+<section class="section partners-section" id="parceiros">
+  <div class="partners-heading">
+    <h2>Parceiros</h2>
+    <p>Cinegrafistas, fotógrafos, revelação, produtoras e oficinas de consertos reunidos em uma rede de apoio para projetos de foto, vídeo e manutenção.</p>
+    <a class="btn-orcamento" href="parceiros.html" style="margin-top: 18px;">Ver página de parceiros</a>
+  </div>
+  <div class="partners-carousel" aria-label="Carrossel de parceiros">
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+        <article class="partner-card">
+          <div>
+            <img src="imagens/imagens_novas/parceiros/cinegrafistas.png" alt="Parceiros cinegrafistas">
+            <h4>Cinegrafistas</h4>
+            <p>Captação de vídeos para eventos, campanhas, institucionais e registros especiais.</p>
+          </div>
+        </article>
+        <article class="partner-card">
+          <div>
+            <img src="imagens/imagens_novas/parceiros/fotografos.png" alt="Parceiros fotógrafos">
+            <h4>Fotógrafos</h4>
+            <p>Ensaios, eventos, produtos e registros profissionais com parceiros selecionados.</p>
+          </div>
+        </article>
+        <article class="partner-card">
+          <div>
+            <img src="imagens/imagens_novas/parceiros/revelacoes.png" alt="Parceiros de revelação de fotos">
+            <h4>Revelação</h4>
+            <p>Revelação, impressão, álbuns, molduras e materiais físicos para suas memórias.</p>
+          </div>
+        </article>
+        <article class="partner-card">
+          <div>
+            <img src="imagens/imagens_novas/parceiros/produtoras.png" alt="Produtoras parceiras">
+            <h4>Produtoras</h4>
+            <p>Estrutura audiovisual para comerciais, filmes, vídeos institucionais e campanhas.</p>
+          </div>
+        </article>
+        <article class="partner-card">
+          <div>
+            <img src="imagens/imagens_novas/parceiros/oficina_consertos.png" alt="Oficinas de consertos parceiras">
+            <h4>Oficinas de Consertos</h4>
+            <p>Assistência técnica, manutenção preventiva e reparo de equipamentos de foto e vídeo.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn carousel-prev" type="button" aria-label="Parceiro anterior">‹</button>
+      <button class="carousel-btn carousel-next" type="button" aria-label="Próximo parceiro">›</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="orcamento">
+  <div class="section-text">
+    <h2>Orçamento</h2>
+    <h3>Conte o que você precisa digitalizar</h3>
+    <p>Entre em contato com a InfoClube para avaliar o material, combinar o melhor formato de entrega e receber um orçamento para o serviço desejado.</p>
+    <p class="small">Atendemos projetos pessoais, acervos familiares, empresas e demandas especiais de preservação de mídia.</p>
+    <a class="btn-orcamento js-open-budget" href="#orcamento">Falar com a InfoClube</a>
+  </div>
+  <div class="section-image">
+    <div class="image-frame logo-frame">
+      <img src="imagens/Logo_InfoClube.png" alt="Logo InfoClube">
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contato" aria-label="Contato InfoClube">
+  <div class="contact-shell">
+    <div class="contact-copy">
+      <h2>Vamos cuidar do seu projeto com atenção.</h2>
+      <p>Este formulário está preparado para futuras integrações de atendimento. Para retorno imediato, fale com a equipe pelo WhatsApp e envie os detalhes do que você precisa.</p>
+    </div>
+
+    <div class="contact-form-card">
+      <form class="contact-form">
+        <div class="contact-field">
+          <label for="contact-name">Nome</label>
+          <input id="contact-name" type="text" name="name" autocomplete="name" required>
+        </div>
+
+        <div class="contact-field">
+          <label for="contact-phone">Telefone</label>
+          <input id="contact-phone" type="tel" name="phone" autocomplete="tel" required>
+        </div>
+
+        <div class="contact-field">
+          <label for="contact-email">E-mail</label>
+          <input id="contact-email" type="email" name="email" autocomplete="email" required>
+        </div>
+
+        <div class="contact-field">
+          <label for="contact-service">Serviço desejado</label>
+          <select id="contact-service" name="service" required>
+            <option value="">Selecione uma opção</option>
+            <option>Digitalização de mídias</option>
+            <option>Restauração de foto</option>
+            <option>Social media</option>
+            <option>Jingles</option>
+            <option>Produção com parceiros</option>
+          </select>
+        </div>
+
+        <div class="contact-field">
+          <label for="contact-message">Mensagem</label>
+          <textarea id="contact-message" name="message" placeholder="Descreva o material, quantidade, formato ou objetivo do projeto."></textarea>
+        </div>
+
+        <button class="contact-submit" type="submit">Enviar mensagem</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="imagens/Logo_InfoClube.png" alt="Logo InfoClube">
+        <h2>Info<span>Clube</span></h2>
+      </div>
+      <p>Central de serviços criativos e digitais para preservar memórias, transformar mídias antigas e apoiar projetos pessoais e profissionais.</p>
+      <div class="footer-social" aria-label="Redes sociais">
+        <a href="#" title="Instagram" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="#" title="Facebook" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+          </svg>
+        </a>
+        <a href="#" title="TikTok" aria-label="TikTok">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.81 1.54V6.77a4.85 4.85 0 01-1.04-.08z"/>
+          </svg>
+        </a>
+        <a href="#" title="YouTube" aria-label="YouTube">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+            <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" fill="#000"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h3>Serviços</h3>
+      <ul class="footer-links">
+        <li><a href="#videos">InfoClube Vídeos</a></li>
+        <li><a href="#social-media">Social Media</a></li>
+        <li><a href="#jingles">Jingles</a></li>
+        <li><a href="#restauracao-foto">Restauração de Foto</a></li>
+        <li><a href="#fita-vhs">Fita VHS</a></li>
+        <li><a href="#fita-vhsc">Fita VHS-C</a></li>
+        <li><a href="#mini-dv">Fita Mini-DV</a></li>
+        <li><a href="#vinil">Disco de Vinil</a></li>
+        <li><a href="#dvd">Conversão de DVD</a></li>
+        <li><a href="#fita-cassete">Fita Cassete</a></li>
+        <li><a href="#monoculo">Monóculo</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Navegação</h3>
+      <ul class="footer-links">
+        <li><a href="#quem-somos">Quem Somos</a></li>
+        <li><a href="#videos">Serviços</a></li>
+        <li><a href="#parceiros">Parceiros</a></li>
+        <li><a href="#orcamento">Orçamento</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Contato</h3>
+      <div class="footer-contact">
+        <p><strong>WhatsApp:</strong><br>(00) 00000-0000</p>
+        <p><strong>E-mail:</strong><br>contato@infoclube.com.br</p>
+        <p><strong>Horário:</strong><br>Segunda a sexta, das 9h às 18h</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 InfoClube. Todos os direitos reservados.</p>
+    <div class="footer-legal">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+    </div>
+  </div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/5500000000000" target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M20.52 3.48A11.82 11.82 0 0012.1 0C5.55 0 .22 5.33.22 11.88c0 2.09.55 4.14 1.6 5.94L0 24l6.33-1.66a11.86 11.86 0 005.77 1.47h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.18-1.23-6.16-3.47-8.45zM12.1 21.8h-.01a9.85 9.85 0 01-5.02-1.37l-.36-.22-3.76.99 1-3.66-.24-.38a9.8 9.8 0 01-1.5-5.28c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.12 1.03 6.98 2.9a9.83 9.83 0 012.9 6.99c0 5.46-4.44 9.9-9.89 9.9zm5.42-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/>
+  </svg>
+</a>
+
+<div class="modal-overlay" id="budget-modal" role="dialog" aria-modal="true" aria-labelledby="budget-title">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Fechar modal">&times;</button>
+    <h2 id="budget-title">Solicitar Orçamento</h2>
+    <p>Envie os dados principais e a InfoClube retorna com as próximas etapas do atendimento.</p>
+    <form class="quote-form">
+      <label>
+        Nome
+        <input type="text" name="name" autocomplete="name" required>
+      </label>
+      <label>
+        WhatsApp
+        <input type="tel" name="phone" autocomplete="tel" required>
+      </label>
+      <label>
+        Serviço
+        <select name="service" required>
+          <option value="">Selecione</option>
+          <option>Digitalização de mídias</option>
+          <option>Restauração de foto</option>
+          <option>Social media</option>
+          <option>Jingle</option>
+          <option>Produção com parceiros</option>
+        </select>
+      </label>
+      <label>
+        Detalhes
+        <textarea name="message" placeholder="Conte quantas mídias, o formato ou o objetivo do projeto."></textarea>
+      </label>
+      <button class="btn-orcamento" type="submit">Enviar Pedido</button>
+      <p class="form-status" role="status"></p>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const nav = document.querySelector('nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = Array.from(document.querySelectorAll('.nav-links > li > a'));
+    const anchorLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
+    const observedSectionIds = [
+      'quem-somos',
+      'videos',
+      'social-media',
+      'jingles',
+      'restauracao-foto',
+      'fita-vhs',
+      'fita-vhsc',
+      'mini-dv',
+      'vinil',
+      'dvd',
+      'fita-cassete',
+      'monoculo',
+      'parceiros'
+    ];
+    const sections = observedSectionIds
+      .map(function (sectionId) { return document.getElementById(sectionId); })
+      .filter(Boolean);
+    const budgetModal = document.getElementById('budget-modal');
+    const modalClose = document.querySelector('.modal-close');
+    const quoteForm = document.querySelector('.quote-form');
+    const contactForm = document.querySelector('.contact-form');
+    const whatsappNumber = '5500000000000';
+    const serviceSectionIds = new Set([
+      'videos',
+      'social-media',
+      'jingles',
+      'restauracao-foto',
+      'fita-vhs',
+      'fita-vhsc',
+      'mini-dv',
+      'vinil',
+      'dvd',
+      'fita-cassete',
+      'monoculo'
+    ]);
+    const servicesLink = navLinks.find(function (link) {
+      return link.getAttribute('href') === '#videos';
+    });
+    const whoWeAreLink = navLinks.find(function (link) {
+      return link.getAttribute('href') === '#quem-somos';
+    });
+    const partnersLink = navLinks.find(function (link) {
+      return link.getAttribute('href') === '#parceiros';
+    });
+    const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+    const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown'));
+    const dropdownTriggers = Array.from(document.querySelectorAll('.nav-dropdown-trigger'));
+    let heroIndex = 0;
+    const dropdownCloseDelay = 800;
+    const dropdownTimers = new WeakMap();
+
+    function setNavState() {
+      nav.classList.toggle('scrolled', window.scrollY > 24);
+    }
+
+    function setMobileMenu(open) {
+      nav.classList.toggle('is-menu-open', open);
+      if (navToggle) {
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      }
+    }
+
+    function openDropdown(dropdown) {
+      if (!dropdown) return;
+      dropdown.classList.add('is-open');
+      const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDropdown(dropdown) {
+      if (!dropdown) return;
+      dropdown.classList.remove('is-open');
+      const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function cancelDropdownTimer(dropdown) {
+      const timer = dropdownTimers.get(dropdown);
+      if (timer) {
+        clearTimeout(timer);
+        dropdownTimers.delete(dropdown);
+      }
+    }
+
+    function scheduleDropdownClose(dropdown) {
+      cancelDropdownTimer(dropdown);
+      const timer = setTimeout(function () {
+        if (!dropdown.matches(':hover')) {
+          closeDropdown(dropdown);
+        }
+        dropdownTimers.delete(dropdown);
+      }, dropdownCloseDelay);
+      dropdownTimers.set(dropdown, timer);
+    }
+
+    function advanceHeroCarousel() {
+      if (!heroSlides.length) return;
+      heroSlides[heroIndex].classList.remove('is-active');
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroSlides[heroIndex].classList.add('is-active');
+    }
+
+    function scrollToTarget(target) {
+      const navHeight = nav.offsetHeight;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight + 2;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+
+    anchorLinks.forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        const href = link.getAttribute('href');
+        const target = href.length > 1 ? document.querySelector(href) : null;
+
+        if (link.classList.contains('js-open-budget')) {
+          event.preventDefault();
+          openBudgetModal();
+          return;
+        }
+
+        if (target) {
+          event.preventDefault();
+          scrollToTarget(target);
+        }
+
+        const dropdown = link.closest('.nav-dropdown');
+        if (dropdown && !link.classList.contains('nav-dropdown-trigger')) {
+          closeDropdown(dropdown);
+          cancelDropdownTimer(dropdown);
+        }
+
+        if (link.closest('.nav-links')) {
+          setMobileMenu(false);
+        }
+      });
+    });
+
+    if (navToggle) {
+      navToggle.addEventListener('click', function () {
+        setMobileMenu(!nav.classList.contains('is-menu-open'));
+      });
+    }
+
+    window.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        setMobileMenu(false);
+        dropdowns.forEach(function (dropdown) {
+          closeDropdown(dropdown);
+          cancelDropdownTimer(dropdown);
+        });
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.matchMedia('(min-width: 1181px)').matches) {
+        setMobileMenu(false);
+      }
+    });
+
+    dropdownTriggers.forEach(function (trigger) {
+      const dropdown = trigger.closest('.nav-dropdown');
+      if (!dropdown) return;
+
+      trigger.setAttribute('aria-haspopup', 'true');
+      trigger.setAttribute('aria-expanded', 'false');
+
+      trigger.addEventListener('mouseenter', function () {
+        cancelDropdownTimer(dropdown);
+        openDropdown(dropdown);
+      });
+    });
+
+    dropdowns.forEach(function (dropdown) {
+      dropdown.addEventListener('mouseenter', function () {
+        cancelDropdownTimer(dropdown);
+        openDropdown(dropdown);
+      });
+
+      dropdown.addEventListener('mouseleave', function () {
+        scheduleDropdownClose(dropdown);
+      });
+    });
+
+    document.querySelectorAll('[data-whatsapp-message]').forEach(function (link) {
+      const message = link.getAttribute('data-whatsapp-message');
+      link.href = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
+      link.target = '_blank';
+      link.rel = 'noopener';
+    });
+
+    const revealItems = document.querySelectorAll('.section-text, .section-image, .cover-content, .stat-item, .partners-heading, .partner-card, .contact-copy, .contact-form-card, footer .footer-column, footer .footer-brand');
+    revealItems.forEach(function (item) { item.classList.add('reveal'); });
+
+    const revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    revealItems.forEach(function (item) { revealObserver.observe(item); });
+    if (heroSlides.length > 1) {
+      setInterval(advanceHeroCarousel, 3000);
+    }
+
+    function setActiveNav(sectionId) {
+      let activeLink = navLinks.find(function (link) {
+        return link.getAttribute('href') === '#' + sectionId;
+      });
+
+      if (!activeLink && serviceSectionIds.has(sectionId)) {
+        activeLink = servicesLink;
+      }
+
+      if (!activeLink && sectionId === 'quem-somos') {
+        activeLink = whoWeAreLink;
+      }
+
+      if (!activeLink && sectionId === 'parceiros') {
+        activeLink = partnersLink;
+      }
+
+      navLinks.forEach(function (link) {
+        link.classList.toggle('active', link === activeLink);
+      });
+    }
+
+    const activeObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        setActiveNav(entry.target.id);
+      });
+    }, { rootMargin: '-35% 0px -52% 0px', threshold: 0 });
+
+    sections.forEach(function (section) { activeObserver.observe(section); });
+
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.6 });
+
+    counters.forEach(function (counter) { counterObserver.observe(counter); });
+
+    function animateCounter(counter) {
+      const target = Number(counter.dataset.count);
+      const duration = 1400;
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(target * eased);
+        counter.textContent = value.toLocaleString('pt-BR') + (target >= 100 ? '+' : '');
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    document.querySelectorAll('.before-after').forEach(function (comparison) {
+      const input = comparison.querySelector('input');
+
+      function updateBeforeAfter() {
+        comparison.style.setProperty('--ba-position', input.value + '%');
+      }
+
+      input.addEventListener('input', updateBeforeAfter);
+      updateBeforeAfter();
+    });
+
+    const carousel = document.querySelector('.partners-carousel');
+    if (carousel) {
+      const track = carousel.querySelector('.carousel-track');
+      const originalSlides = Array.from(carousel.querySelectorAll('.partner-card'));
+      const prev = carousel.querySelector('.carousel-prev');
+      const next = carousel.querySelector('.carousel-next');
+      let currentSlide = 0;
+      let autoplayId;
+
+      function getVisibleSlides() {
+        if (window.matchMedia('(max-width: 560px)').matches) return 1;
+        if (window.matchMedia('(max-width: 860px)').matches) return 2;
+        return 3;
+      }
+
+      function prepareCarousel() {
+        track.querySelectorAll('.partner-card.is-clone').forEach(function (clone) {
+          clone.remove();
+        });
+
+        originalSlides.slice(0, getVisibleSlides()).forEach(function (slide) {
+          const clone = slide.cloneNode(true);
+          clone.classList.add('is-clone');
+          clone.classList.remove('reveal');
+          clone.setAttribute('aria-hidden', 'true');
+          track.appendChild(clone);
+        });
+
+        currentSlide = 0;
+        updateCarousel(false);
+      }
+
+      function updateCarousel(animate) {
+        const slideWidth = originalSlides[0].getBoundingClientRect().width;
+        track.style.transition = animate === false ? 'none' : 'transform 0.45s ease';
+        track.style.transform = 'translateX(-' + currentSlide * slideWidth + 'px)';
+      }
+
+      function moveCarousel(direction) {
+        if (direction < 0 && currentSlide === 0) {
+          currentSlide = originalSlides.length - 1;
+        } else {
+          currentSlide += direction;
+        }
+
+        updateCarousel(true);
+      }
+
+      function restartAutoplay() {
+        window.clearInterval(autoplayId);
+        autoplayId = window.setInterval(function () { moveCarousel(1); }, 3000);
+      }
+
+      track.addEventListener('transitionend', function () {
+        if (currentSlide >= originalSlides.length) {
+          currentSlide = 0;
+          updateCarousel(false);
+        }
+      });
+
+      prev.addEventListener('click', function () {
+        moveCarousel(-1);
+        restartAutoplay();
+      });
+      next.addEventListener('click', function () {
+        moveCarousel(1);
+        restartAutoplay();
+      });
+      window.addEventListener('resize', prepareCarousel);
+      prepareCarousel();
+      restartAutoplay();
+    }
+
+    function openBudgetModal() {
+      budgetModal.classList.add('is-open');
+      document.body.classList.add('modal-open');
+      budgetModal.querySelector('input').focus();
+    }
+
+    function closeBudgetModal() {
+      budgetModal.classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+    }
+
+    modalClose.addEventListener('click', closeBudgetModal);
+    budgetModal.addEventListener('click', function (event) {
+      if (event.target === budgetModal) closeBudgetModal();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && budgetModal.classList.contains('is-open')) {
+        closeBudgetModal();
+      }
+    });
+
+    quoteForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const data = new FormData(quoteForm);
+      const message = encodeURIComponent([
+        'Olá, quero solicitar um orçamento na InfoClube.',
+        'Nome: ' + data.get('name'),
+        'Serviço: ' + data.get('service'),
+        'Detalhes: ' + (data.get('message') || 'Não informado')
+      ].join('\n'));
+
+      quoteForm.querySelector('.form-status').textContent = 'Pedido pronto. Abrindo WhatsApp...';
+      window.open('https://wa.me/' + whatsappNumber + '?text=' + message, '_blank', 'noopener');
+    });
+
+    contactForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const data = new FormData(contactForm);
+      const message = encodeURIComponent([
+        'Olá, quero falar com a InfoClube.',
+        'Nome: ' + data.get('name'),
+        'Telefone: ' + data.get('phone'),
+        'E-mail: ' + data.get('email'),
+        'Serviço desejado: ' + data.get('service'),
+        'Mensagem: ' + (data.get('message') || 'Não informado')
+      ].join('\n'));
+
+      window.open('https://wa.me/' + whatsappNumber + '?text=' + message, '_blank', 'noopener');
+    });
+
+    window.addEventListener('scroll', setNavState, { passive: true });
+    setNavState();
+  });
+</script>
+
+</body>
+</html>
