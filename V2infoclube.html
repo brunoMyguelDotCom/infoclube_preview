@@ -389,6 +389,7 @@
       max-width: none;
       margin: 0;
       scroll-margin-top: 105px;
+      overflow: hidden;
     }
 
     .cover-hero {
@@ -477,7 +478,7 @@
     }
 
     .section-text h2 {
-      font-size: 53px;
+      font-size: 80px;
       font-weight: 900;
       color: #1a1a2e;
       line-height: 1.1;
@@ -486,21 +487,21 @@
     }
 
     .section-text h3 {
-      font-size: 28px;
+      font-size: 43px;
       font-weight: 700;
       color: #1a1a2e;
       margin-bottom: 25px;
     }
 
     .section-text p {
-      font-size: 19px;
+      font-size: 29px;
       color: #333;
       line-height: 1.7;
       margin-bottom: 18px;
     }
 
     .section-text p.small {
-      font-size: 16px;
+      font-size: 25px;
       color: #555;
       line-height: 1.6;
       margin-bottom: 30px;
@@ -516,7 +517,7 @@
     .benefits li {
       position: relative;
       padding-left: 28px;
-      font-size: 18px;
+      font-size: 28px;
       color: #333;
       line-height: 1.5;
     }
@@ -534,12 +535,13 @@
 
     .btn-orcamento {
       display: inline-block;
+      margin-bottom: 45px;
       background: #050B14;
       color: #fff;
       text-decoration: none;
       padding: 20px 43px;
       border-radius: 4px;
-      font-size: 16px;
+      font-size: 25px;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -578,8 +580,8 @@
       grid-column: 3 / 5;
       justify-self: end;
       align-self: end;
-      width: 100%;
-      max-width: 100%;
+      width: 104.4%;
+      max-width: none;
       height: auto;
       display: block;
       filter: drop-shadow(0 14px 8px rgba(0, 0, 0, 0.434));
@@ -1136,7 +1138,7 @@
       }
 
       .section {
-        padding: 38px 18px;
+        padding: 38px 0 0 18px;
       }
 
       .cover-hero {
@@ -1382,18 +1384,41 @@
         gap: 24px;
       }
 
+      .section-text {
+        grid-column: 2 / 3;
+        max-width: 100%;
+        text-align: left;
+      }
+
+      .section>img {
+        width: 106.2%;
+        max-width: none;
+      }
+
       .section-text h2,
       .partners-heading h2 {
-        font-size: 44px;
+        font-size: 56px;
       }
 
       .section-text h3 {
-        font-size: 25px;
+        font-size: 32px;
       }
 
       .section-text p,
       .partners-heading p {
-        font-size: 18px;
+        font-size: 23px;
+      }
+
+      .section-text p.small {
+        font-size: 20px;
+      }
+
+      .benefits li {
+        font-size: 22px;
+      }
+
+      .btn-orcamento {
+        font-size: 20px;
       }
 
       .stats-grid {
@@ -1414,14 +1439,9 @@
         min-height: auto;
         flex-direction: column;
         align-items: stretch;
-        padding: 44px 24px;
-        gap: 28px;
-      }
-
-      .section {
         grid-template-columns: 1fr;
         gap: 24px;
-        padding: 38px 18px;
+        padding: 38px 0 0 18px;
       }
 
       .section-text,
@@ -1430,6 +1450,12 @@
         max-width: none;
         width: 100%;
         text-align: center;
+      }
+
+      .section>img {
+        width: min(100.8%, 684px);
+        max-width: none;
+        justify-self: center;
       }
 
       .section-image {
@@ -1543,15 +1569,17 @@
       }
 
       .section {
-        padding: 38px 16px;
+        padding: 38px 0 0 16px;
         gap: 22px;
       }
 
       .section-text h2,
-      .partners-heading h2,
+      .partners-heading h2 {
+        font-size: 37px;
+      }
 
       .section-text h3 {
-        font-size: 20px;
+        font-size: 25px;
       }
 
       .section-text p,
@@ -1560,7 +1588,7 @@
       .btn-orcamento,
 
       .benefits li {
-        font-size: 15px;
+        font-size: 18px;
       }
 
       .partner-card {
@@ -1576,6 +1604,20 @@
 
       footer {
         padding: 42px 18px 0;
+      }
+    }
+
+    @media (min-width: 861px) and (max-width: 1180px) {
+      .section .section-text {
+        grid-column: 1 / 3 !important;
+        max-width: 100%;
+        text-align: left;
+      }
+    }
+
+    @media (min-width: 1181px) and (max-width: 1920px) {
+      .section .section-text {
+        grid-column: 1 / 3;
       }
     }
   </style>
@@ -1609,6 +1651,11 @@
           <a class="nav-dropdown-link" href="#social-media">Social Media</a>
           <a class="nav-dropdown-link" href="#jingles">Jingles</a>
           <a class="nav-dropdown-link" href="#restauracao-foto">Restauração de Foto</a>
+        </div>
+      </li>
+      <li class="nav-dropdown">
+        <a href="#fita-vhs" class="nav-dropdown-trigger" data-nav-section="fita-vhs" aria-haspopup="true">Mídias</a>
+        <div class="nav-dropdown-menu nav-dropdown-menu--services" aria-label="Menu de mídias">
           <a class="nav-dropdown-link" href="#fita-vhs">Fita VHS</a>
           <a class="nav-dropdown-link" href="#fita-vhsc">Fita VHS-C</a>
           <a class="nav-dropdown-link" href="#mini-dv">Fita Mini-DV</a>
@@ -1624,58 +1671,18 @@
         <div class="nav-dropdown-menu nav-dropdown-menu--partners" aria-label="Menu de parceiros">
           <div class="nav-dropdown-column">
             <a class="nav-dropdown-category" href="parceiros.html#cinegrafistas">Cinegrafistas</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Lucas Oliveira Pica Pau sobre cinegrafia.">Lucas Oliveira Pica
-              Pau</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Anderson Ferrassa sobre cinegrafia.">Anderson Ferrassa</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Eleandro Rossi sobre cinegrafia.">Eleandro Rossi</a>
           </div>
           <div class="nav-dropdown-column">
             <a class="nav-dropdown-category" href="parceiros.html#fotografos">Fotógrafos</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Andreza Marks sobre fotografia.">Andreza Marks</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Fotógrafo Parceiro sobre fotografia.">Fotógrafo Parceiro</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Estúdio Parceiro sobre fotografia.">Estúdio Parceiro</a>
           </div>
           <div class="nav-dropdown-column">
             <a class="nav-dropdown-category" href="parceiros.html#produtoras">Produtoras</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Borcelle Filmes sobre produção audiovisual.">Borcelle
-              Filmes</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Produtora Parceira sobre produção audiovisual.">Produtora
-              Parceira</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Vídeo Institucional sobre produção audiovisual.">Vídeo
-              Institucional</a>
           </div>
           <div class="nav-dropdown-column">
             <a class="nav-dropdown-category" href="parceiros.html#revelacao">Revelação</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Adonai Revelação Express sobre revelação de fotos.">Adonai
-              Revelação Express</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Álbuns e Molduras sobre revelação de fotos.">Álbuns e
-              Molduras</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Fotos e Presentes sobre revelação de fotos.">Fotos e
-              Presentes</a>
           </div>
           <div class="nav-dropdown-column">
             <a class="nav-dropdown-category" href="parceiros.html#oficinas">Oficinas</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Manutenção de Câmeras sobre assistência técnica.">Manutenção
-              de Câmeras</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Conserto de Equipamentos sobre assistência técnica.">Conserto
-              de Equipamentos</a>
-            <a class="nav-dropdown-link" href="#"
-              data-whatsapp-message="Olá! Quero falar com Assistência Técnica sobre assistência técnica.">Assistência
-              Técnica</a>
           </div>
         </div>
       </li>
@@ -1731,9 +1738,7 @@
       <p>A InfoClube une tecnologia, criatividade e atendimento próximo para transformar memórias, ideias e negócios em
         conteúdos com mais valor. Digitalizamos memórias, criamos conteúdos, produzimos vídeos, jingles, artes e
         soluções para empresas, profissionais e projetos especiais.</p>
-      <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
-        target="_blank" rel="noopener">Solicitar Orçamento</a>1
+      <p><em>"InfoClube: sua ideia, sua marca e sua história em boas mãos."</em></p>
     </div>
     <img src="imagens/imagens_novas/Quem Somos.png" alt="Central criativa InfoClube">
   </section>
