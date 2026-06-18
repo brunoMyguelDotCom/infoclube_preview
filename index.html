@@ -424,7 +424,8 @@
       border-radius: 4px;
       font-size: 25px;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
+      line-height: 1;
       text-transform: uppercase;
       cursor: pointer;
       border: none;
@@ -757,14 +758,6 @@
         padding: 17px 30px;
         font-size: 14px;
       }
-
-
-
-
-
-
-
-
 
       footer {
         padding: 46px 24px 0;
@@ -1315,14 +1308,45 @@
       overflow-wrap: anywhere;
     }
 
-    .p-partner-card .p-btn-orcamento {
+    .p-cta-wrap {
+      display: flex;
+      width: 100%;
+      background: #050B14;
+      border-radius: 6px;
+      padding: 4px;
+      box-shadow: 0 12px 28px rgba(5, 11, 20, 0.14);
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .p-cta-wrap:hover {
+      background: #111827;
+      box-shadow: 0 16px 34px rgba(5, 11, 20, 0.22);
+      transform: translateY(-2px);
+    }
+
+    .p-cta-wrap .p-btn-orcamento {
+      color: #fff;
+      flex: 1;
       width: 100%;
       text-align: center;
       padding: 12px 16px;
       font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1;
+      text-transform: uppercase;
       min-width: 0;
       white-space: normal;
       overflow-wrap: anywhere;
+      background: transparent;
+      box-shadow: none;
+      margin-bottom: 0;
+    }
+
+    .p-cta-wrap .p-btn-orcamento:hover {
+      background: transparent;
+      box-shadow: none;
+      transform: none;
     }
 
     .p-section-image {
@@ -1866,7 +1890,9 @@
           <h4>Lucas Oliveira Pica Pau</h4>
           <p>Equipamentos: Câmera e drone.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 98803-7567</p>
-          <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          <div class="p-cta-wrap">
+            <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          </div>
         </article>
         <article class="p-partner-card">
           <div class="p-partner-image-slot">
@@ -1875,7 +1901,9 @@
           <h4>Anderson Ferrassa</h4>
           <p>Equipamentos: Câmera e drone.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 98808-0300</p>
-          <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          <div class="p-cta-wrap">
+            <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          </div>
         </article>
         <article class="p-partner-card">
           <div class="p-partner-image-slot">
@@ -1884,7 +1912,9 @@
           <h4>Eleandro Rossi</h4>
           <p>Equipamentos: Câmera e drone.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 99962-1020</p>
-          <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          <div class="p-cta-wrap">
+            <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          </div>
         </article>
       </div>
     </div>
@@ -1907,7 +1937,9 @@
           <h4>Andreza Marks</h4>
           <p>Equipamentos: Câmera.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 99952-9389</p>
-          <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          <div class="p-cta-wrap">
+            <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          </div>
         </article>
       </div>
     </div>
@@ -1930,7 +1962,9 @@
           <h4>REC Cine &amp; Vídeo</h4>
           <p>Produtora de vídeo especializada em audiovisuais corporativos, mídias digitais, reportagens de TV, marketing político e produção de programas.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 99962-1020</p>
-          <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          <div class="p-cta-wrap">
+            <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          </div>
         </article>
       </div>
     </div>
@@ -1954,7 +1988,9 @@
           <h4>Adonai Revelação Express</h4>
           <p>Fotos para documentos, fotomontagens, impressões, restauração de imagens e montagem de álbuns de eventos. Seus melhores momentos são levados a sério, transformando cada lembrança em algo duradouro.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> (44) 3025-5202</p>
-          <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          <div class="p-cta-wrap">
+            <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          </div>
         </article>
       </div>
     </div>
@@ -1977,7 +2013,9 @@
           <h4>Multivídeo</h4>
           <p>Empresa de Londrina-PR. Assistência técnica de projetores (data show/multimídia), equipamentos de áudio e vídeo profissional, atendendo produtoras de vídeo, igrejas, emissoras de TV, universidades, escolas, empresas e profissionais liberais.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 43 99995-4005</p>
-          <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          <div class="p-cta-wrap">
+            <a class="p-btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
+          </div>
         </article>
       </div>
     </div>
