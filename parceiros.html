@@ -285,6 +285,17 @@
       opacity: 1;
     }
 
+    img.lazy-reveal:not(.hero-slide) {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    img.lazy-reveal.is-visible:not(.hero-slide) {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .cover-content {
       max-width: 980px;
       color: #fff;
@@ -497,7 +508,7 @@
       max-width: 1280px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr 1.1fr;
       gap: 42px;
     }
 
@@ -610,7 +621,7 @@
       }
 
       .footer-content {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
@@ -1137,7 +1148,7 @@
     </ul>
 
     <div class="nav-social nav-social-icons" aria-label="Redes sociais">
-      <a class="si-instagram" href="#" title="Instagram" aria-label="Instagram">
+      <a class="si-instagram" href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -1145,18 +1156,18 @@
           <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
         </svg>
       </a>
-      <a class="si-facebook" href="#" title="Facebook" aria-label="Facebook">
+      <a class="si-facebook" href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
         </svg>
       </a>
-      <a class="si-tiktok" href="#" title="TikTok" aria-label="TikTok">
+      <a class="si-tiktok" href="https://www.tiktok.com/@infoclube.oficial?_r=1&_t=ZS-97IEUPk20vN" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path
             d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.81 1.54V6.77a4.85 4.85 0 01-1.04-.08z" />
         </svg>
       </a>
-      <a class="si-youtube" href="#" title="YouTube" aria-label="YouTube">
+      <a class="si-youtube" href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path
             d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
@@ -1193,7 +1204,7 @@
           <h4>Lucas Oliveira Pica Pau</h4>
           <p>Equipamentos: Câmera e drone.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 98803-7567</p>
-          <a class="btn-orcamento" href="https://wa.me/5544988037567" target="_blank" rel="noopener">Contratar</a>
+          <a class="btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
         </article>
         <article class="partner-card">
           <div class="partner-image-slot">
@@ -1202,7 +1213,7 @@
           <h4>Anderson Ferrassa</h4>
           <p>Equipamentos: Câmera e drone.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 98808-0300</p>
-          <a class="btn-orcamento" href="https://wa.me/5544988080300" target="_blank" rel="noopener">Contratar</a>
+          <a class="btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
         </article>
         <article class="partner-card">
           <div class="partner-image-slot">
@@ -1211,7 +1222,7 @@
           <h4>Eleandro Rossi</h4>
           <p>Equipamentos: Câmera e drone.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 99962-1020</p>
-          <a class="btn-orcamento" href="https://wa.me/5544999621020" target="_blank" rel="noopener">Contratar</a>
+          <a class="btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
         </article>
       </div>
     </div>
@@ -1235,7 +1246,7 @@
           <h4>Andreza Marks</h4>
           <p>Equipamentos: Câmera.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 99952-9389</p>
-          <a class="btn-orcamento" href="https://wa.me/5544999529389" target="_blank" rel="noopener">Contratar</a>
+          <a class="btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
         </article>
       </div>
     </div>
@@ -1259,7 +1270,7 @@
           <h4>REC Cine &amp; Vídeo</h4>
           <p>Produtora de vídeo especializada em audiovisuais corporativos, mídias digitais, reportagens de TV, marketing político e produção de programas.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 44 99962-1020</p>
-          <a class="btn-orcamento" href="https://wa.me/5544999621020" target="_blank" rel="noopener">Contratar</a>
+          <a class="btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
         </article>
       </div>
     </div>
@@ -1284,7 +1295,7 @@
           <h4>Adonai Revelação Express</h4>
           <p>Fotos para documentos, fotomontagens, impressões, restauração de imagens e montagem de álbuns de eventos. Seus melhores momentos são levados a sério, transformando cada lembrança em algo duradouro.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> (44) 3025-5202</p>
-          <a class="btn-orcamento" href="https://wa.me/554430255202" target="_blank" rel="noopener">Contratar</a>
+          <a class="btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
         </article>
       </div>
     </div>
@@ -1308,7 +1319,7 @@
           <h4>Multivídeo</h4>
           <p>Empresa de Londrina-PR. Assistência técnica de projetores (data show/multimídia), equipamentos de áudio e vídeo profissional, atendendo produtoras de vídeo, igrejas, emissoras de TV, universidades, escolas, empresas e profissionais liberais.</p>
           <p style="font-size:13px;color:#1a1a2e;"><strong>Contato:</strong> 43 99995-4005</p>
-          <a class="btn-orcamento" href="https://wa.me/5543999954005" target="_blank" rel="noopener">Contratar</a>
+          <a class="btn-orcamento" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener">Contratar</a>
         </article>
       </div>
     </div>
@@ -1319,79 +1330,99 @@
     </div>
   </section>
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-brand">
-        <div class="footer-logo">
-          <img src="imagens/Logo_InfoClube.png" alt="Logo InfoClube">
-          <h2>Info<span>Clube</span></h2>
+    <footer>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="imagens/Logo_InfoClube.png" alt="Logo InfoClube">
+            <h2>Info<span>Clube</span></h2>
+          </div>
+          <p>Central de serviços criativos e digitais para preservar memórias, transformar mídias antigas e apoiar
+            projetos pessoais e profissionais.</p>
+          <div class="footer-social" aria-label="Redes sociais">
+            <a href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener" title="Instagram"
+              aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank" rel="noopener"
+              title="Facebook" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@infoclube.oficial?_r=1&_t=ZS-97IEUPk20vN" target="_blank" rel="noopener"
+              title="TikTok" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.81 1.54V6.77a4.85 4.85 0 01-1.04-.08z" />
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener" title="YouTube"
+              aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
+                <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" fill="#000" />
+              </svg>
+            </a>
+          </div>
         </div>
-        <p>Central de serviços criativos e digitais para preservar memórias, transformar mídias antigas e apoiar
-          projetos pessoais e profissionais.</p>
-        <div class="footer-social" aria-label="Redes sociais">
-          <a href="#" title="Instagram" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="2" width="20" height="20" rx="5"/>
-              <circle cx="12" cy="12" r="4"/>
-              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-            </svg>
-          </a>
-          <a href="#" title="Facebook" aria-label="Facebook">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-            </svg>
-          </a>
-          <a href="#" title="TikTok" aria-label="TikTok">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.81 1.54V6.77a4.85 4.85 0 01-1.04-.08z"/>
-            </svg>
-          </a>
-          <a href="#" title="YouTube" aria-label="YouTube">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
-              <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" fill="#000"/>
-            </svg>
-          </a>
+
+        <div class="footer-column">
+          <h3>Serviços</h3>
+          <ul class="footer-links">
+            <li><a href="#videos">InfoClube Vídeos</a></li>
+            <li><a href="#social-media">Social Media</a></li>
+            <li><a href="#jingles">Jingles</a></li>
+            <li><a href="#restauracao-foto">Restauração de Foto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Mídias</h3>
+          <ul class="footer-links">
+            <li><a href="#fita-vhs">Fita VHS</a></li>
+            <li><a href="#fita-vhsc">Fita VHS-C</a></li>
+            <li><a href="#mini-dv">Fita Mini-DV</a></li>
+            <li><a href="#vinil">Disco de Vinil</a></li>
+            <li><a href="#dvd">Conversão de DVD</a></li>
+            <li><a href="#fita-cassete">Fita Cassete</a></li>
+            <li><a href="#monoculo">Monóculo</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Navegação</h3>
+          <ul class="footer-links">
+            <li><a href="#quem-somos">Quem Somos</a></li>
+            <li><a href="#videos">Serviços</a></li>
+            <li><a href="#parceiros">Parceiros</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contato</h3>
+          <div class="footer-contact">
+            <p><strong>WhatsApp:</strong><br>55 44 9837-5967</p>
+            <p><strong>E-mail:</strong><br>contato@infoclube.com.br</p>
+            <p><strong>Horário:</strong><br>Segunda a sexta, das 8h00 às 18h00</p>
+          </div>
         </div>
       </div>
 
-      <div class="footer-column">
-        <h3>Parceiros</h3>
-        <ul class="footer-links">
-          <li><a href="#cinegrafistas">Cinegrafistas</a></li>
-          <li><a href="#fotografos">Fotógrafos</a></li>
-          <li><a href="#produtoras">Produtoras</a></li>
-          <li><a href="#revelacao">Revelação</a></li>
-          <li><a href="#oficinas">Oficinas de Consertos</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-column">
-        <h3>Navegação</h3>
-        <ul class="footer-links">
-          <li><a href="V2infoclube.html">Home</a></li>
-          <li><a href="V2infoclube.html#orcamento">Orçamento</a></li>
-          <li><a href="V2infoclube.html#contato">Contato</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-column">
-        <h3>Contato</h3>
-        <div class="footer-contact">
-          <p><strong>WhatsApp:</strong><br>(00) 00000-0000</p>
-          <p><strong>E-mail:</strong><br>contato@infoclube.com.br</p>
+      <div class="footer-bottom">
+        <p>&copy; 2026 InfoClube. Todos os direitos reservados.</p>
+        <div class="footer-legal">
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
         </div>
       </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>&copy; 2026 InfoClube. Todos os direitos reservados.</p>
-      <div class="footer-legal">
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos de Uso</a>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -1402,6 +1433,7 @@
         .map(function (link) { return document.querySelector(link.getAttribute('href')); })
         .filter(Boolean);
       const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+      const imageItems = document.querySelectorAll('img');
       let heroIndex = 0;
 
       function setNavState() {
@@ -1460,6 +1492,25 @@
       }, { rootMargin: '-35% 0px -52% 0px', threshold: 0 });
 
       sections.forEach(function (section) { activeObserver.observe(section); });
+
+      imageItems.forEach(function (image) {
+        if (!image.hasAttribute('loading')) image.loading = 'lazy';
+        if (!image.hasAttribute('decoding')) image.decoding = 'async';
+        image.classList.add('lazy-reveal');
+      });
+
+      const imageObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          imageObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '160px 0px', threshold: 0.08 });
+
+      imageItems.forEach(function (image) {
+        imageObserver.observe(image);
+      });
+
       if (heroSlides.length > 1) {
         setInterval(advanceHeroCarousel, 3000);
       }
