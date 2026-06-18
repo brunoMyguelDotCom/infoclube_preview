@@ -663,6 +663,17 @@
       transform: translateY(0);
     }
 
+    img.lazy-reveal:not(.hero-slide) {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    img.lazy-reveal.is-visible:not(.hero-slide) {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .stats-section {
       background: #050B14;
       color: #fff;
@@ -845,7 +856,7 @@
       max-width: 1280px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr 1.1fr;
       gap: 42px;
     }
 
@@ -951,7 +962,7 @@
       }
 
       .footer-content {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
 
       .stats-grid {
@@ -1689,7 +1700,8 @@
     </ul>
 
     <div class="nav-social nav-social-icons" aria-label="Redes sociais">
-      <a class="si-instagram" href="#" title="Instagram" aria-label="Instagram">
+      <a class="si-instagram" href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener"
+        title="Instagram" aria-label="Instagram">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -1697,18 +1709,21 @@
           <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
         </svg>
       </a>
-      <a class="si-facebook" href="#" title="Facebook" aria-label="Facebook">
+      <a class="si-facebook" href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank"
+        rel="noopener" title="Facebook" aria-label="Facebook">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
         </svg>
       </a>
-      <a class="si-tiktok" href="#" title="TikTok" aria-label="TikTok">
+      <a class="si-tiktok" href="https://www.tiktok.com/@infoclube.oficial?_r=1&_t=ZS-97IEUPk20vN" target="_blank"
+        rel="noopener" title="TikTok" aria-label="TikTok">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path
             d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.81 1.54V6.77a4.85 4.85 0 01-1.04-.08z" />
         </svg>
       </a>
-      <a class="si-youtube" href="#" title="YouTube" aria-label="YouTube">
+      <a class="si-youtube" href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener"
+        title="YouTube" aria-label="YouTube">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path
             d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
@@ -1751,7 +1766,7 @@
         Digitalização de VHS, VHS-C, Hi8, Mini DV, CD, DVD, Blu-Ray, fitas cassete, disco de vinil, monóculos e fotos
         antigas.</p>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/midias/videos.png" alt="InfoClube Vídeos">
@@ -1764,7 +1779,7 @@
       <p>Sua empresa precisa aparecer com qualidade, frequência e estratégia. Criamos posts, artes, campanhas
         promocionais e conteúdos para Instagram, Facebook, TikTok, WhatsApp e datas especiais.</p>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/servicos/social_media.png" alt="InfoClube Social Media">
@@ -1777,7 +1792,7 @@
       <p>Uma boa marca também precisa ser lembrada pelo som. Jingles para empresas, músicas personalizadas, trilhas para
         vídeos, campanhas e chamadas comerciais cantadas ou faladas.</p>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/servicos/jingles.png" alt="InfoClube Jingles">
@@ -1790,7 +1805,7 @@
       <p>Fotos antigas podem sofrer com rasgos, manchas, desbotamento e perda de nitidez. Corrigimos danos, melhoramos a
         imagem, colorizamos quando necessário e preservamos a memória original.</p>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/servicos/restauracao_fotos.png" alt="Restauração de Foto">
@@ -1808,7 +1823,7 @@
         <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
       </ul>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/midias/vhs.png" alt="Digitalização de fita VHS">
@@ -1826,7 +1841,7 @@
         <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
       </ul>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/midias/vhs_c.png" alt="Digitalização de fita VHS-C">
@@ -1844,7 +1859,7 @@
         <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
       </ul>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/midias/fita_mini_dv.png" alt="Captura de fita Mini-DV">
@@ -1862,7 +1877,7 @@
         <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
       </ul>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/midias/vinil.png" alt="Digitalização de disco de vinil">
@@ -1880,7 +1895,7 @@
         <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
       </ul>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/midias/dvd.png" alt="Conversão de DVD e CD">
@@ -1898,7 +1913,7 @@
         <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
       </ul>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/midias/cassete.png" alt="Digitalização de fita cassete">
@@ -1916,7 +1931,7 @@
         <li>Entrega: arquivo pronto para guardar e compartilhar.</li>
       </ul>
       <a class="btn-orcamento"
-        href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fazer%20um%20or%C3%A7amento%20com%20a%20InfoClube."
+        href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
         target="_blank" rel="noopener">Solicitar Orçamento</a>
     </div>
     <img src="imagens/imagens_novas/midias/monoculos.png" alt="Digitalização de monóculo">
@@ -1986,7 +2001,8 @@
         <p>Central de serviços criativos e digitais para preservar memórias, transformar mídias antigas e apoiar
           projetos pessoais e profissionais.</p>
         <div class="footer-social" aria-label="Redes sociais">
-          <a href="#" title="Instagram" aria-label="Instagram">
+          <a href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener" title="Instagram"
+            aria-label="Instagram">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -1994,18 +2010,21 @@
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
             </svg>
           </a>
-          <a href="#" title="Facebook" aria-label="Facebook">
+          <a href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank" rel="noopener"
+            title="Facebook" aria-label="Facebook">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
             </svg>
           </a>
-          <a href="#" title="TikTok" aria-label="TikTok">
+          <a href="https://www.tiktok.com/@infoclube.oficial?_r=1&_t=ZS-97IEUPk20vN" target="_blank" rel="noopener"
+            title="TikTok" aria-label="TikTok">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path
                 d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.81 1.54V6.77a4.85 4.85 0 01-1.04-.08z" />
             </svg>
           </a>
-          <a href="#" title="YouTube" aria-label="YouTube">
+          <a href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener" title="YouTube"
+            aria-label="YouTube">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path
                 d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
@@ -2022,6 +2041,12 @@
           <li><a href="#social-media">Social Media</a></li>
           <li><a href="#jingles">Jingles</a></li>
           <li><a href="#restauracao-foto">Restauração de Foto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Mídias</h3>
+        <ul class="footer-links">
           <li><a href="#fita-vhs">Fita VHS</a></li>
           <li><a href="#fita-vhsc">Fita VHS-C</a></li>
           <li><a href="#mini-dv">Fita Mini-DV</a></li>
@@ -2044,7 +2069,7 @@
       <div class="footer-column">
         <h3>Contato</h3>
         <div class="footer-contact">
-          <p><strong>WhatsApp:</strong><br>(00) 00000-0000</p>
+          <p><strong>WhatsApp:</strong><br>55 44 9837-5967</p>
           <p><strong>E-mail:</strong><br>contato@infoclube.com.br</p>
           <p><strong>Horário:</strong><br>Segunda a sexta, das 9h às 18h</p>
         </div>
@@ -2060,8 +2085,9 @@
     </div>
   </footer>
 
-  <a class="whatsapp-float" href="https://wa.me/5500000000000" target="_blank" rel="noopener"
-    aria-label="Falar pelo WhatsApp">
+  <a class="whatsapp-float"
+    href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+    target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
     <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path
         d="M20.52 3.48A11.82 11.82 0 0012.1 0C5.55 0 .22 5.33.22 11.88c0 2.09.55 4.14 1.6 5.94L0 24l6.33-1.66a11.86 11.86 0 005.77 1.47h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.18-1.23-6.16-3.47-8.45zM12.1 21.8h-.01a9.85 9.85 0 01-5.02-1.37l-.36-.22-3.76.99 1-3.66-.24-.38a9.8 9.8 0 01-1.5-5.28c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.12 1.03 6.98 2.9a9.83 9.83 0 012.9 6.99c0 5.46-4.44 9.9-9.89 9.9zm5.42-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z" />
@@ -2098,7 +2124,7 @@
       const modalClose = document.querySelector('.modal-close');
       const quoteForm = document.querySelector('.quote-form');
       const contactForm = document.querySelector('.contact-form');
-      const whatsappNumber = '5500000000000';
+      const whatsappNumber = '5544998375967';
       const serviceSectionIds = new Set([
         'videos',
         'social-media',
@@ -2270,6 +2296,13 @@
       const revealItems = document.querySelectorAll('.section-text, .section-image, .cover-content, .stat-item, .partners-heading, .partner-card, .contact-copy, .contact-form-card, footer .footer-column, footer .footer-brand');
       revealItems.forEach(function (item) { item.classList.add('reveal'); });
 
+      const imageItems = document.querySelectorAll('img');
+      imageItems.forEach(function (image) {
+        if (!image.hasAttribute('loading')) image.loading = 'lazy';
+        if (!image.hasAttribute('decoding')) image.decoding = 'async';
+        image.classList.add('lazy-reveal');
+      });
+
       const revealObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
@@ -2280,6 +2313,19 @@
       }, { threshold: 0.16 });
 
       revealItems.forEach(function (item) { revealObserver.observe(item); });
+
+      const imageObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          imageObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '160px 0px', threshold: 0.08 });
+
+      imageItems.forEach(function (image) {
+        imageObserver.observe(image);
+      });
+
       if (heroSlides.length > 1) {
         setInterval(advanceHeroCarousel, 5000);
       }
@@ -2370,6 +2416,9 @@
             const clone = slide.cloneNode(true);
             clone.classList.add('is-clone');
             clone.classList.remove('reveal');
+            clone.querySelectorAll('img').forEach(function (image) {
+              image.classList.add('is-visible');
+            });
             clone.setAttribute('aria-hidden', 'true');
             track.appendChild(clone);
           });
