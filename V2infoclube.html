@@ -12,6 +12,12 @@
       box-sizing: border-box;
     }
 
+    .nav-anchor {
+      display: block;
+      position: absolute;
+      top: 0;
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -19,7 +25,7 @@
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: #fff;
-      padding-top: 88px;
+      padding-top: 76px;
     }
 
     nav {
@@ -29,22 +35,16 @@
       right: 0;
       z-index: 100;
       display: grid;
-      grid-template-columns: minmax(240px, 1fr) auto minmax(240px, 1fr);
+      grid-template-columns: minmax(220px, 1fr) auto minmax(180px, 1fr);
       align-items: center;
-      padding: 19px 48px;
+      padding: 14px 40px;
       border-bottom: 1px solid #eee;
       background: #fff;
-      transition: padding 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
     }
 
     nav.scrolled {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      padding-left: 48px;
-      padding-right: 48px;
-      box-shadow: 0 12px 30px rgba(5, 11, 20, 0.08);
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(12px);
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 
     .logo {
@@ -54,21 +54,21 @@
     }
 
     .logo-icon {
-      width: 80px;
-      height: 80px;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .logo-icon img {
-      width: 80px;
-      height: 80px;
+      width: 44px;
+      height: 44px;
       object-fit: contain;
     }
 
     .logo-text h1 {
-      font-size: 32px;
+      font-size: 25px;
       font-weight: 700;
       color: #1a1a2e;
       line-height: 1;
@@ -79,7 +79,7 @@
     }
 
     .logo-text p {
-      font-size: 15px;
+      font-size: 13px;
       color: #888;
     }
 
@@ -129,7 +129,7 @@
 
     .nav-links {
       display: flex;
-      gap: 14px;
+      gap: 4px;
       list-style: none;
       align-items: center;
       justify-content: center;
@@ -139,143 +139,116 @@
       position: relative;
     }
 
-    .nav-links>li>a,
-    .nav-cta,
-    .social-icons a {
-      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    }
-
     .nav-links>li>a {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       text-decoration: none;
-      font-size: 15px;
+      font-size: 17px;
       color: #1a1a2e;
       font-weight: 600;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid transparent;
+      padding: 10px 16px;
+      border-radius: 6px;
+      transition: color 0.2s ease, background-color 0.2s ease;
     }
 
     .nav-links>li>a:hover,
     .nav-links>li>a:focus-visible {
       color: #f5a623;
-      background: rgba(245, 166, 35, 0.1);
-      border-color: rgba(245, 166, 35, 0.18);
+      background: transparent;
       outline: none;
     }
 
     .nav-links>li>a.active {
       color: #f5a623;
-      background: rgba(245, 166, 35, 0.12);
-      border-color: rgba(245, 166, 35, 0.22);
     }
 
     .nav-dropdown-trigger::after {
       content: "▾";
-      font-size: 11px;
+      font-size: 14px;
       line-height: 1;
       color: currentColor;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-dropdown.is-open > .nav-dropdown-trigger::after {
+      transform: translateY(2px);
     }
 
     .nav-dropdown-menu {
       position: absolute;
-      top: calc(100% + 12px);
+      top: calc(100% + 8px);
       left: 50%;
-      transform: translateX(-50%) translateY(8px);
-      min-width: 280px;
+      transform: translateX(-50%) translateY(6px);
+      min-width: 200px;
       width: max-content;
-      max-width: min(92vw, 860px);
-      padding: 16px;
-      border: 1px solid rgba(5, 11, 20, 0.1);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.98);
-      box-shadow: 0 24px 60px rgba(5, 11, 20, 0.14);
+      max-width: min(92vw, 280px);
+      padding: 8px;
+      border: 1px solid rgba(5, 11, 20, 0.08);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(5, 11, 20, 0.08);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
+      transition: opacity 0.06s linear, transform 0.06s linear, visibility 0s linear 0.06s;
       z-index: 30;
     }
 
-    @keyframes navDropdownFadeIn {
-      from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-    }
-
-    .nav-dropdown.is-open .nav-dropdown-menu,
-    .nav-dropdown:hover .nav-dropdown-menu {
+    .nav-dropdown.is-open .nav-dropdown-menu {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
       transform: translateX(-50%) translateY(0);
-      animation: navDropdownFadeIn 0.28s ease;
     }
 
-    .nav-dropdown-menu.nav-dropdown-menu--services {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(180px, 1fr));
-      gap: 10px;
-    }
-
+    .nav-dropdown-menu.nav-dropdown-menu--services,
     .nav-dropdown-menu.nav-dropdown-menu--partners {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(150px, 1fr));
-      gap: 14px;
-      min-width: min(94vw, 980px);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 200px;
     }
 
     .nav-dropdown-column {
-      display: grid;
-      gap: 8px;
-      align-content: start;
-    }
-
-    .nav-dropdown-column h4,
-    .nav-dropdown-category {
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .nav-dropdown-category {
-      display: inline-flex;
-      align-items: center;
-      width: fit-content;
+      display: block;
       text-decoration: none;
-      color: #1a1a2e;
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(245, 166, 35, 0.22);
+      color: #394150;
+      font-size: 14px;
+      line-height: 1.4;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background-color 0.15s ease, color 0.15s ease;
     }
 
     .nav-dropdown-category:hover,
     .nav-dropdown-category:focus-visible {
       color: #f5a623;
+      background: rgba(245, 166, 35, 0.08);
       outline: none;
     }
 
     .nav-dropdown-menu a.nav-dropdown-link {
-      display: inline-flex;
-      width: fit-content;
+      display: block;
       text-decoration: none;
       color: #394150;
       font-size: 14px;
-      line-height: 1.35;
-      padding: 5px 0;
+      line-height: 1.4;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background-color 0.15s ease, color 0.15s ease;
     }
 
     .nav-dropdown-menu a.nav-dropdown-link:hover,
     .nav-dropdown-menu a.nav-dropdown-link:focus-visible {
       color: #f5a623;
+      background: rgba(245, 166, 35, 0.08);
       outline: none;
     }
 
@@ -339,41 +312,7 @@
     }
 
     .nav-social-icons {
-      display: inline-flex;
-      align-items: center;
-      gap: 18px;
-      margin-left: 18px;
-    }
-
-    .nav-social-icons a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .nav-social-icons a:hover,
-    .nav-social-icons a:focus-visible {
-      transform: translateY(-2px);
-      opacity: 0.85;
-      outline: none;
-    }
-
-    .nav-social-icons .si-instagram {
-      color: #E1306C;
-    }
-
-    .nav-social-icons .si-facebook {
-      color: #1877F2;
-    }
-
-    .nav-social-icons .si-tiktok {
-      color: #000000;
-    }
-
-    .nav-social-icons .si-youtube {
-      color: #FF0000;
+      display: none;
     }
 
     .section {
@@ -997,22 +936,14 @@
 
       .nav-dropdown-menu {
         left: 0;
-        transform: translateY(8px);
+        transform: translateY(6px);
         width: 100%;
         min-width: 0;
         max-width: 100%;
       }
 
-      .nav-dropdown:hover .nav-dropdown-menu {
+      .nav-dropdown.is-open .nav-dropdown-menu {
         transform: translateY(0);
-      }
-
-      .nav-dropdown-menu.nav-dropdown-menu--services {
-        grid-template-columns: repeat(2, minmax(150px, 1fr));
-      }
-
-      .nav-dropdown-menu.nav-dropdown-menu--partners {
-        grid-template-columns: repeat(2, minmax(150px, 1fr));
       }
 
       .section {
@@ -1128,9 +1059,7 @@
       }
 
       .nav-social {
-        width: 100%;
-        justify-content: space-between;
-        order: 2;
+        display: none;
       }
 
       .nav-cta {
@@ -1235,7 +1164,7 @@
 
     @media (max-width: 1180px) {
       body {
-        padding-top: 72px;
+        padding-top: 64px;
         overflow-x: hidden;
       }
 
@@ -1279,10 +1208,7 @@
       }
 
       .nav-social {
-        grid-column: 3;
-        grid-row: 1;
-        width: auto;
-        justify-self: end;
+        display: none;
       }
 
       .nav-cta {
@@ -1311,7 +1237,7 @@
         visibility: hidden;
         pointer-events: none;
         transform: translateY(-8px);
-        transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+        transition: opacity 0.06s linear, transform 0.06s linear, visibility 0s linear 0.06s;
       }
 
       nav.is-menu-open .nav-links {
@@ -1326,7 +1252,12 @@
         width: 100%;
         justify-content: space-between;
         border-radius: 8px;
-        padding: 11px 12px;
+        padding: 14px 14px;
+        font-size: 18px;
+      }
+
+      .nav-dropdown-trigger::after {
+        font-size: 16px;
       }
 
       .nav-dropdown-menu {
@@ -1347,28 +1278,21 @@
         animation: none;
       }
 
-      .nav-dropdown.is-open .nav-dropdown-menu,
-      .nav-dropdown:hover .nav-dropdown-menu {
+      .nav-dropdown.is-open .nav-dropdown-menu {
         transform: none;
         animation: none;
       }
 
       .nav-dropdown-menu.nav-dropdown-menu--services,
       .nav-dropdown-menu.nav-dropdown-menu--partners {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px 16px;
+        flex-direction: column;
+        gap: 2px;
         min-width: 0;
       }
 
       .nav-dropdown-column {
-        gap: 6px;
+        gap: 2px;
         min-width: 0;
-      }
-
-      .nav-dropdown-menu a.nav-dropdown-link,
-      .nav-dropdown-category {
-        width: 100%;
-        overflow-wrap: anywhere;
       }
 
       .cover-hero {
@@ -1654,6 +1578,7 @@
     </button>
 
     <ul class="nav-links">
+      <li><a href="#topo" data-nav-section="topo">Início</a></li>
       <li><a href="#quem-somos" class="active" data-nav-section="quem-somos">Quem Somos</a></li>
       <li class="nav-dropdown">
         <a href="#videos" class="nav-dropdown-trigger" data-nav-section="videos" aria-haspopup="true">Serviços</a>
@@ -1699,39 +1624,9 @@
       </li>
     </ul>
 
-    <div class="nav-social nav-social-icons" aria-label="Redes sociais">
-      <a class="si-instagram" href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener"
-        title="Instagram" aria-label="Instagram">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2" y="2" width="20" height="20" rx="5" />
-          <circle cx="12" cy="12" r="4" />
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-        </svg>
-      </a>
-      <a class="si-facebook" href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank"
-        rel="noopener" title="Facebook" aria-label="Facebook">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-        </svg>
-      </a>
-      <a class="si-tiktok" href="https://www.tiktok.com/@infoclube.oficial?_r=1&_t=ZS-97IEUPk20vN" target="_blank"
-        rel="noopener" title="TikTok" aria-label="TikTok">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path
-            d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.81 1.54V6.77a4.85 4.85 0 01-1.04-.08z" />
-        </svg>
-      </a>
-      <a class="si-youtube" href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener"
-        title="YouTube" aria-label="YouTube">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path
-            d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
-          <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" fill="#fff" />
-        </svg>
-      </a>
-    </div>
   </nav>
+
+  <span id="topo" class="nav-anchor"></span>
 
   <section class="cover-hero" aria-label="Capa InfoClube">
     <div class="hero-carousel" aria-hidden="true">
@@ -2071,7 +1966,7 @@
         <div class="footer-contact">
           <p><strong>WhatsApp:</strong><br>55 44 9837-5967</p>
           <p><strong>E-mail:</strong><br>contato@infoclube.com.br</p>
-          <p><strong>Horário:</strong><br>Segunda a sexta, das 9h às 18h</p>
+          <p><strong>Horário:</strong><br>Segunda a sexta, das 8h00 às 18h00</p>
         </div>
       </div>
     </div>
@@ -2151,8 +2046,6 @@
       const dropdowns = Array.from(document.querySelectorAll('.nav-dropdown'));
       const dropdownTriggers = Array.from(document.querySelectorAll('.nav-dropdown-trigger'));
       let heroIndex = 0;
-      const dropdownCloseDelay = 800;
-      const dropdownTimers = new WeakMap();
 
       function setNavState() {
         nav.classList.toggle('scrolled', window.scrollY > 24);
@@ -2178,25 +2071,6 @@
         dropdown.classList.remove('is-open');
         const trigger = dropdown.querySelector('.nav-dropdown-trigger');
         if (trigger) trigger.setAttribute('aria-expanded', 'false');
-      }
-
-      function cancelDropdownTimer(dropdown) {
-        const timer = dropdownTimers.get(dropdown);
-        if (timer) {
-          clearTimeout(timer);
-          dropdownTimers.delete(dropdown);
-        }
-      }
-
-      function scheduleDropdownClose(dropdown) {
-        cancelDropdownTimer(dropdown);
-        const timer = setTimeout(function () {
-          if (!dropdown.matches(':hover')) {
-            closeDropdown(dropdown);
-          }
-          dropdownTimers.delete(dropdown);
-        }, dropdownCloseDelay);
-        dropdownTimers.set(dropdown, timer);
       }
 
       function advanceHeroCarousel() {
@@ -2231,7 +2105,6 @@
           const dropdown = link.closest('.nav-dropdown');
           if (dropdown && !link.classList.contains('nav-dropdown-trigger')) {
             closeDropdown(dropdown);
-            cancelDropdownTimer(dropdown);
           }
 
           if (link.closest('.nav-links')) {
@@ -2249,10 +2122,7 @@
       window.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
           setMobileMenu(false);
-          dropdowns.forEach(function (dropdown) {
-            closeDropdown(dropdown);
-            cancelDropdownTimer(dropdown);
-          });
+          dropdowns.forEach(closeDropdown);
         }
       });
 
@@ -2269,21 +2139,26 @@
         trigger.setAttribute('aria-haspopup', 'true');
         trigger.setAttribute('aria-expanded', 'false');
 
-        trigger.addEventListener('mouseenter', function () {
-          cancelDropdownTimer(dropdown);
-          openDropdown(dropdown);
+        trigger.addEventListener('click', function (event) {
+          // First click: open submenu and prevent jumping to anchor.
+          // Second click (or click on already-open item): follow the link normally.
+          const isOpen = dropdown.classList.contains('is-open');
+          if (!isOpen) {
+            event.preventDefault();
+            // Close any sibling open dropdowns so only one opens at a time.
+            dropdowns.forEach(function (other) {
+              if (other !== dropdown) closeDropdown(other);
+            });
+            openDropdown(dropdown);
+          }
         });
       });
 
-      dropdowns.forEach(function (dropdown) {
-        dropdown.addEventListener('mouseenter', function () {
-          cancelDropdownTimer(dropdown);
-          openDropdown(dropdown);
-        });
-
-        dropdown.addEventListener('mouseleave', function () {
-          scheduleDropdownClose(dropdown);
-        });
+      // Close any open dropdown when clicking outside the navbar.
+      document.addEventListener('click', function (event) {
+        if (!nav.contains(event.target)) {
+          dropdowns.forEach(closeDropdown);
+        }
       });
 
       document.querySelectorAll('[data-whatsapp-message]').forEach(function (link) {
