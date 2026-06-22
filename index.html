@@ -20,12 +20,15 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: #fff;
       padding-top: 76px;
+      overflow-x: hidden;
+      max-width: 100vw;
     }
 
     nav {
@@ -279,7 +282,7 @@
     }
 
     .section {
-      --section-bg: #878787;
+      --section-bg: #ffffff;
       background: var(--section-bg);
       min-height: calc(84vh - 88px);
       display: grid;
@@ -308,6 +311,9 @@
       isolation: isolate;
       text-align: center;
       overflow: hidden;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .hero-carousel {
@@ -464,13 +470,15 @@
       gap: 18px;
       margin-top: 28px;
       margin-bottom: 12px;
+      max-width: 100%;
     }
 
     .section-icone-img {
-      width: 412px;
+      width: 100%;
+      max-width: 412px;
       height: auto;
       display: block;
-      flex-shrink: 0;
+      flex-shrink: 1;
     }
 
 
@@ -495,8 +503,8 @@
       grid-column: 3 / 5;
       justify-self: end;
       align-self: end;
-      width: 104.4%;
-      max-width: none;
+      width: 100%;
+      max-width: 100%;
       height: auto;
       display: block;
       filter: drop-shadow(0 14px 8px rgba(0, 0, 0, 0.434));
@@ -613,6 +621,10 @@
       background: #050B14;
       color: #fff;
       padding: 58px 48px 0;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .footer-content {
@@ -867,13 +879,17 @@
       }
 
       .section-text {
-        padding-left: 48px;
-        padding-right: 48px;
+        padding-left: 24px;
+        padding-right: 24px;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .p-section-text {
-        padding-left: 48px;
-        padding-right: 48px;
+        padding-left: 24px;
+        padding-right: 24px;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .cover-hero {
@@ -1043,13 +1059,21 @@
         margin-top: 6px;
         padding: 12px;
         opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
+        visibility: hidden;
+        pointer-events: none;
         border-radius: 8px;
         box-shadow: none;
         background: rgba(245, 247, 250, 0.92);
         transition: none;
         animation: none;
+        display: none;
+      }
+
+      /* Quando o menu mobile esta aberto: TODAS as opcoes/submenus ficam visiveis e clicaveis. */
+      nav.is-menu-open .nav-dropdown-menu {
+        display: block;
+        visibility: visible;
+        pointer-events: auto;
       }
 
       .nav-dropdown.is-open .nav-dropdown-menu {
@@ -1148,7 +1172,10 @@
         align-items: stretch;
         grid-template-columns: 1fr;
         gap: 24px;
-        padding: 38px 0 0 18px;
+        padding: 38px 18px 0 18px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .section-text,
@@ -1165,8 +1192,8 @@
       }
 
       .section>img {
-        width: min(100.8%, 684px);
-        max-width: none;
+        width: 100%;
+        max-width: 100%;
         justify-self: center;
       }
 
@@ -1239,24 +1266,33 @@
       .cover-hero {
         min-height: calc(100svh - 66px);
         padding: 44px 14px;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
 
 
 
       .section {
-        padding: 38px 0 0 16px;
+        padding: 38px 16px 0 16px;
         gap: 22px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .section-text {
-        padding-left: 48px;
-        padding-right: 48px;
+        padding-left: 16px;
+        padding-right: 16px;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .p-section-text {
-        padding-left: 48px;
-        padding-right: 48px;
+        padding-left: 16px;
+        padding-right: 16px;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .section-text h2,
@@ -1306,6 +1342,7 @@
         text-align: left;
         padding-left: 48px;
         padding-right: 48px;
+        box-sizing: border-box;
       }
     }
 
@@ -1314,6 +1351,8 @@
         grid-column: 1 / 3;
         padding-left: 48px;
         padding-right: 48px;
+        max-width: 100%;
+        box-sizing: border-box;
       }
     }
     .p-section {
@@ -1325,6 +1364,9 @@
       padding: 56px 60px;
       gap: 34px;
       scroll-margin-top: 105px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .p-section:nth-of-type(even) {
@@ -1524,8 +1566,11 @@
         min-height: auto;
         flex-direction: column;
         align-items: stretch;
-        padding: 44px 24px;
+        padding: 44px 22px;
         gap: 28px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .p-section.p-reverse .p-section-image,
@@ -1595,6 +1640,11 @@
 
       nav {
         padding: 12px 18px;
+        max-width: 100%;
+      }
+
+      footer {
+        padding: 38px 18px 0;
       }
 
       .p-logo-text h1 {
@@ -1701,32 +1751,31 @@
     }
 
 
-    /* ===== Parceiros: nova estrutura (texto institucional + capa + cards) ===== */
+    /* ===== Parceiros: nova estrutura (header + capa à esquerda + cards) ===== */
     .p-section--partners {
-      padding: 56px 60px;
-      gap: 40px;
+      padding: 56px 64px 68px;
+      gap: 38px;
       scroll-margin-top: 105px;
+      flex-direction: column;
+      align-items: stretch;
+      min-height: auto;
     }
 
-    .p-section-text--partners {
-      max-width: 620px;
-      padding-left: 0;
-      padding-right: 0;
+    .p-partner-section-header {
       display: flex;
       flex-direction: column;
-      gap: 28px;
-    }
-
-    .p-intro-block {
-      display: flex;
-      flex-direction: column;
+      align-items: center;
+      text-align: center;
       gap: 12px;
-      padding-bottom: 6px;
+      padding-bottom: 12px;
       border-bottom: 1px solid rgba(5, 11, 20, 0.08);
+      max-width: 980px;
+      margin: 0 auto;
+      width: 100%;
     }
 
-    .p-intro-block h2 {
-      font-size: 44px;
+    .p-partner-section-header h2 {
+      font-size: 46px;
       line-height: 1.05;
       font-weight: 900;
       color: #1a1a2e;
@@ -1735,198 +1784,417 @@
       margin: 0;
     }
 
-    .p-intro-block p {
-      font-size: 18px;
+    .p-partner-section-header p {
+      font-size: 19px;
       color: #333;
       line-height: 1.6;
-      max-width: 560px;
+      max-width: 760px;
       margin: 0;
     }
 
-    .p-intro-block--reduced {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .p-intro-block--reduced h2 {
-      font-size: 40px;
+    .p-partner-section-body {
+      display: grid;
+      grid-template-columns: minmax(220px, 380px) 1fr;
+      align-items: stretch;
+      gap: clamp(28px, 4vw, 120px);
+      width: 100%;
+      justify-content: start;
     }
 
     .p-section-image--cover {
-      max-width: 460px;
-      min-height: 620px;
+      max-width: 380px;
+      width: 100%;
+      justify-self: start;
+      align-self: stretch;
+      display: flex;
+    }
+
+    .p-section-image--cover .p-image-frame {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: none;
     }
 
     .p-section-image--cover .p-image-frame img {
-      width: 100%;
-      height: auto;
-      max-height: 720px;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 18px 40px rgba(5, 11, 20, 0.12);
-    }
-
-    /* Grid de cards dos parceiros */
-    .p-section--partners .p-partner-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
-      margin: 0;
-      width: 100%;
-    }
-
-    .p-section--partners .p-partner-card {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      padding: 18px;
-      border: 1px solid rgba(5, 11, 20, 0.08);
-      border-radius: 10px;
-      background: #fff;
-      box-shadow: 0 14px 32px rgba(5, 11, 20, 0.06);
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    .p-partner-photo {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      max-height: 220px;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #f4f6fa;
-      display: grid;
-      place-items: center;
-    }
-
-    .p-partner-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .p-partner-body {
+    /* Grid de cards dos parceiros (multi = cinegrafistas, single = demais) */
+    .p-section--partners .p-partner-grid {
+      display: grid;
+      gap: 22px;
+      margin: 0;
+      width: 100%;
+    }
+
+    /* Largura fixa dos cards - nao esticam ao alargar a tela */
+    .p-partner-grid {
+      width: auto;
+      justify-self: start;
+    }
+
+    /* Cards de largura fixa 384px (base desktop 1920px; antigo 320px +20%) - NAO escalam com a largura.
+       Apenas o GAP entre eles cresce dinamicamente. */
+    .p-partner-grid--multi {
+      grid-template-columns: repeat(3, 384px);
+      gap: clamp(16px, 2vw, 56px);
+      justify-content: space-between;
+    }
+
+    .p-partner-grid--single {
+      grid-template-columns: repeat(2, 384px);
+      max-width: 880px;
+      justify-self: start;
+      gap: clamp(16px, 2vw, 56px);
+    }
+
+    .p-section--partners .p-partner-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 18px;
+      border: 0;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: none;
+      min-width: 0;
+      overflow: hidden;
+      height: 100%;
+      width: 384px;
+      max-width: 384px;
+      flex: 0 0 384px;
+    }
+
+    /* Foto do profissional (quadrada, harmoniza com a largura do card) */
+    .p-section--partners .p-partner-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f4f5f8;
+      flex: 0 0 auto;
+    }
+
+    .p-section--partners .p-partner-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Corpo do card: empilha título, descrição, ícones, contato e CTA */
+    .p-section--partners .p-partner-body {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      flex: 1;
+      flex: 1 1 auto;
+      min-height: 0;
     }
 
-    .p-partner-card h4 {
-      font-size: 18px;
+    .p-section--partners .p-partner-body h4 {
+      font-size: 19px;
+      line-height: 1.2;
+      font-weight: 800;
       color: #1a1a2e;
-      font-weight: 700;
       margin: 0;
-      line-height: 1.25;
       overflow-wrap: anywhere;
     }
 
-    .p-partner-desc {
-      font-size: 14px;
-      color: #5a6170;
+    .p-section--partners .p-partner-desc {
+      font-size: 14.5px;
       line-height: 1.55;
+      color: #5a6170;
       margin: 0;
       overflow-wrap: anywhere;
+      flex: 1 1 auto;
     }
 
-    .p-partner-location {
-      font-size: 13px;
-      color: #1a1a2e;
-      margin: 0;
-    }
-
-    .p-partner-icons {
+    /* Ícones de equipamentos (drone/câmera) - 4x maior que o tamanho anterior (32px -> 128px) */
+    .p-section--partners .p-partner-icons {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
       align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 152px;
+      padding: 6px 0;
     }
 
-    .p-partner-icons img {
-      height: 28px;
+    .p-section--partners .p-partner-icons img {
+      height: 140px;
       width: auto;
       max-width: 100%;
       object-fit: contain;
       display: block;
     }
 
-    .p-partner-contact {
-      font-size: 14px;
+    .p-section--partners .p-partner-contact,
+    .p-section--partners .p-partner-location {
+      font-size: 13px;
+      line-height: 1.4;
       color: #1a1a2e;
       margin: 0;
+      overflow-wrap: anywhere;
     }
 
-    .p-cta-wrap--whatsapp {
-      background: transparent;
-      border-radius: 8px;
-      padding: 0;
-      box-shadow: none;
-      margin-top: auto;
+    .p-section--partners .p-partner-contact strong,
+    .p-section--partners .p-partner-location strong {
+      font-weight: 700;
     }
 
-    .p-cta-wrap--whatsapp:hover {
-      background: transparent;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(5, 11, 20, 0.14);
-    }
-
-    .p-btn-whatsapp {
+    /* Botão de WhatsApp: a imagem ocupa exatamente o mesmo tamanho do <a> */
+    .p-section--partners .p-btn-whatsapp {
       display: block;
       width: 100%;
+      margin: auto auto 0;
+      padding: 0;
       line-height: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      transition: none;
     }
 
-    .p-btn-whatsapp img {
+    .p-section--partners .p-btn-whatsapp:hover,
+    .p-section--partners .p-btn-whatsapp:focus-visible {
+      box-shadow: none;
+      transform: none;
+      outline: none;
+    }
+
+    .p-section--partners .p-btn-whatsapp img {
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 8px;
     }
 
+    /* Espaçamento entre capa e grid padronizado para TODAS as categorias
+       (mesmo valor usado no #cinegrafistas: preenche a largura em 1920px). */
+    .p-section--partners .p-partner-section-body {
+      gap: clamp(36px, 6vw, 170px);
+    }
+
+    /* Card igual à altura da imagem de capa (altura do card = altura do frame da capa) */
+    .p-section--partners .p-partner-card {
+      align-self: stretch;
+      box-shadow: none;
+    }
+
+    .p-section--partners .p-partner-section-body {
+      align-items: stretch;
+    }
+
+    .p-section-image--cover .p-image-frame {
+      align-self: stretch;
+    }
+
+    /* Em telas medias/tablets: cards em 2 colunas (384px) com 1 wrapping */
+    @media (max-width: 1320px) {
+      .p-partner-grid--multi {
+        grid-template-columns: repeat(2, 384px);
+        justify-content: start;
+        gap: clamp(16px, 2vw, 40px);
+      }
+
+      .p-partner-grid--single {
+        grid-template-columns: repeat(2, 384px);
+        max-width: 880px;
+        gap: clamp(16px, 2vw, 40px);
+      }
+    }
+
+    /* Em laptops compactos: 1 coluna fixa (cards 384px) com max-width controlado */
+    @media (max-width: 980px) {
+      .p-partner-grid--multi {
+        grid-template-columns: 384px;
+      }
+
+      .p-partner-grid--single {
+        grid-template-columns: 384px;
+        max-width: 384px;
+      }
+    }
+
+    /* Responsivo: header / capa / cards no layout de parceiros */
     @media (max-width: 860px) {
       .p-section--partners {
-        padding: 44px 24px;
-        gap: 28px;
+        padding: 44px 22px 52px;
+        gap: 30px;
       }
 
-      .p-section-text--partners {
-        max-width: none;
+      .p-partner-section-header {
+        padding-bottom: 10px;
+        gap: 10px;
       }
 
-      .p-intro-block h2 {
-        font-size: 32px;
+      .p-partner-section-header h2 {
+        font-size: 30px;
+        letter-spacing: -0.3px;
       }
 
-      .p-intro-block p {
-        font-size: 16px;
+      .p-partner-section-header p {
+        font-size: 15.5px;
+        line-height: 1.55;
+        max-width: 560px;
+      }
+
+      .p-partner-section-body {
+        grid-template-columns: 1fr;
+        gap: 26px;
       }
 
       .p-section-image--cover {
-        min-height: 320px;
-        max-width: none;
+        max-width: 260px;
+        margin: 0 auto;
+        justify-self: center;
       }
 
-      .p-section-image--cover .p-image-frame img {
-        max-height: 520px;
+      .p-partner-grid--multi,
+      .p-partner-grid--single {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-self: stretch;
+        margin-left: 0;
+        max-width: 100%;
+        gap: 14px;
       }
 
-      .p-section--partners .p-partner-grid {
-        grid-template-columns: 1fr;
+      .p-section--partners .p-partner-card {
+        width: 100%;
+        max-width: 100%;
+        flex: 1 1 0;
+        padding: 14px;
+        gap: 12px;
+      }
+
+      .p-section--partners .p-partner-photo {
+        aspect-ratio: 1 / 1;
+      }
+
+      .p-section--partners .p-partner-icons {
+        min-height: 96px;
+      }
+
+      .p-section--partners .p-partner-icons img {
+        height: 88px;
+      }
+
+      .p-section--partners .p-partner-body {
+        gap: 8px;
+      }
+
+      .p-section--partners .p-partner-body h4 {
+        font-size: 16px;
+      }
+
+      .p-section--partners .p-partner-desc {
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .p-section--partners .p-partner-contact,
+      .p-section--partners .p-partner-location {
+        font-size: 12.5px;
       }
     }
 
     @media (max-width: 560px) {
+      .p-partners-heading {
+        padding: 38px 18px 24px;
+      }
+
+      .p-partners-heading h2 {
+        font-size: 30px;
+      }
+
+      .p-partners-heading p {
+        font-size: 15px;
+      }
+
       .p-section--partners {
-        padding: 38px 18px;
+        padding: 34px 16px 44px;
+        gap: 24px;
       }
 
-      .p-intro-block h2 {
-        font-size: 28px;
+      .p-partner-section-header h2 {
+        font-size: 26px;
+        line-height: 1.1;
       }
 
-      .p-partner-photo {
-        max-height: 200px;
+      .p-partner-section-header p {
+        font-size: 14.5px;
+      }
+
+      .p-partner-section-body {
+        gap: 22px;
+      }
+
+      .p-section-image--cover {
+        max-width: 220px;
+      }
+
+      .p-partner-grid--multi,
+      .p-partner-grid--single {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .p-section--partners .p-partner-card {
+        padding: 14px;
+        gap: 12px;
+      }
+
+      .p-section--partners .p-partner-body h4 {
+        font-size: 17px;
+      }
+
+      .p-section--partners .p-partner-desc {
+        font-size: 13.5px;
+        line-height: 1.5;
+      }
+
+      .p-section--partners .p-partner-icons {
+        min-height: 86px;
+      }
+
+      .p-section--partners .p-partner-icons img {
+        height: 76px;
+      }
+
+      .p-section--partners .p-partner-contact,
+      .p-section--partners .p-partner-location {
+        font-size: 12.5px;
+      }
+    }
+
+    /* Celulares muito pequenos: afina ainda mais a tipografia */
+    @media (max-width: 380px) {
+      .p-section--partners {
+        padding: 30px 14px 40px;
+      }
+
+      .p-partner-section-header h2 {
+        font-size: 23px;
+      }
+
+      .p-section-image--cover {
+        max-width: 180px;
+      }
+
+      .p-section--partners .p-partner-body h4 {
+        font-size: 16px;
+      }
+
+      .p-section--partners .p-partner-desc {
+        font-size: 13px;
+      }
+
+      .p-section--partners .p-partner-icons img {
+        height: 66px;
       }
     }
 
@@ -2214,17 +2482,21 @@
   <section class="p-partners-heading" id="parceiros">
     <div class="p-partners-heading-inner">
       <h2>Parceiros</h2>
-      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
     </div>
   </section>
 
   <section class="p-section p-section--partners" id="cinegrafistas">
-    <div class="p-section-text p-section-text--partners">
-      <div class="p-intro-block">
-        <h2>Cinegrafistas</h2>
-        <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+    <header class="p-partner-section-header">
+      <h2>Cinegrafistas</h2>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+    </header>
+    <div class="p-partner-section-body">
+      <div class="p-section-image p-section-image--cover">
+        <div class="p-image-frame">
+          <img src="imagens/imagens_novas/parceiros_novos/cinegrafistas/capa_cinegrafistas.png" alt="Categoria cinegrafistas">
+        </div>
       </div>
-      <div class="p-partner-grid">
+      <div class="p-partner-grid p-partner-grid--multi">
         <article class="p-partner-card">
           <div class="p-partner-photo">
             <img src="imagens/imagens_novas/parceiros_novos/cinegrafistas/lucas.png" alt="Lucas Oliveira">
@@ -2236,11 +2508,9 @@
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 98803-7567</p>
-            <div class="p-cta-wrap p-cta-wrap--whatsapp">
-              <a class="p-btn-whatsapp" href="https://wa.me/55449988037567?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-                <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
-              </a>
-            </div>
+            <a class="p-btn-whatsapp" href="https://wa.me/55449988037567?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+              <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
+            </a>
           </div>
         </article>        <article class="p-partner-card">
           <div class="p-partner-photo">
@@ -2253,11 +2523,9 @@
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 98808-0300</p>
-            <div class="p-cta-wrap p-cta-wrap--whatsapp">
-              <a class="p-btn-whatsapp" href="https://wa.me/55449988080300?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-                <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
-              </a>
-            </div>
+            <a class="p-btn-whatsapp" href="https://wa.me/55449988080300?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+              <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
+            </a>
           </div>
         </article>        <article class="p-partner-card">
           <div class="p-partner-photo">
@@ -2270,27 +2538,27 @@
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 99962-1020</p>
-            <div class="p-cta-wrap p-cta-wrap--whatsapp">
-              <a class="p-btn-whatsapp" href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-                <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
-              </a>
-            </div>
+            <a class="p-btn-whatsapp" href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+              <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
+            </a>
           </div>
-        </article>      </div>
-    </div>
-    <div class="p-section-image p-section-image--cover">
-      <div class="p-image-frame">
-        <img src="imagens/imagens_novas/parceiros_novos/cinegrafistas/capa_cinegrafistas.png" alt="Categoria cinegrafistas">
+        </article>
       </div>
     </div>
   </section>
-  <section class="p-section p-section--partners p-reverse" id="fotografos">
-    <div class="p-section-text p-section-text--partners">
-      <div class="p-intro-block">
-        <h2>Fotógrafos</h2>
-        <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+
+<section class="p-section p-section--partners" id="fotografos">
+    <header class="p-partner-section-header">
+      <h2>Fotógrafos</h2>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+    </header>
+    <div class="p-partner-section-body">
+      <div class="p-section-image p-section-image--cover">
+        <div class="p-image-frame">
+          <img src="imagens/imagens_novas/parceiros_novos/fotografos/capa_fotografos.png" alt="Categoria fotógrafos">
+        </div>
       </div>
-      <div class="p-partner-grid">
+      <div class="p-partner-grid p-partner-grid--single">
         <article class="p-partner-card">
           <div class="p-partner-photo">
             <img src="imagens/imagens_novas/parceiros_novos/fotografos/andreza.png" alt="Andreza Marks">
@@ -2302,27 +2570,27 @@
               <img src="imagens/imagens_novas/icones_novos/icone_somente_camera.png" alt="Câmera">
             </div>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 99952-9389</p>
-            <div class="p-cta-wrap p-cta-wrap--whatsapp">
-              <a class="p-btn-whatsapp" href="https://wa.me/55449999529389?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-                <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
-              </a>
-            </div>
+            <a class="p-btn-whatsapp" href="https://wa.me/55449999529389?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+              <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
+            </a>
           </div>
-        </article>      </div>
-    </div>
-    <div class="p-section-image p-section-image--cover">
-      <div class="p-image-frame">
-        <img src="imagens/imagens_novas/parceiros_novos/fotografos/capa_fotografos.png" alt="Categoria fotógrafos">
+        </article>
       </div>
     </div>
   </section>
-  <section class="p-section p-section--partners" id="produtoras">
-    <div class="p-section-text p-section-text--partners">
-      <div class="p-intro-block">
-        <h2>Produtoras</h2>
-        <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+
+<section class="p-section p-section--partners" id="produtoras">
+    <header class="p-partner-section-header">
+      <h2>Produtoras</h2>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+    </header>
+    <div class="p-partner-section-body">
+      <div class="p-section-image p-section-image--cover">
+        <div class="p-image-frame">
+          <img src="imagens/imagens_novas/parceiros_novos/produtora/capa_produtora.png" alt="Categoria produtoras">
+        </div>
       </div>
-      <div class="p-partner-grid">
+      <div class="p-partner-grid p-partner-grid--single">
         <article class="p-partner-card">
           <div class="p-partner-photo">
             <img src="imagens/imagens_novas/parceiros_novos/produtora/rec_produtora.png" alt="REC Cine &amp; Vídeo">
@@ -2331,27 +2599,27 @@
             <h4>REC Cine &amp; Vídeo</h4>
             <p class="p-partner-desc">Produtora de Vídeo, especializada em: Audiovisuais Corporativos, Mídias Digitais, Reportagens de TV, Marketing Político, Produção de Programas.</p>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 99962-1020</p>
-            <div class="p-cta-wrap p-cta-wrap--whatsapp">
-              <a class="p-btn-whatsapp" href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-                <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
-              </a>
-            </div>
+            <a class="p-btn-whatsapp" href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+              <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
+            </a>
           </div>
-        </article>      </div>
-    </div>
-    <div class="p-section-image p-section-image--cover">
-      <div class="p-image-frame">
-        <img src="imagens/imagens_novas/parceiros_novos/produtora/capa_produtora.png" alt="Categoria produtoras">
+        </article>
       </div>
     </div>
   </section>
-  <section class="p-section p-section--partners p-reverse" id="revelacao">
-    <div class="p-section-text p-section-text--partners">
-      <div class="p-intro-block">
-        <h2>Revelação</h2>
-        <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+
+<section class="p-section p-section--partners" id="revelacao">
+    <header class="p-partner-section-header">
+      <h2>Revelação</h2>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+    </header>
+    <div class="p-partner-section-body">
+      <div class="p-section-image p-section-image--cover">
+        <div class="p-image-frame">
+          <img src="imagens/imagens_novas/parceiros_novos/revelacao/capa_revelacao.png" alt="Categoria revelação">
+        </div>
       </div>
-      <div class="p-partner-grid">
+      <div class="p-partner-grid p-partner-grid--single">
         <article class="p-partner-card">
           <div class="p-partner-photo">
             <img src="imagens/imagens_novas/parceiros_novos/revelacao/adonai_revelacao.png" alt="Adonai Revelação Express">
@@ -2360,26 +2628,27 @@
             <h4>Adonai Revelação Express</h4>
             <p class="p-partner-desc">Fotos para documentos, fotomontagens, Impressões, restauração de imagens, montagem de álbuns de eventos. Ao ter suas fotos reveladas em mãos, cada momento especial passa a ser eterno.</p>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 99760-6599</p>
-            <div class="p-cta-wrap p-cta-wrap--whatsapp">
-              <a class="p-btn-whatsapp" href="https://wa.me/55449997606599?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-                <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
-              </a>
-            </div>
+            <a class="p-btn-whatsapp" href="https://wa.me/55449997606599?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+              <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
+            </a>
           </div>
-        </article>      </div>
-    </div>
-    <div class="p-section-image p-section-image--cover">
-      <div class="p-image-frame">
-        <img src="imagens/imagens_novas/parceiros_novos/revelacao/capa_revelacao.png" alt="Categoria revelação">
+        </article>
       </div>
     </div>
   </section>
-  <section class="p-section p-section--partners p-section--oficinas" id="oficinas">
-    <div class="p-section-text p-section-text--partners">
-      <div class="p-intro-block p-intro-block--reduced">
-        <h2>Oficinas</h2>
+
+<section class="p-section p-section--partners" id="oficinas">
+    <header class="p-partner-section-header">
+      <h2>Oficinas</h2>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+    </header>
+    <div class="p-partner-section-body">
+      <div class="p-section-image p-section-image--cover">
+        <div class="p-image-frame">
+          <img src="imagens/imagens_novas/parceiros_novos/oficina/capa_oficina.png" alt="Categoria oficinas">
+        </div>
       </div>
-      <div class="p-partner-grid">
+      <div class="p-partner-grid p-partner-grid--single">
         <article class="p-partner-card">
           <div class="p-partner-photo">
             <img src="imagens/imagens_novas/parceiros_novos/oficina/multivideo_assitencia.png" alt="Multivídeo Assistência Técnica">
@@ -2389,17 +2658,11 @@
             <p class="p-partner-desc">A MULTIVIDEO - Assistência técnica de projetores (data show/multimídia), equipamentos de áudio e vídeo profissional, atendendo produtoras de vídeo, igrejas, emissoras de TV, universidades, escolas, empresas e profissionais liberais.</p>
             <p class="p-partner-location"><strong>Localidade:</strong> Londrina-PR</p>
             <p class="p-partner-contact"><strong>Contato:</strong> 43 99995-4005</p>
-            <div class="p-cta-wrap p-cta-wrap--whatsapp">
-              <a class="p-btn-whatsapp" href="https://wa.me/55439999954005?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-                <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
-              </a>
-            </div>
+            <a class="p-btn-whatsapp" href="https://wa.me/55439999954005?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+              <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
+            </a>
           </div>
-        </article>      </div>
-    </div>
-    <div class="p-section-image p-section-image--cover">
-      <div class="p-image-frame">
-        <img src="imagens/imagens_novas/parceiros_novos/oficina/capa_oficina.png" alt="Categoria oficinas">
+        </article>
       </div>
     </div>
   </section>
@@ -2577,13 +2840,38 @@
         }
       }
 
+      // Bloqueia cliques/foco nos links do menu rebatível somente em viewport mobile,
+      // evitando que botoes internos sejam clicaveis com o menu colapsado.
+      function lockMenuLinks(lock) {
+        const isMobile = window.matchMedia('(max-width: 1180px)').matches;
+        // Atinge TODOS os links do menu (top-level e subitens de dropdowns).
+        const links = nav.querySelectorAll('.nav-links a');
+        links.forEach(function (link) {
+          if (lock && isMobile) {
+            link.setAttribute('inert', '');
+            link.setAttribute('tabindex', '-1');
+            link.setAttribute('aria-hidden', 'true');
+          } else {
+            link.removeAttribute('inert');
+            link.removeAttribute('tabindex');
+            link.removeAttribute('aria-hidden');
+          }
+        });
+      }
+
       function setMobileMenu(open) {
         nav.classList.toggle('is-menu-open', open);
         if (navToggle) {
           navToggle.setAttribute('aria-expanded', String(open));
           navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
         }
+        // Quando o menu esta aberto: libera TODOS os links (incluindo submenus).
+        // Quando esta fechado: bloqueia em viewport mobile para que nada seja clicavel.
+        lockMenuLinks(!open);
       }
+
+      // Garante estado inicial correto no carregamento.
+      setMobileMenu(nav.classList.contains('is-menu-open'));
 
       function openDropdown(dropdown) {
         if (!dropdown) return;
@@ -2642,6 +2930,9 @@
       window.addEventListener('resize', function () {
         if (window.matchMedia('(min-width: 1181px)').matches) {
           setMobileMenu(false);
+        } else {
+          // Em viewport mobile, garante que links travados sigam o estado do menu.
+          lockMenuLinks(!nav.classList.contains('is-menu-open'));
         }
       });
 
