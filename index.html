@@ -309,8 +309,16 @@
     .nav-social {
       display: none;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       flex: 0 0 auto;
+      flex-direction: column;
+    }
+
+    .nav-social-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .nav-social a {
@@ -330,6 +338,19 @@
       width: 28px;
       height: 28px;
       object-fit: contain;
+    }
+
+    .nav-social-handle {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a2e;
+      letter-spacing: 0.2px;
+      text-align: center;
+      width: 100%;
+      white-space: nowrap;
+      line-height: 1;
+      margin-top: 4px;
     }
 
     .nav-social a:hover,
@@ -2161,26 +2182,29 @@
     </ul>
 
     <div class="nav-social" aria-label="Redes sociais">
-      <a href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank" rel="noopener" title="Facebook"
-        aria-label="Facebook">
-        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/facebook.png" alt="Facebook" loading="lazy"
-          decoding="async">
-      </a>
-      <a href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener" title="Instagram"
-        aria-label="Instagram">
-        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/instagram.png" alt="Instagram" loading="lazy"
-          decoding="async">
-      </a>
-      <a href="https://www.tiktok.com/@infoclube.oficial?_r=1&_t=ZS-97IEUPk20vN" target="_blank" rel="noopener"
-        title="TikTok" aria-label="TikTok">
-        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/tiktok.png" alt="TikTok" loading="lazy"
-          decoding="async">
-      </a>
-      <a href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener" title="YouTube"
-        aria-label="YouTube">
-        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/youtube.png" alt="YouTube" loading="lazy"
-          decoding="async">
-      </a>
+      <div class="nav-social-links">
+        <a href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank" rel="noopener" title="Facebook"
+          aria-label="Facebook">
+          <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/facebook.png" alt="Facebook" loading="lazy"
+            decoding="async">
+        </a>
+        <a href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener" title="Instagram"
+          aria-label="Instagram">
+          <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/instagram.png" alt="Instagram" loading="lazy"
+            decoding="async">
+        </a>
+        <a href="https://www.tiktok.com/@infoclube.oficial?_r=1&_t=ZS-97IEUPk20vN" target="_blank" rel="noopener"
+          title="TikTok" aria-label="TikTok">
+          <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/tiktok.png" alt="TikTok" loading="lazy"
+            decoding="async">
+        </a>
+        <a href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener" title="YouTube"
+          aria-label="YouTube">
+          <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/youtube.png" alt="YouTube" loading="lazy"
+            decoding="async">
+        </a>
+      </div>
+      <span class="nav-social-handle">@infoClubeOficial</span>
     </div>
 
     <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
