@@ -31,17 +31,12 @@
       max-width: 100vw;
     }
 
-    nav,
-    nav * {
-      min-width: 0;
-    }
-
-    nav .logo,
-    nav .nav-links,
-    nav .nav-social,
-    nav .nav-toggle {
-      min-width: 0;
-    }
+    /* ===================================================================
+       HEADER / NAV — reescrito com Flexbox simples:
+       [ LOGO (esq, padding 25px) ] [ NAV-LINKS (centro, flex:1) ] [ NAV-SOCIAL (dir, padding 25px) ]
+       Isso elimina o conflito de grid-template-areas entre breakpoints
+       que fazia a logo "subir" por cima do nav-links em certas larguras.
+       =================================================================== */
 
     nav {
       position: fixed;
@@ -49,37 +44,14 @@
       left: 0;
       right: 0;
       z-index: 100;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      grid-template-areas: "logo links social";
+      display: flex;
       align-items: center;
-      column-gap: 28px;
-      row-gap: 12px;
-      padding: 14px 40px;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 25px;
       border-bottom: none;
       background: #ffffff;
-    }
-
-    nav > .logo {
-      grid-area: logo;
-      justify-self: start;
-    }
-
-    nav > .nav-links {
-      grid-area: links;
-      width: 100%;
-      min-width: 0;
-      justify-content: center;
-      justify-self: stretch;
-    }
-
-    nav > .nav-social {
-      grid-area: social;
-      justify-self: end;
-    }
-
-    nav > .nav-toggle {
-      grid-area: toggle;
+      flex-wrap: nowrap;
     }
 
     nav.scrolled {
@@ -91,6 +63,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex: 0 0 auto;
+      min-width: 0;
     }
 
     .logo-icon {
@@ -99,6 +73,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .logo-icon img {
@@ -107,11 +82,16 @@
       object-fit: contain;
     }
 
+    .logo-text {
+      min-width: 0;
+    }
+
     .logo-text h1 {
       font-size: 25px;
       font-weight: 700;
       color: #1a1a2e;
       line-height: 1;
+      white-space: nowrap;
     }
 
     .logo-text h1 span {
@@ -121,6 +101,7 @@
     .logo-text p {
       font-size: 13px;
       color: #888;
+      white-space: nowrap;
     }
 
     .nav-toggle {
@@ -136,6 +117,7 @@
       justify-content: center;
       flex-direction: column;
       gap: 5px;
+      flex: 0 0 auto;
       transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
 
@@ -172,8 +154,8 @@
       gap: 4px;
       list-style: none;
       align-items: center;
-      justify-content: flex-end;
-      width: 100%;
+      justify-content: center;
+      flex: 1 1 auto;
       min-width: 0;
       flex-wrap: wrap;
       row-gap: 6px;
@@ -215,7 +197,7 @@
       transition: transform 0.2s ease;
     }
 
-    .nav-dropdown.is-open > .nav-dropdown-trigger::after {
+    .nav-dropdown.is-open>.nav-dropdown-trigger::after {
       transform: translateY(2px);
     }
 
@@ -328,7 +310,7 @@
       display: none;
       align-items: center;
       gap: 10px;
-      justify-self: end;
+      flex: 0 0 auto;
     }
 
     .nav-social a {
@@ -447,7 +429,7 @@
       font-size: 72px;
     }
 
-    .section-text--with-bar h2 + h3 {
+    .section-text--with-bar h2+h3 {
       margin-top: 8px;
       font-size: 28px;
       font-weight: 600;
@@ -569,7 +551,7 @@
       transform: translateY(-3px);
     }
 
-    .section-icone-link > .section-icone-img {
+    .section-icone-link>.section-icone-img {
       width: 220px;
     }
 
@@ -796,271 +778,13 @@
       gap: 22px;
     }
 
-    @media (max-width: 1060px) {
-      nav {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        grid-template-areas: "logo . toggle";
-        align-items: center;
-        padding: 12px 24px;
-        column-gap: 24px;
-        row-gap: 12px;
-      }
-
-      .logo {
-        grid-area: logo;
-        min-width: 0;
-      }
-
-      .nav-toggle {
-        grid-area: toggle;
-        justify-self: end;
-      }
-
-      .nav-social {
-        display: none !important;
-      }
-
-      .nav-links {
-        grid-area: unset;
-        gap: 14px;
-        flex-basis: 100%;
-        justify-content: flex-start;
-        justify-self: stretch;
-      }
-
-
-      .footer-content {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-
-    }
-
-    @media (max-width: 860px) {
-      .section>img {
-        grid-column: 1 / -1;
-        justify-self: center;
-        width: 100%;
-      }
-
-      body {
-        padding-top: 82px;
-      }
-
-      nav {
-        flex-wrap: wrap;
-      }
-
-      .nav-social {
-        display: none !important;
-      }
-
-      .nav-links {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-        gap: 18px;
-        overflow: visible;
-        padding-top: 10px;
-      }
-
-      .nav-dropdown-menu {
-        left: 0;
-        transform: translateY(6px);
-        width: 100%;
-        min-width: 0;
-        max-width: 100%;
-      }
-
-      .nav-dropdown.is-open .nav-dropdown-menu {
-        transform: translateY(0);
-      }
-
-      .section {
-        min-height: auto;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 44px 24px;
-        gap: 28px;
-      }
-
-      .cover-hero {
-        min-height: 620px;
-        padding: 76px 24px;
-      }
-
-
-
-      .section-text,
-      .section-image {
-        max-width: none;
-      }
-
-      .section-text h2 {
-        font-size: 38px;
-      }
-
-      .section-text--with-bar h2 {
-        font-size: 34.2px;
-      }
-
-      .section-text h3 {
-        font-size: 23px;
-      }
-
-      .section-text--with-bar h2 + h3 {
-        font-size: 16px;
-        margin-top: 6px;
-      }
-
-      .section-text--with-bar h2::after {
-        width: 132px;
-        height: 3px;
-        margin: 45px 0 19px;
-      }
-
-      .section-text p {
-        font-size: 13px;
-      }
-
-      .section-text p.small {
-        font-size: 15px;
-      }
-
-      .benefits li {
-        font-size: 16px;
-      }
-
-      .btn-orcamento {
-        padding: 17px 30px;
-        font-size: 14px;
-      }
-
-      footer {
-        padding: 46px 24px 0;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        align-items: center;
-        margin-top: 38px;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 560px) {
-      body {
-        padding-top: 146px;
-      }
-
-      nav {
-        padding: 12px 18px;
-        align-items: center;
-      }
-
-      .logo-text h1 {
-        font-size: 19px;
-      }
-
-
-
-      .nav-links {
-        justify-content: center;
-        font-size: 13px;
-      }
-
-      .nav-dropdown-menu.nav-dropdown-menu--services,
-      .nav-dropdown-menu.nav-dropdown-menu--partners {
-        grid-template-columns: 1fr;
-      }
-
-      .section {
-        padding: 38px 0 0 18px;
-      }
-
-      .section-text {
-        padding-left: 24px;
-        padding-right: 24px;
-        max-width: 100%;
-        box-sizing: border-box;
-      }
-
-      .p-section-text {
-        padding-left: 24px;
-        padding-right: 24px;
-        max-width: 100%;
-        box-sizing: border-box;
-      }
-
-      .cover-hero {
-        min-height: 540px;
-        padding: 62px 18px;
-      }
-
-
-
-      .section-text h2 {
-        font-size: 34px;
-      }
-
-      .section-text--with-bar h2 {
-        font-size: 30.6px;
-      }
-
-      .section-text h3 {
-        font-size: 21px;
-      }
-
-      .section-text--with-bar h2 + h3 {
-        font-size: 15px;
-        margin-top: 6px;
-      }
-
-      .section-text--with-bar h2::after {
-        width: 120px;
-        height: 3px;
-        margin: 45px 0 19px;
-      }
-
-      .section-text p {
-        font-size: 16px;
-      }
-
-      .benefits li {
-        font-size: 15px;
-      }
-
-
-
-
-
-
-
-      .whatsapp-float {
-        right: 16px;
-        bottom: 16px;
-        width: 54px;
-        height: 54px;
-      }
-
-      .footer-content {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        text-align: center;
-      }
-
-      .footer-logo {
-        justify-content: center;
-      }
-
-      .footer-legal {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-      }
-    }
-
+    /* ===================================================================
+       BREAKPOINT ÚNICO DE COLAPSO DO MENU: <= 1180px
+       Abaixo disso: logo (esq, padding 25px) + toggle (dir) na mesma linha;
+       nav-links e nav-social saem do fluxo da barra e formam o painel
+       suspenso do menu mobile. Isso impede qualquer sobreposição entre
+       logo / links / social, pois cada elemento tem sua própria área fixa.
+       =================================================================== */
     @media (max-width: 1180px) {
       body {
         padding-top: 64px;
@@ -1069,18 +793,13 @@
 
       nav,
       nav.scrolled {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        grid-template-areas: "logo . toggle";
-        align-items: center;
-        column-gap: 18px;
-        row-gap: 10px;
-        padding: 12px 20px;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding: 12px 16px 12px 25px;
       }
 
       .logo {
         min-width: 0;
-        grid-area: logo;
       }
 
       .logo-icon,
@@ -1103,24 +822,21 @@
 
       .nav-toggle {
         display: inline-flex;
-        grid-area: toggle;
-        justify-self: end;
       }
 
       .nav-social {
         display: none !important;
       }
 
-
-
       .nav-links {
         position: absolute;
-        top: calc(100% + 1px);
+        top: 100%;
         left: 0;
         right: 0;
         width: auto;
-        display: grid;
-        grid-template-columns: 1fr;
+        flex: none;
+        display: flex;
+        flex-direction: column;
         gap: 8px;
         padding: 14px 20px 18px;
         background: rgba(255, 255, 255, 0.98);
@@ -1233,7 +949,7 @@
         font-size: 32px;
       }
 
-      .section-text--with-bar h2 + h3 {
+      .section-text--with-bar h2+h3 {
         font-size: 22px;
         margin-top: 6px;
       }
@@ -1268,6 +984,12 @@
     }
 
     @media (max-width: 860px) {
+      .section>img {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 100%;
+      }
+
       body {
         padding-top: 72px;
       }
@@ -1283,6 +1005,13 @@
         max-width: 100%;
         box-sizing: border-box;
       }
+
+      .cover-hero {
+        min-height: 620px;
+        padding: 76px 24px;
+      }
+
+
 
       .section-text,
       .section-image {
@@ -1303,141 +1032,158 @@
         justify-self: center;
       }
 
+      .section-text h2 {
+        font-size: 38px;
+      }
 
+      .section-text--with-bar h2 {
+        font-size: 34.2px;
+      }
 
+      .section-text h3 {
+        font-size: 23px;
+      }
+
+      .section-text--with-bar h2+h3 {
+        font-size: 16px;
+        margin-top: 6px;
+      }
+
+      .section-text--with-bar h2::after {
+        width: 132px;
+        height: 3px;
+        margin: 45px 0 19px;
+      }
+
+      .section-text p {
+        font-size: 13px;
+      }
+
+      .section-text p.small {
+        font-size: 15px;
+      }
+
+      .benefits li {
+        font-size: 16px;
+      }
+
+      .btn-orcamento {
+        padding: 17px 30px;
+        font-size: 14px;
+      }
+
+      footer {
+        padding: 46px 24px 0;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 38px;
+        text-align: center;
+      }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 560px) {
+      body {
+        padding-top: 70px;
+      }
+
+      nav,
+      nav.scrolled {
+        padding: 10px 14px 10px 18px;
+      }
+
+      .logo-text h1 {
+        font-size: 19px;
+      }
+
+      .nav-links {
+        font-size: 13px;
+      }
 
       .nav-dropdown-menu.nav-dropdown-menu--services,
       .nav-dropdown-menu.nav-dropdown-menu--partners {
         grid-template-columns: 1fr;
       }
 
-
-
-
-      .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .footer-logo,
-      .footer-social {
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding-top: 66px;
-      }
-
-      nav,
-      nav.scrolled {
-        grid-template-columns: minmax(0, 1fr) auto auto;
-        gap: 8px;
-        padding: 10px 12px;
-      }
-
-      .logo {
-        gap: 8px;
-      }
-
-      .logo-icon,
-      .logo-icon img {
-        width: 60px;
-        height: 60px;
-      }
-
-      .logo-text h1 {
-        font-size: 24px;
-      }
-
-      .logo-text p {
-        font-size: 13px;
-      }
-
-      .nav-toggle {
-        width: 38px;
-        height: 38px;
-      }
-
-
-      .nav-links {
-        padding: 12px 12px 16px;
-        max-height: calc(100svh - 66px);
-      }
-
-      .cover-hero {
-        min-height: calc(100svh - 66px);
-        padding: 44px 14px;
-        max-width: 100%;
-        box-sizing: border-box;
-      }
-
-
-
-
       .section {
-        padding: 38px 16px 0 16px;
-        gap: 22px;
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
+        padding: 38px 0 0 18px;
       }
 
       .section-text {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 24px;
+        padding-right: 24px;
         max-width: 100%;
         box-sizing: border-box;
       }
 
       .p-section-text {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 24px;
+        padding-right: 24px;
         max-width: 100%;
         box-sizing: border-box;
       }
 
-      .section-text h2,
-      .partners-heading h2 {
-        font-size: 37px;
+      .cover-hero {
+        min-height: 540px;
+        padding: 62px 18px;
+      }
+
+
+
+      .section-text h2 {
+        font-size: 34px;
       }
 
       .section-text--with-bar h2 {
-        font-size: 33.3px;
+        font-size: 30.6px;
       }
 
       .section-text h3 {
-        font-size: 25px;
+        font-size: 21px;
       }
 
-      .section-text--with-bar h2 + h3 {
-        font-size: 18px;
+      .section-text--with-bar h2+h3 {
+        font-size: 15px;
         margin-top: 6px;
       }
 
       .section-text--with-bar h2::after {
-        width: 138px;
+        width: 120px;
         height: 3px;
         margin: 45px 0 19px;
       }
 
-      .section-text p,
-      .partners-heading p,
-
-      .btn-orcamento,
-
-      .benefits li {
-        font-size: 18px;
+      .section-text p {
+        font-size: 16px;
       }
 
+      .benefits li {
+        font-size: 15px;
+      }
 
+      .whatsapp-float {
+        right: 16px;
+        bottom: 16px;
+        width: 54px;
+        height: 54px;
+      }
 
-      footer {
-        padding: 42px 18px 0;
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+      }
+
+      .footer-logo {
+        justify-content: center;
+      }
+
+      .footer-legal {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
       }
     }
 
@@ -1463,7 +1209,8 @@
     }
 
 
-    /* ===== Desktop: header 1.5x do original (logo + fontes + altura) ===== */
+    /* ===== Desktop (> 1180px): header com logo / links centralizados / social,
+       cada bloco com padding de 25px na borda correspondente da tela ===== */
     @media (min-width: 1181px) {
       body {
         padding-top: 114px;
@@ -1471,13 +1218,7 @@
 
       nav,
       nav.scrolled {
-        padding: 21px 0;
-        column-gap: 0;
-        row-gap: 12px;
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-areas: "logo links social";
-        align-items: center;
+        padding: 21px 25px;
       }
 
       nav.scrolled {
@@ -1487,10 +1228,6 @@
 
       .logo {
         gap: 13px;
-        min-width: 0;
-        grid-area: logo;
-        justify-self: start;
-        padding-left: 25px;
       }
 
       .logo-icon,
@@ -1498,10 +1235,6 @@
         width: 66px;
         height: 66px;
         flex-shrink: 0;
-      }
-
-      .logo-text {
-        min-width: 0;
       }
 
       .logo-text h1 {
@@ -1513,14 +1246,9 @@
       }
 
       .nav-links {
-        grid-area: links;
-        width: auto;
-        min-width: 0;
         flex-wrap: wrap;
         row-gap: 8px;
         column-gap: 4px;
-        justify-content: center;
-        justify-self: center;
       }
 
       .nav-links>li>a {
@@ -1535,14 +1263,6 @@
 
       .nav-social {
         display: inline-flex !important;
-        flex-shrink: 0;
-        grid-area: social;
-        justify-self: end;
-        align-self: center;
-        margin-left: 0;
-        position: static;
-        float: none;
-        padding-right: 25px;
       }
 
       .nav-social a img {
@@ -1550,6 +1270,7 @@
         height: 32px;
       }
     }
+
     .p-section {
       background: #fff;
       min-height: calc(84vh - 88px);
@@ -1733,17 +1454,6 @@
         padding-top: 82px;
       }
 
-      nav {
-        flex-wrap: wrap;
-      }
-
-      .p-nav-links {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-        padding-top: 10px;
-      }
-
       .p-cover-hero {
         min-height: 620px;
         padding: 76px 24px;
@@ -1826,16 +1536,11 @@
         margin-top: 38px;
       }
     }
-    
+
 
     @media (max-width: 560px) {
       body {
-        padding-top: 146px;
-      }
-
-      nav {
-        padding: 12px 18px;
-        max-width: 100%;
+        padding-top: 70px;
       }
 
       footer {
@@ -1913,7 +1618,7 @@
         align-items: center;
       }
     }
-    
+
 
 
     /* Partner section heading wrapper (namespace p-) */
@@ -2392,7 +2097,6 @@
         height: 66px;
       }
     }
-
   </style>
 </head>
 
@@ -2408,12 +2112,6 @@
         <p>Central de Serviços</p>
       </div>
     </div>
-
-    <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </button>
 
     <ul class="nav-links">
       <li><a href="#topo" class="active" data-nav-section="topo">Início</a></li>
@@ -2460,26 +2158,36 @@
           </div>
         </div>
       </li>
+    </ul>
 
     <div class="nav-social" aria-label="Redes sociais">
-      <a href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank" rel="noopener"
-        title="Facebook" aria-label="Facebook">
-        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/facebook.png" alt="Facebook" loading="lazy" decoding="async">
+      <a href="https://www.facebook.com/profile.php?id=61566660110925" target="_blank" rel="noopener" title="Facebook"
+        aria-label="Facebook">
+        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/facebook.png" alt="Facebook" loading="lazy"
+          decoding="async">
       </a>
-      <a href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener"
-        title="Instagram" aria-label="Instagram">
-        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/instagram.png" alt="Instagram" loading="lazy" decoding="async">
+      <a href="https://www.instagram.com/infoclubeoficial/" target="_blank" rel="noopener" title="Instagram"
+        aria-label="Instagram">
+        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/instagram.png" alt="Instagram" loading="lazy"
+          decoding="async">
       </a>
       <a href="https://www.tiktok.com/@infoclube.oficial?_r=1&_t=ZS-97IEUPk20vN" target="_blank" rel="noopener"
         title="TikTok" aria-label="TikTok">
-        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/tiktok.png" alt="TikTok" loading="lazy" decoding="async">
+        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/tiktok.png" alt="TikTok" loading="lazy"
+          decoding="async">
       </a>
-      <a href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener"
-        title="YouTube" aria-label="YouTube">
-        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/youtube.png" alt="YouTube" loading="lazy" decoding="async">
+      <a href="https://www.youtube.com/@InfoClubeOficial?app=desktop" target="_blank" rel="noopener" title="YouTube"
+        aria-label="YouTube">
+        <img src="imagens/imagens_novas/icones_novos/header_redes_sociais/youtube.png" alt="YouTube" loading="lazy"
+          decoding="async">
       </a>
     </div>
 
+    <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
   </nav>
 
   <span id="topo" class="nav-anchor"></span>
@@ -2501,7 +2209,8 @@
     <div class="section-text section-text--with-bar">
       <h2>Quem Somos</h2>
       <h3>Preservar memórias, criar conteúdos e aproximar soluções.</h3>
-      <p>O InfoClube é uma central de serviços criativos e digitais. Transformamos histórias em arquivos, artes, vídeos e músicas, conectando você a profissionais e serviços com atendimento simples, humano e de confiança.</p>
+      <p>O InfoClube é uma central de serviços criativos e digitais. Transformamos histórias em arquivos, artes, vídeos
+        e músicas, conectando você a profissionais e serviços com atendimento simples, humano e de confiança.</p>
       <p class="section-destaque">“InfoClube: sua ideia, sua marca e sua história em boas mãos.”</p>
     </div>
     <img src="imagens/imagens_novas/Quem Somos.png" alt="Central criativa InfoClube">
@@ -2511,11 +2220,15 @@
     <div class="section-text section-text--with-bar">
       <h2>InfoClube Vídeos</h2>
       <h3>Suas histórias merecem movimento, emoção e acabamento.</h3>
-      <p>Produzimos vídeos para homenagens, empresas, eventos e redes sociais, com edição, trilha, legenda e organização de imagens para transformar lembranças em conteúdos marcantes.</p>
+      <p>Produzimos vídeos para homenagens, empresas, eventos e redes sociais, com edição, trilha, legenda e organização
+        de imagens para transformar lembranças em conteúdos marcantes.</p>
       <p class="section-destaque">“Suas memórias merecem continuarem vivas.”</p>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2526,11 +2239,15 @@
     <div class="section-text section-text--with-bar">
       <h2>Social Media</h2>
       <h3>Conteúdo bonito, estratégico e pronto para divulgar.</h3>
-      <p>Criamos posts, artes, roteiros e textos para redes sociais para fortalecer sua presença digital, valorizar sua marca e comunicar sua mensagem com clareza, criatividade e identidade visual.</p>
+      <p>Criamos posts, artes, roteiros e textos para redes sociais para fortalecer sua presença digital, valorizar sua
+        marca e comunicar sua mensagem com clareza, criatividade e identidade visual.</p>
       <p class="section-destaque">“Sua marca mais bonita, mais presente e mais lembrada.”</p>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2541,13 +2258,18 @@
     <div class="section-text section-text--with-bar">
       <h2>Jingles &amp; Músicas</h2>
       <h3>Sua marca, homenagem ou história pode virar música.</h3>
-      <p>Criamos jingles publicitários e composições personalizadas, com letra, estilo e emoção, para divulgar negócios, celebrar momentos e ficar na memória do público.</p>
+      <p>Criamos jingles publicitários e composições personalizadas, com letra, estilo e emoção, para divulgar negócios,
+        celebrar momentos e ficar na memória do público.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2558,13 +2280,18 @@
     <div class="section-text section-text--with-bar">
       <h2>Restauração de Fotos</h2>
       <h3>Fotografias antigas guardam histórias que o tempo não apaga.</h3>
-      <p>Restauramos marcas, riscos, manchas e desgastes, melhorando nitidez, cores e detalhes sem perder a essência original da imagem.</p>
+      <p>Restauramos marcas, riscos, manchas e desgastes, melhorando nitidez, cores e detalhes sem perder a essência
+        original da imagem.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2575,13 +2302,18 @@
     <div class="section-text section-text--with-bar">
       <h2>Fitas VHS</h2>
       <h3>Transforme suas fitas VHS em lembranças digitais.</h3>
-      <p>Digitalizamos vídeos de família, viagens e eventos para formatos atuais, facilitando o acesso, o compartilhamento e a preservação dos seus melhores momentos.</p>
+      <p>Digitalizamos vídeos de família, viagens e eventos para formatos atuais, facilitando o acesso, o
+        compartilhamento e a preservação dos seus melhores momentos.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2592,13 +2324,18 @@
     <div class="section-text section-text--with-bar">
       <h2>Fitas VHS-C</h2>
       <h3>Pequenas fitas, grandes memórias.</h3>
-      <p>Convertemos VHS-C para formato digital com cuidado no manuseio e atenção à qualidade, preservando registros de família, festas, viagens e momentos especiais.</p>
+      <p>Convertemos VHS-C para formato digital com cuidado no manuseio e atenção à qualidade, preservando registros de
+        família, festas, viagens e momentos especiais.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2609,13 +2346,18 @@
     <div class="section-text section-text--with-bar">
       <h2>Fitas Mini-DV</h2>
       <h3>Pequenas fitas, grandes memórias.</h3>
-      <p>Convertemos Mini-DV para formato digital com cuidado no manuseio e atenção à qualidade, preservando registros de família, festas, viagens e momentos especiais.</p>
+      <p>Convertemos Mini-DV para formato digital com cuidado no manuseio e atenção à qualidade, preservando registros
+        de família, festas, viagens e momentos especiais.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2626,13 +2368,18 @@
     <div class="section-text section-text--with-bar">
       <h2>Disco de Vinil</h2>
       <h3>O som do vinil tem história, textura e emoção.</h3>
-      <p>Digitalizamos discos para manter músicas, gravações e raridades acessíveis em arquivos atuais, preservando o valor afetivo do original.</p>
+      <p>Digitalizamos discos para manter músicas, gravações e raridades acessíveis em arquivos atuais, preservando o
+        valor afetivo do original.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2643,13 +2390,18 @@
     <div class="section-text section-text--with-bar">
       <h2>DVD - Blu-ray - CD</h2>
       <h3>Mais praticidade para guardar, assistir, ouvir e compartilhar.</h3>
-      <p>Convertemos conteúdos de DVD, Blu-ray e CD para arquivos digitais, ajudando a organizar suas mídias com segurança e facilidade.</p>
+      <p>Convertemos conteúdos de DVD, Blu-ray e CD para arquivos digitais, ajudando a organizar suas mídias com
+        segurança e facilidade.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2660,13 +2412,18 @@
     <div class="section-text section-text--with-bar">
       <h2>Fita Cassete</h2>
       <h3>Vozes, músicas e mensagens que merecem continuar vivas.</h3>
-      <p>Digitalizamos fitas cassete para formatos atuais, preservando gravações antigas, depoimentos, aulas, canções e recordações afetivas.</p>
+      <p>Digitalizamos fitas cassete para formatos atuais, preservando gravações antigas, depoimentos, aulas, canções e
+        recordações afetivas.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2677,13 +2434,18 @@
     <div class="section-text section-text--with-bar">
       <h2>Monóculo</h2>
       <h3>Pequenas imagens também contam grandes histórias.</h3>
-      <p>Digitalizamos e ampliamos fotos em monóculos para você rever detalhes, compartilhar lembranças e eternizar momentos guardados com carinho.</p>
+      <p>Digitalizamos e ampliamos fotos em monóculos para você rever detalhes, compartilhar lembranças e eternizar
+        momentos guardados com carinho.</p>
       <div class="section-icones">
-        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png" alt="Mídias de digitalização">
+        <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/icone_midias_de_digitalizacoes.png"
+          alt="Mídias de digitalização">
       </div>
       <div class="section-icones">
-        <a class="section-icone-link" href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
-          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Ícone WhatsApp">
+        <a class="section-icone-link"
+          href="https://wa.me/5544998375967?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+          target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+          <img class="section-icone-img" src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png"
+            alt="Ícone WhatsApp">
         </a>
       </div>
     </div>
@@ -2701,12 +2463,14 @@
   <section class="p-section p-section--partners" id="cinegrafistas">
     <header class="p-partner-section-header">
       <h2>Cinegrafistas</h2>
-      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite
+        um orçamento!</p>
     </header>
     <div class="p-partner-section-body">
       <div class="p-section-image p-section-image--cover">
         <div class="p-image-frame">
-          <img src="imagens/imagens_novas/parceiros_novos/cinegrafistas/capa_cinegrafistas.png" alt="Categoria cinegrafistas">
+          <img src="imagens/imagens_novas/parceiros_novos/cinegrafistas/capa_cinegrafistas.png"
+            alt="Categoria cinegrafistas">
         </div>
       </div>
       <div class="p-partner-grid p-partner-grid--multi">
@@ -2716,42 +2480,53 @@
           </div>
           <div class="p-partner-body">
             <h4>Lucas Oliveira</h4>
-            <p class="p-partner-desc">Cinegrafista há mais de 5 anos em eventos como aniversários, gestantes, casamentos e eventos empresariais.</p>
+            <p class="p-partner-desc">Cinegrafista há mais de 5 anos em eventos como aniversários, gestantes, casamentos
+              e eventos empresariais.</p>
             <div class="p-partner-icons" aria-label="Equipamentos">
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 98803-7567</p>
-            <a class="p-btn-whatsapp" href="https://wa.me/55449988037567?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+            <a class="p-btn-whatsapp"
+              href="https://wa.me/55449988037567?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+              target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
           </div>
-        </article>        <article class="p-partner-card">
+        </article>
+        <article class="p-partner-card">
           <div class="p-partner-photo">
             <img src="imagens/imagens_novas/parceiros_novos/cinegrafistas/anderson.png" alt="Anderson Ferrassa">
           </div>
           <div class="p-partner-body">
             <h4>Anderson Ferrassa</h4>
-            <p class="p-partner-desc">Cinegrafista há mais de 5 anos em eventos como aniversários, gestantes, casamentos e eventos empresariais.</p>
+            <p class="p-partner-desc">Cinegrafista há mais de 5 anos em eventos como aniversários, gestantes, casamentos
+              e eventos empresariais.</p>
             <div class="p-partner-icons" aria-label="Equipamentos">
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 98808-0300</p>
-            <a class="p-btn-whatsapp" href="https://wa.me/55449988080300?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+            <a class="p-btn-whatsapp"
+              href="https://wa.me/55449988080300?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+              target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
           </div>
-        </article>        <article class="p-partner-card">
+        </article>
+        <article class="p-partner-card">
           <div class="p-partner-photo">
             <img src="imagens/imagens_novas/parceiros_novos/cinegrafistas/eleandro.png" alt="Eleandro Rossi">
           </div>
           <div class="p-partner-body">
             <h4>Eleandro Rossi</h4>
-            <p class="p-partner-desc">Cinegrafista há mais de 5 anos em eventos como aniversários, gestantes, casamentos e eventos empresariais.</p>
+            <p class="p-partner-desc">Cinegrafista há mais de 5 anos em eventos como aniversários, gestantes, casamentos
+              e eventos empresariais.</p>
             <div class="p-partner-icons" aria-label="Equipamentos">
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 99962-1020</p>
-            <a class="p-btn-whatsapp" href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+            <a class="p-btn-whatsapp"
+              href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+              target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
           </div>
@@ -2760,10 +2535,11 @@
     </div>
   </section>
 
-<section class="p-section p-section--partners" id="fotografos">
+  <section class="p-section p-section--partners" id="fotografos">
     <header class="p-partner-section-header">
       <h2>Fotógrafos</h2>
-      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite
+        um orçamento!</p>
     </header>
     <div class="p-partner-section-body">
       <div class="p-section-image p-section-image--cover">
@@ -2778,12 +2554,15 @@
           </div>
           <div class="p-partner-body">
             <h4>Andreza Marks</h4>
-            <p class="p-partner-desc">Fotógrafa há mais de 5 anos em eventos como aniversários, gestantes, casamentos e eventos empresariais.</p>
+            <p class="p-partner-desc">Fotógrafa há mais de 5 anos em eventos como aniversários, gestantes, casamentos e
+              eventos empresariais.</p>
             <div class="p-partner-icons" aria-label="Equipamentos">
               <img src="imagens/imagens_novas/icones_novos/icone_somente_camera.png" alt="Câmera">
             </div>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 99952-9389</p>
-            <a class="p-btn-whatsapp" href="https://wa.me/55449999529389?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+            <a class="p-btn-whatsapp"
+              href="https://wa.me/55449999529389?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+              target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
           </div>
@@ -2792,10 +2571,11 @@
     </div>
   </section>
 
-<section class="p-section p-section--partners" id="produtoras">
+  <section class="p-section p-section--partners" id="produtoras">
     <header class="p-partner-section-header">
       <h2>Produtoras</h2>
-      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite
+        um orçamento!</p>
     </header>
     <div class="p-partner-section-body">
       <div class="p-section-image p-section-image--cover">
@@ -2810,9 +2590,12 @@
           </div>
           <div class="p-partner-body">
             <h4>REC Cine &amp; Vídeo</h4>
-            <p class="p-partner-desc">Produtora de Vídeo, especializada em: Audiovisuais Corporativos, Mídias Digitais, Reportagens de TV, Marketing Político, Produção de Programas.</p>
+            <p class="p-partner-desc">Produtora de Vídeo, especializada em: Audiovisuais Corporativos, Mídias Digitais,
+              Reportagens de TV, Marketing Político, Produção de Programas.</p>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 99962-1020</p>
-            <a class="p-btn-whatsapp" href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+            <a class="p-btn-whatsapp"
+              href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+              target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
           </div>
@@ -2821,10 +2604,11 @@
     </div>
   </section>
 
-<section class="p-section p-section--partners" id="revelacao">
+  <section class="p-section p-section--partners" id="revelacao">
     <header class="p-partner-section-header">
       <h2>Revelação</h2>
-      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite
+        um orçamento!</p>
     </header>
     <div class="p-partner-section-body">
       <div class="p-section-image p-section-image--cover">
@@ -2835,13 +2619,17 @@
       <div class="p-partner-grid p-partner-grid--single">
         <article class="p-partner-card">
           <div class="p-partner-photo">
-            <img src="imagens/imagens_novas/parceiros_novos/revelacao/adonai_revelacao.png" alt="Adonai Revelação Express">
+            <img src="imagens/imagens_novas/parceiros_novos/revelacao/adonai_revelacao.png"
+              alt="Adonai Revelação Express">
           </div>
           <div class="p-partner-body">
             <h4>Adonai Revelação Express</h4>
-            <p class="p-partner-desc">Fotos para documentos, fotomontagens, Impressões, restauração de imagens, montagem de álbuns de eventos. Ao ter suas fotos reveladas em mãos, cada momento especial passa a ser eterno.</p>
+            <p class="p-partner-desc">Fotos para documentos, fotomontagens, Impressões, restauração de imagens, montagem
+              de álbuns de eventos. Ao ter suas fotos reveladas em mãos, cada momento especial passa a ser eterno.</p>
             <p class="p-partner-contact"><strong>Contato:</strong> 44 99760-6599</p>
-            <a class="p-btn-whatsapp" href="https://wa.me/55449997606599?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+            <a class="p-btn-whatsapp"
+              href="https://wa.me/55449997606599?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+              target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
           </div>
@@ -2850,10 +2638,11 @@
     </div>
   </section>
 
-<section class="p-section p-section--partners" id="oficinas">
+  <section class="p-section p-section--partners" id="oficinas">
     <header class="p-partner-section-header">
       <h2>Oficinas</h2>
-      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite um orçamento!</p>
+      <p>A InfoClube conecta você com parceiros de confiança para fotos, vídeos, eventos e produções especiais. Solicite
+        um orçamento!</p>
     </header>
     <div class="p-partner-section-body">
       <div class="p-section-image p-section-image--cover">
@@ -2864,14 +2653,19 @@
       <div class="p-partner-grid p-partner-grid--single">
         <article class="p-partner-card">
           <div class="p-partner-photo">
-            <img src="imagens/imagens_novas/parceiros_novos/oficina/multivideo_assitencia.png" alt="Multivídeo Assistência Técnica">
+            <img src="imagens/imagens_novas/parceiros_novos/oficina/multivideo_assitencia.png"
+              alt="Multivídeo Assistência Técnica">
           </div>
           <div class="p-partner-body">
             <h4>Multivídeo Assistência Técnica</h4>
-            <p class="p-partner-desc">A MULTIVIDEO - Assistência técnica de projetores (data show/multimídia), equipamentos de áudio e vídeo profissional, atendendo produtoras de vídeo, igrejas, emissoras de TV, universidades, escolas, empresas e profissionais liberais.</p>
+            <p class="p-partner-desc">A MULTIVIDEO - Assistência técnica de projetores (data show/multimídia),
+              equipamentos de áudio e vídeo profissional, atendendo produtoras de vídeo, igrejas, emissoras de TV,
+              universidades, escolas, empresas e profissionais liberais.</p>
             <p class="p-partner-location"><strong>Localidade:</strong> Londrina-PR</p>
             <p class="p-partner-contact"><strong>Contato:</strong> 43 99995-4005</p>
-            <a class="p-btn-whatsapp" href="https://wa.me/55439999954005?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
+            <a class="p-btn-whatsapp"
+              href="https://wa.me/55439999954005?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
+              target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
           </div>
@@ -2982,8 +2776,6 @@
         d="M20.52 3.48A11.82 11.82 0 0012.1 0C5.55 0 .22 5.33.22 11.88c0 2.09.55 4.14 1.6 5.94L0 24l6.33-1.66a11.86 11.86 0 005.77 1.47h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.18-1.23-6.16-3.47-8.45zM12.1 21.8h-.01a9.85 9.85 0 01-5.02-1.37l-.36-.22-3.76.99 1-3.66-.24-.38a9.8 9.8 0 01-1.5-5.28c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.12 1.03 6.98 2.9a9.83 9.83 0 012.9 6.99c0 5.46-4.44 9.9-9.89 9.9zm5.42-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z" />
     </svg>
   </a>
-
-  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
