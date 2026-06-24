@@ -2202,6 +2202,8 @@
         style="--hero-position: center 35%;" decoding="async">
       <img class="hero-slide" src="imagens/imagens_novas/carrossel_header/carrossel_parceiros.jpg" alt=""
         style="--hero-position: center center;" decoding="async">
+      <img class="hero-slide" src="imagens/imagens_novas/carrossel_header/carrossel_hero_site.jpg" alt=""
+        style="--hero-position: center center;" decoding="async">
     </div>
   </section>
 
@@ -2450,14 +2452,6 @@
       </div>
     </div>
     <img src="imagens/imagens_novas/midias/monoculo.png" alt="Digitalização de monóculo">
-  </section>
-
-
-
-  <section class="p-partners-heading" id="parceiros">
-    <div class="p-partners-heading-inner">
-      <h2>Parceiros</h2>
-    </div>
   </section>
 
   <section class="p-section p-section--partners" id="cinegrafistas">
@@ -3040,6 +3034,43 @@
 
       window.addEventListener('scroll', setNavState, { passive: true });
       setNavState();
+
+      // Carrossel automatico do hero: alterna a classe .is-active a cada 5s.
+      // Pausa quando a aba esta oculta para economizar recursos.
+      const heroSlides = Array.from(document.querySelectorAll('.cover-hero .hero-slide'));
+      if (heroSlides.length > 1) {
+        let heroIndex = heroSlides.findIndex(function (slide) {
+          return slide.classList.contains('is-active');
+        });
+        if (heroIndex < 0) {
+          heroIndex = 0;
+          heroSlides[0].classList.add('is-active');
+        }
+        let heroTimer = null;
+        function advanceHero() {
+          heroSlides[heroIndex].classList.remove('is-active');
+          heroIndex = (heroIndex + 1) % heroSlides.length;
+          heroSlides[heroIndex].classList.add('is-active');
+        }
+        function startHero() {
+          if (heroTimer !== null) return;
+          heroTimer = window.setInterval(advanceHero, 5000);
+        }
+        function stopHero() {
+          if (heroTimer === null) return;
+          window.clearInterval(heroTimer);
+          heroTimer = null;
+        }
+        startHero();
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) {
+            stopHero();
+          } else {
+            advanceHero();
+            startHero();
+          }
+        });
+      }
     });
   </script>
 
