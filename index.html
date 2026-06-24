@@ -1886,12 +1886,32 @@
       box-shadow: none;
       transform: none;
       outline: none;
+      opacity: 0.85;
     }
 
     .p-section--partners .p-btn-whatsapp img {
       width: 100%;
       height: auto;
       display: block;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .p-section--partners .p-btn-whatsapp:hover img,
+    .p-section--partners .p-btn-whatsapp:focus-visible img {
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.05);
+    }
+
+    .p-section--partners .p-partner-whatsapp-number {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 35px;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
     }
 
     /* Espaçamento entre capa e grid padronizado para TODAS as categorias
@@ -2503,12 +2523,12 @@
             <div class="p-partner-icons" aria-label="Equipamentos">
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
-            <p class="p-partner-contact"><strong>Contato:</strong> 44 98803-7567</p>
             <a class="p-btn-whatsapp"
               href="https://wa.me/55449988037567?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
               target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
+            <span class="p-partner-whatsapp-number">44 98803-7567</span>
           </div>
         </article>
         <article class="p-partner-card">
@@ -2522,12 +2542,12 @@
             <div class="p-partner-icons" aria-label="Equipamentos">
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
-            <p class="p-partner-contact"><strong>Contato:</strong> 44 98808-0300</p>
             <a class="p-btn-whatsapp"
               href="https://wa.me/55449988080300?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
               target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
+            <span class="p-partner-whatsapp-number">44 98808-0300</span>
           </div>
         </article>
         <article class="p-partner-card">
@@ -2541,12 +2561,12 @@
             <div class="p-partner-icons" aria-label="Equipamentos">
               <img src="imagens/imagens_novas/icones_novos/icone_drone_e_camera.png" alt="Câmera e drone">
             </div>
-            <p class="p-partner-contact"><strong>Contato:</strong> 44 99962-1020</p>
             <a class="p-btn-whatsapp"
               href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
               target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
+            <span class="p-partner-whatsapp-number">44 99962-1020</span>
           </div>
         </article>
       </div>
@@ -2577,12 +2597,12 @@
             <div class="p-partner-icons" aria-label="Equipamentos">
               <img src="imagens/imagens_novas/icones_novos/icone_somente_camera.png" alt="Câmera">
             </div>
-            <p class="p-partner-contact"><strong>Contato:</strong> 44 99952-9389</p>
             <a class="p-btn-whatsapp"
               href="https://wa.me/55449999529389?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
               target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
+            <span class="p-partner-whatsapp-number">44 99952-9389</span>
           </div>
         </article>
       </div>
@@ -2610,12 +2630,12 @@
             <h4>REC Cine &amp; Vídeo</h4>
             <p class="p-partner-desc">Produtora de Vídeo, especializada em: Audiovisuais Corporativos, Mídias Digitais,
               Reportagens de TV, Marketing Político, Produção de Programas.</p>
-            <p class="p-partner-contact"><strong>Contato:</strong> 44 99962-1020</p>
             <a class="p-btn-whatsapp"
               href="https://wa.me/55449999621020?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
               target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
+            <span class="p-partner-whatsapp-number">44 99962-1020</span>
           </div>
         </article>
       </div>
@@ -2644,12 +2664,12 @@
             <h4>Adonai Revelação Express</h4>
             <p class="p-partner-desc">Fotos para documentos, fotomontagens, Impressões, restauração de imagens, montagem
               de álbuns de eventos. Ao ter suas fotos reveladas em mãos, cada momento especial passa a ser eterno.</p>
-            <p class="p-partner-contact"><strong>Contato:</strong> 44 99760-6599</p>
             <a class="p-btn-whatsapp"
               href="https://wa.me/55449997606599?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
               target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
+            <span class="p-partner-whatsapp-number">44 99760-6599</span>
           </div>
         </article>
       </div>
@@ -2680,12 +2700,12 @@
               equipamentos de áudio e vídeo profissional, atendendo produtoras de vídeo, igrejas, emissoras de TV,
               universidades, escolas, empresas e profissionais liberais.</p>
             <p class="p-partner-location"><strong>Localidade:</strong> Londrina-PR</p>
-            <p class="p-partner-contact"><strong>Contato:</strong> 43 99995-4005</p>
             <a class="p-btn-whatsapp"
               href="https://wa.me/55439999954005?text=Ol%C3%A1%2C%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%20Pode%20me%20atender%3F"
               target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp">
               <img src="imagens/imagens_novas/icones_novos/botao_solicitar_orcamento.png" alt="Solicitar orçamento">
             </a>
+            <span class="p-partner-whatsapp-number">43 99995-4005</span>
           </div>
         </article>
       </div>
