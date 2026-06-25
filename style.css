@@ -1822,11 +1822,16 @@ footer {
 /* ===== Parceiros: nova estrutura (header + capa à esquerda + cards) ===== */
 .p-section--partners {
   padding: 56px 64px 68px;
-  gap: 38px;
+  gap: 20px;
   scroll-margin-top: 105px;
   flex-direction: column;
   align-items: stretch;
   min-height: auto;
+}
+
+.section--under--title--partners{
+  font-weight: bold;
+  
 }
 
 .p-partner-section-header {
@@ -1879,6 +1884,28 @@ footer {
   justify-self: start;
   align-self: start;
   display: flex;
+  flex-direction: column;
+}
+
+/* Titulo da categoria, posicionado ACIMA da imagem de capa.
+   Largura igual a da capa (320px) para que fiquem alinhados. */
+.p-cover-title {
+  width: 100%;
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: -0.3px;
+  margin: 0 0 12px 0;
+  text-align: left;
+}
+
+/* Variante das oficinas: titulo ocupa a linha inteira do card horizontal */
+.p-cover-title--oficinas {
+  font-size: 60px;
+  text-align: left;
+  margin-bottom: -1px;
 }
 
 .p-section-image--cover .p-image-frame {
@@ -2163,6 +2190,16 @@ footer {
     max-width: 260px;
     margin: 0 auto;
     justify-self: center;
+  }
+
+  .p-cover-title {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .p-cover-title--oficinas {
+    text-align: center;
   }
 
   .p-partner-grid--multi,
