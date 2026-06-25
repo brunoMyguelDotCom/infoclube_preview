@@ -130,17 +130,37 @@ document.addEventListener('DOMContentLoaded', function () {
   // (.p-section), que já estavam corretas e não devem receber esse
   // ajuste extra. A section "Monóculo" é um caso especial: precisa de
   // duas linhas de scroll extra em vez de uma.
+  //
+  // IMPORTANTE: esse ajuste extra (EXTRA_SCROLL_PX) foi calibrado e
+  // corrigido apenas para DESKTOP. No MOBILE (<= 1180px, mesmo
+  // breakpoint usado em todo o resto do JS/CSS) esse extra não deve
+  // ser aplicado, pois estava empurrando o scroll uma linha além do
+  // topo correto da section. Por isso o extra é zerado quando
+  // isMobileViewport() é true, sem alterar nada do comportamento
+  // já corrigido em desktop.
   // ===================================================================
   const EXTRA_SCROLL_PX = 90; // equivalente a uma "linha" de scroll extra para baixo
+
+  function isMobileViewport() {
+    return window.matchMedia('(max-width: 1180px)').matches;
+  }
 
   function scrollToTarget(target) {
     const navHeight = nav.offsetHeight;
     const sectionTop = target.getBoundingClientRect().top + window.pageYOffset;
     const isPartnerSection = target.classList.contains('p-section');
+    const mobile = isMobileViewport();
+
     let extra = isPartnerSection ? 0 : EXTRA_SCROLL_PX;
     if (target.id === 'monoculo') {
       extra = EXTRA_SCROLL_PX * 2;
     }
+
+    // No mobile, o extra de compensação não se aplica (apenas no desktop).
+    if (mobile) {
+      extra = 0;
+    }
+
     const scrollTarget = sectionTop - navHeight + extra;
 
     window.scrollTo({ top: Math.max(scrollTarget, 0), behavior: 'smooth' });
