@@ -1926,6 +1926,14 @@ footer {
   gap: clamp(16px, 2vw, 56px);
 }
 
+/* Oficinas tem apenas 1 parceiro: usa auto-fit para que o card unico
+   ocupe apenas uma coluna de 320px, sem reservar espaco para uma
+   segunda coluna vazia ao lado. As demais secoes --single seguem
+   com `repeat(2, 320px)` no seletor acima. */
+#oficinas .p-partner-grid--single {
+  grid-template-columns: repeat(auto-fit, 320px);
+}
+
 .p-section--partners .p-partner-card {
   display: flex;
   flex-direction: column;
@@ -2097,6 +2105,12 @@ footer {
     max-width: 720px;
     gap: clamp(16px, 2vw, 40px);
   }
+
+  /* Oficinas (1 parceiro): continua com auto-fit, sem coluna vazia */
+  #oficinas .p-partner-grid--single {
+    grid-template-columns: repeat(auto-fit, 320px);
+    max-width: 720px;
+  }
 }
 
 /* Em laptops compactos: 1 coluna fixa (cards 320px) com max-width controlado */
@@ -2107,6 +2121,12 @@ footer {
 
   .p-partner-grid--single {
     grid-template-columns: 320px;
+    max-width: 320px;
+  }
+
+  /* Oficinas (1 parceiro): uma coluna 320px sem reserva de espaco */
+  #oficinas .p-partner-grid--single {
+    grid-template-columns: repeat(auto-fit, 320px);
     max-width: 320px;
   }
 }
@@ -2152,6 +2172,12 @@ footer {
     margin-left: 0;
     max-width: 100%;
     gap: 14px;
+  }
+
+  /* Oficinas (1 parceiro): mantem largura fixa de 320px em mobile/tablet */
+  #oficinas .p-partner-grid--multi,
+  #oficinas .p-partner-grid--single {
+    grid-template-columns: repeat(auto-fit, 320px);
   }
 
   .p-section--partners .p-partner-card {
@@ -2234,6 +2260,12 @@ footer {
     gap: 14px;
   }
 
+  /* Oficinas (1 parceiro): mantem card 320px fixo no mobile pequeno */
+  #oficinas .p-partner-grid--multi,
+  #oficinas .p-partner-grid--single {
+    grid-template-columns: repeat(auto-fit, 320px);
+  }
+
   .p-section--partners .p-partner-card {
     padding: 14px;
     gap: 12px;
@@ -2259,6 +2291,146 @@ footer {
   .p-section--partners .p-partner-contact,
   .p-section--partners .p-partner-location {
     font-size: 12.5px;
+  }
+}
+
+/* ===================================================================
+   OFICINAS — layout horizontal: foto | logo+label | info
+   =================================================================== */
+.oficinas-horizontal-card {
+  display: grid;
+  grid-template-columns: 320px auto 1fr;
+  align-items: center;
+  gap: clamp(28px, 4vw, 80px);
+  width: 100%;
+}
+
+.oficinas-photo {
+  width: 320px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f4f5f8;
+}
+
+.oficinas-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+.oficinas-logo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.oficinas-logo-col img {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.oficinas-logo-label {
+  font-size: 22px;
+  font-weight: 800;
+  color: #e0006e;
+  text-align: center;
+  line-height: 1.25;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.oficinas-info-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.oficinas-desc {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #1a1a2e;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+/* Botão de Oficinas (260px): especificidade maior que a regra generica
+   `.p-section--partners .p-btn-whatsapp` (que define width: 100%).
+   Sem esse prefixo, o seletor simples perderia na cascata e o botão
+   ocuparia 100% do card igual aos demais — mas em Oficinas o layout
+   horizontal tem outra composicao, e o botao precisa ser menor. */
+.p-section--partners .oficinas-btn {
+  display: block;
+  width: 260px;
+  margin: 0 auto;
+  padding: 0;
+  line-height: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.p-section--partners .oficinas-btn:hover,
+.p-section--partners .oficinas-btn:focus-visible {
+  opacity: 0.85;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.p-section--partners .oficinas-btn img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.oficinas-phone {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.oficinas-location {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  text-align: center;
+  line-height: 1.2;
+}
+
+@media (max-width: 1100px) {
+  .oficinas-horizontal-card {
+    grid-template-columns: 240px auto 1fr;
+  }
+  .oficinas-photo {
+    width: 240px;
+  }
+  .oficinas-logo-col img {
+    width: 170px;
+  }
+}
+
+@media (max-width: 780px) {
+  .oficinas-horizontal-card {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 24px;
+  }
+  .oficinas-photo {
+    width: 220px;
   }
 }
 
