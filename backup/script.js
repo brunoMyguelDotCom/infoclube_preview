@@ -145,38 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
     return window.matchMedia('(max-width: 1180px)').matches;
   }
 
-  // Faixa 1440x900 (1431px–1500px): o EXTRA_SCROLL_PX empurra o scroll
-  // 1 linha além do topo correto das sections principais. Aqui zeramos
-  // o extra APENAS para sections principais (não parceiras) nessa faixa,
-  // mantendo o comportamento original em todas as outras larguras.
-  function is1440RangeSection(target) {
-    return window.matchMedia('(min-width: 1431px) and (max-width: 1500px)').matches
-      && !target.classList.contains('p-section');
-  }
-
-  // Faixa 1300px–1430px: o conteúdo interno das sections foi reduzido
-  // (ver media query correspondente no style.css), então a section fica
-  // visualmente menor que a viewport. Em vez de alinhar pelo topo
-  // (que deixa um buraco embaixo), centralizamos a section na viewport
-  // para que 100% do conteúdo fique visível sem cortar topo/rodapé.
-  // Não se aplica a Parceiros (já estavam corretos nessa faixa).
-  function shouldCenterSection(target) {
-    return window.matchMedia('(min-width: 1300px) and (max-width: 1430px)').matches
-      && !target.classList.contains('p-section');
-  }
-
-  // 1366x768 (laptops comuns): o scroll dos Parceiros ficava muito
-  // "centralizado" visualmente. Subimos a posição 30px acima para
-  // des-centralizar e aproximar o conteúdo do topo da viewport.
-  function is1366PartnerSection(target) {
-    return window.matchMedia('(max-width: 1366px) and (min-width: 1300px)').matches
-      && target.classList.contains('p-section');
-  }
-
   function scrollToTarget(target) {
     const navHeight = nav.offsetHeight;
     const sectionTop = target.getBoundingClientRect().top + window.pageYOffset;
-    const sectionHeight = target.offsetHeight;
     const isPartnerSection = target.classList.contains('p-section');
     const mobile = isMobileViewport();
 
@@ -190,32 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
       extra = 0;
     }
 
-    // Faixa 1440x900: zera o extra APENAS para sections principais.
-    // Parceiros (isPartnerSection) já têm extra=0 e mantêm o comportamento.
-    if (is1440RangeSection(target)) {
-      extra = 0;
-    }
-
-    let scrollTarget = sectionTop - navHeight + extra;
-
-    // 1366x768 Parceiros: desce -30px no scroll para des-centralizar
-    // (aproxima o conteúdo do topo, subindo 30px em relação ao atual).
-    if (is1366PartnerSection(target)) {
-      scrollTarget += 35;
-    }
-
-    // Faixa 1300px–1430px: centraliza a section verticalmente na viewport,
-    // respeitando a altura do navbar fixo e o limite inferior da página.
-    if (shouldCenterSection(target)) {
-      const viewportHeight = window.innerHeight;
-      const centeredTop = sectionTop - navHeight
-        + (sectionHeight - (viewportHeight - navHeight)) / 2;
-      const maxScroll = Math.max(
-        document.documentElement.scrollHeight - viewportHeight,
-        0
-      );
-      scrollTarget = Math.max(0, Math.min(centeredTop, maxScroll));
-    }
+    const scrollTarget = sectionTop - navHeight + extra;
 
     window.scrollTo({ top: Math.max(scrollTarget, 0), behavior: 'smooth' });
   }
