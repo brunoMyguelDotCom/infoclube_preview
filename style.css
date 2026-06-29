@@ -26,6 +26,7 @@ html {
   html {
     zoom: normal;
   }
+
   body {
     transform: scale(0.9);
     transform-origin: top left;
@@ -291,7 +292,6 @@ nav.is-menu-open .nav-toggle span:nth-child(3) {
   outline: none;
 }
 
-
 .footer-social {
   display: flex;
   flex-direction: column;
@@ -423,7 +423,7 @@ nav.is-menu-open .nav-toggle span:nth-child(3) {
 
 .cover-hero {
   position: relative;
-  min-height: calc(100vh + 80px);
+  min-height: calc(100vh - 350px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -444,6 +444,7 @@ nav.is-menu-open .nav-toggle span:nth-child(3) {
   overflow: hidden;
   pointer-events: none;
   height: 100%;
+  object-fit: fill;
 }
 
 .hero-slide {
@@ -453,7 +454,7 @@ nav.is-menu-open .nav-toggle span:nth-child(3) {
   height: 100%;
   opacity: 0;
   transition: opacity 1.6s ease;
-  object-fit: cover;
+  object-fit: fill;
   object-position: center top;
   filter: none;
   pointer-events: none;
@@ -697,33 +698,6 @@ img.lazy-reveal.is-visible:not(.hero-slide) {
   opacity: 1;
   transform: translateY(0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .whatsapp-float {
   position: fixed;
@@ -1135,8 +1109,6 @@ footer {
     padding: 76px 24px;
   }
 
-
-
   .section-text,
   .section-image {
     grid-column: 1 / -1;
@@ -1332,6 +1304,10 @@ footer {
     gap: 10px;
     align-items: center;
   }
+
+  .cover-hero {
+    min-height: calc(100vh - 400px);
+  }
 }
 
 @media (min-width: 861px) and (max-width: 1180px) {
@@ -1385,8 +1361,6 @@ footer {
 
   .logo {
     gap: 13px;
-
-
     margin-top: 0px;
     margin-right: 0px;
     margin-bottom: 0px;
@@ -1437,6 +1411,11 @@ footer {
     width: 32px;
     height: 32px;
   }
+
+  .cover-hero {
+    min-height: calc(100vh);
+  }
+
 }
 
 .p-section {
@@ -1703,6 +1682,10 @@ footer {
     text-align: center;
     margin-top: 38px;
   }
+
+  .cover-hero {
+    min-height: calc(100vh - 350px);
+  }
 }
 
 
@@ -1785,6 +1768,10 @@ footer {
     gap: 10px;
     align-items: center;
   }
+
+  .cover-hero {
+    min-height: calc(100vh - 400px);
+  }
 }
 
 
@@ -1829,9 +1816,9 @@ footer {
   min-height: auto;
 }
 
-.section--under--title--partners{
+.section--under--title--partners {
   font-weight: bold;
-  
+
 }
 
 .p-partner-section-header {
@@ -2328,6 +2315,10 @@ footer {
   .p-section--partners .p-partner-location {
     font-size: 12.5px;
   }
+
+  .cover-hero {
+    min-height: calc(100vh - 400px);
+  }
 }
 
 /* ===================================================================
@@ -2441,9 +2432,11 @@ footer {
   .oficinas-horizontal-card {
     grid-template-columns: 240px auto 1fr;
   }
+
   .oficinas-photo {
     width: 240px;
   }
+
   .oficinas-logo-col img {
     width: 170px;
   }
@@ -2455,6 +2448,7 @@ footer {
     justify-items: center;
     gap: 24px;
   }
+
   .oficinas-photo {
     width: 220px;
   }
@@ -2502,24 +2496,29 @@ footer {
 
   /* Header da seção de parceiros */
   .p-partner-section-header h2 {
-    font-size: 40.5px; /* 46 * 0.88 */
+    font-size: 40.5px;
+    /* 46 * 0.88 */
   }
 
   .p-partner-section-header p {
-    font-size: 16.7px; /* 19 * 0.88 */
+    font-size: 16.7px;
+    /* 19 * 0.88 */
   }
 
   /* Capa da categoria (max-width e título) */
   .p-section-image--cover {
-    max-width: 282px; /* 320 * 0.88 */
+    max-width: 282px;
+    /* 320 * 0.88 */
   }
 
   .p-cover-title {
-    font-size: 52.8px; /* 60 * 0.88 */
+    font-size: 52.8px;
+    /* 60 * 0.88 */
   }
 
   .p-cover-title--oficinas {
-    font-size: 52.8px; /* 60 * 0.88 */
+    font-size: 52.8px;
+    /* 60 * 0.88 */
   }
 
   /* Cards de parceiros */
@@ -2527,73 +2526,92 @@ footer {
     width: 282px;
     max-width: 282px;
     flex: 0 0 282px;
-    padding: 15.8px; /* 18 * 0.88 */
-    gap: 12.3px;     /* 14 * 0.88 */
+    padding: 15.8px;
+    /* 18 * 0.88 */
+    gap: 12.3px;
+    /* 14 * 0.88 */
   }
 
   .p-section--partners .p-partner-body {
-    gap: 8.8px; /* 10 * 0.88 */
+    gap: 8.8px;
+    /* 10 * 0.88 */
   }
 
   .p-section--partners .p-partner-body h4 {
-    font-size: 16.7px; /* 19 * 0.88 */
+    font-size: 16.7px;
+    /* 19 * 0.88 */
   }
 
   .p-section--partners .p-partner-desc {
-    font-size: 12.8px; /* 14.5 * 0.88 */
+    font-size: 12.8px;
+    /* 14.5 * 0.88 */
     line-height: 1.55;
   }
 
   /* Ícones de equipamentos */
   .p-section--partners .p-partner-icons {
-    min-height: 70.4px; /* 80 * 0.88 */
-    padding: 5.3px 0;   /* 6 * 0.88 */
-    gap: 8.8px;         /* 10 * 0.88 */
+    min-height: 70.4px;
+    /* 80 * 0.88 */
+    padding: 5.3px 0;
+    /* 6 * 0.88 */
+    gap: 8.8px;
+    /* 10 * 0.88 */
   }
 
   .p-section--partners .p-partner-icons img {
-    height: 61.6px; /* 70 * 0.88 */
+    height: 61.6px;
+    /* 70 * 0.88 */
   }
 
   /* Contato e localização */
   .p-section--partners .p-partner-contact,
   .p-section--partners .p-partner-location {
-    font-size: 11.4px; /* 13 * 0.88 */
+    font-size: 11.4px;
+    /* 13 * 0.88 */
   }
 
   /* Número de WhatsApp */
   .p-section--partners .p-partner-whatsapp-number {
-    font-size: 30.8px; /* 35 * 0.88 */
-    margin-top: 8.8px; /* 10 * 0.88 */
+    font-size: 30.8px;
+    /* 35 * 0.88 */
+    margin-top: 8.8px;
+    /* 10 * 0.88 */
   }
 
   /* ===== Oficinas (layout horizontal) ===== */
   .oficinas-photo {
-    width: 282px; /* 320 * 0.88 */
+    width: 282px;
+    /* 320 * 0.88 */
   }
 
   .oficinas-logo-col img {
-    width: 264px; /* 300 * 0.88 */
+    width: 264px;
+    /* 300 * 0.88 */
   }
 
   .oficinas-logo-col {
-    gap: 8.8px; /* 10 * 0.88 */
+    gap: 8.8px;
+    /* 10 * 0.88 */
   }
 
   .oficinas-desc {
-    font-size: 23.8px; /* 27 * 0.88 */
+    font-size: 23.8px;
+    /* 27 * 0.88 */
   }
 
   .p-section--partners .oficinas-btn {
-    width: 229px; /* 260 * 0.88 */
+    width: 229px;
+    /* 260 * 0.88 */
   }
 
   .oficinas-phone {
-    font-size: 24.6px; /* 28 * 0.88 */
+    font-size: 24.6px;
+    /* 28 * 0.88 */
   }
 
   .oficinas-location {
-    font-size: 17.6px; /* 20 * 0.88 */
+    font-size: 17.6px;
+    /* 20 * 0.88 */
   }
 }
 
@@ -2613,170 +2631,226 @@ footer {
   /* ===== Sections principais: conteúdo interno ~15% menor ===== */
 
   .section-text h2 {
-    font-size: 68px;     /* 80 * 0.85 */
-    margin-bottom: 8.5px; /* 10 * 0.85 */
+    font-size: 68px;
+    /* 80 * 0.85 */
+    margin-bottom: 8.5px;
+    /* 10 * 0.85 */
   }
 
   .section-text h3 {
-    font-size: 36.5px;    /* 43 * 0.85 */
-    margin-bottom: 21px;  /* 25 * 0.85 */
+    font-size: 36.5px;
+    /* 43 * 0.85 */
+    margin-bottom: 21px;
+    /* 25 * 0.85 */
   }
 
   .section-text--with-bar h2 {
-    font-size: 61px;     /* 72 * 0.85 */
-    margin-bottom: 15px; /* 18 * 0.85 */
+    font-size: 61px;
+    /* 72 * 0.85 */
+    margin-bottom: 15px;
+    /* 18 * 0.85 */
   }
 
-  .section-text--with-bar h2 + h3 {
-    margin-top: 7px;       /* 8 * 0.85 */
-    font-size: 23.5px;     /* 28 * 0.85 */
+  .section-text--with-bar h2+h3 {
+    margin-top: 7px;
+    /* 8 * 0.85 */
+    font-size: 23.5px;
+    /* 28 * 0.85 */
   }
 
   .section-text--with-bar h2::after {
-    width: 163px;       /* 192 * 0.85 */
-    height: 3.4px;      /* 4 * 0.85 */
-    margin: 38px 0 18px; /* 45/21 * 0.85 */
+    width: 163px;
+    /* 192 * 0.85 */
+    height: 3.4px;
+    /* 4 * 0.85 */
+    margin: 38px 0 18px;
+    /* 45/21 * 0.85 */
   }
 
   .section-text p {
-    font-size: 18.5px;   /* 22 * 0.85 */
-    margin-bottom: 15px;  /* 18 * 0.85 */
+    font-size: 18.5px;
+    /* 22 * 0.85 */
+    margin-bottom: 15px;
+    /* 18 * 0.85 */
   }
 
   .section-text p.small {
-    font-size: 21px;     /* 25 * 0.85 */
-    margin-bottom: 25px; /* 30 * 0.85 */
+    font-size: 21px;
+    /* 25 * 0.85 */
+    margin-bottom: 25px;
+    /* 30 * 0.85 */
   }
 
   .benefits {
-    gap: 11px;          /* 13 * 0.85 */
-    margin: 0 0 32px;   /* 38 * 0.85 */
+    gap: 11px;
+    /* 13 * 0.85 */
+    margin: 0 0 32px;
+    /* 38 * 0.85 */
   }
 
   .benefits li {
-    padding-left: 24px;  /* 28 * 0.85 */
-    font-size: 23.5px;   /* 28 * 0.85 */
+    padding-left: 24px;
+    /* 28 * 0.85 */
+    font-size: 23.5px;
+    /* 28 * 0.85 */
   }
 
   .benefits li::before {
-    top: 8.5px;          /* 10 * 0.85 */
-    width: 8.5px;        /* 10 * 0.85 */
-    height: 8.5px;       /* 10 * 0.85 */
+    top: 8.5px;
+    /* 10 * 0.85 */
+    width: 8.5px;
+    /* 10 * 0.85 */
+    height: 8.5px;
+    /* 10 * 0.85 */
   }
 
   .btn-orcamento {
-    margin-bottom: 38px;  /* 45 * 0.85 */
-    padding: 17px 36.5px; /* 20/43 * 0.85 */
-    font-size: 21px;      /* 25 * 0.85 */
+    margin-bottom: 38px;
+    /* 45 * 0.85 */
+    padding: 17px 36.5px;
+    /* 20/43 * 0.85 */
+    font-size: 21px;
+    /* 25 * 0.85 */
   }
 
   .section-destaque {
-    margin-top: 15px;     /* 18 * 0.85 */
-    font-size: 22px;      /* 26 * 0.85 */
+    margin-top: 15px;
+    /* 18 * 0.85 */
+    font-size: 22px;
+    /* 26 * 0.85 */
   }
 
   .section-icones {
-    gap: 15px;            /* 18 * 0.85 */
-    margin-top: 24px;     /* 28 * 0.85 */
-    margin-bottom: 10px;  /* 12 * 0.85 */
+    gap: 15px;
+    /* 18 * 0.85 */
+    margin-top: 24px;
+    /* 28 * 0.85 */
+    margin-bottom: 10px;
+    /* 12 * 0.85 */
   }
 
   .section-icone-img {
-    max-width: 350px;     /* 412 * 0.85 */
+    max-width: 350px;
+    /* 412 * 0.85 */
   }
 
-  .section-icone-link > .section-icone-img {
-    width: 187px;         /* 220 * 0.85 */
+  .section-icone-link>.section-icone-img {
+    width: 187px;
+    /* 220 * 0.85 */
   }
 
   /* ===== Parceiros: elementos internos ~20% menor ===== */
 
   .p-partner-section-header h2 {
-    font-size: 36.8px; /* 46 * 0.80 */
+    font-size: 36.8px;
+    /* 46 * 0.80 */
   }
 
   .p-partner-section-header p {
-    font-size: 15.2px; /* 19 * 0.80 */
+    font-size: 15.2px;
+    /* 19 * 0.80 */
   }
 
   .p-section-image--cover {
-    max-width: 256px; /* 320 * 0.80 */
+    max-width: 256px;
+    /* 320 * 0.80 */
   }
 
   .p-cover-title {
-    font-size: 48px;  /* 60 * 0.80 */
+    font-size: 48px;
+    /* 60 * 0.80 */
   }
 
   .p-cover-title--oficinas {
-    font-size: 48px;  /* 60 * 0.80 */
+    font-size: 48px;
+    /* 60 * 0.80 */
   }
 
   .p-section--partners .p-partner-card {
     width: 256px;
     max-width: 256px;
     flex: 0 0 256px;
-    padding: 14.4px; /* 18 * 0.80 */
-    gap: 11.2px;     /* 14 * 0.80 */
+    padding: 14.4px;
+    /* 18 * 0.80 */
+    gap: 11.2px;
+    /* 14 * 0.80 */
   }
 
   .p-section--partners .p-partner-body {
-    gap: 8px;        /* 10 * 0.80 */
+    gap: 8px;
+    /* 10 * 0.80 */
   }
 
   .p-section--partners .p-partner-body h4 {
-    font-size: 15.2px; /* 19 * 0.80 */
+    font-size: 15.2px;
+    /* 19 * 0.80 */
   }
 
   .p-section--partners .p-partner-desc {
-    font-size: 11.6px; /* 14.5 * 0.80 */
+    font-size: 11.6px;
+    /* 14.5 * 0.80 */
     line-height: 1.55;
   }
 
   .p-section--partners .p-partner-icons {
-    min-height: 64px;  /* 80 * 0.80 */
-    padding: 4.8px 0; /* 6 * 0.80 */
-    gap: 8px;         /* 10 * 0.80 */
+    min-height: 64px;
+    /* 80 * 0.80 */
+    padding: 4.8px 0;
+    /* 6 * 0.80 */
+    gap: 8px;
+    /* 10 * 0.80 */
   }
 
   .p-section--partners .p-partner-icons img {
-    height: 56px; /* 70 * 0.80 */
+    height: 56px;
+    /* 70 * 0.80 */
   }
 
   .p-section--partners .p-partner-contact,
   .p-section--partners .p-partner-location {
-    font-size: 10.4px; /* 13 * 0.80 */
+    font-size: 10.4px;
+    /* 13 * 0.80 */
   }
 
   .p-section--partners .p-partner-whatsapp-number {
-    font-size: 28px;   /* 35 * 0.80 */
-    margin-top: 8px;   /* 10 * 0.80 */
+    font-size: 28px;
+    /* 35 * 0.80 */
+    margin-top: 8px;
+    /* 10 * 0.80 */
   }
 
   .oficinas-photo {
-    width: 256px; /* 320 * 0.80 */
+    width: 256px;
+    /* 320 * 0.80 */
   }
 
   .oficinas-logo-col {
-    gap: 8px;     /* 10 * 0.80 */
+    gap: 8px;
+    /* 10 * 0.80 */
   }
 
   .oficinas-logo-col img {
-    width: 240px; /* 300 * 0.80 */
+    width: 240px;
+    /* 300 * 0.80 */
   }
 
   .oficinas-desc {
-    font-size: 21.6px; /* 27 * 0.80 */
+    font-size: 21.6px;
+    /* 27 * 0.80 */
   }
 
   .p-section--partners .oficinas-btn {
-    width: 208px; /* 260 * 0.80 */
+    width: 208px;
+    /* 260 * 0.80 */
   }
 
   .oficinas-phone {
-    font-size: 22.4px; /* 28 * 0.80 */
+    font-size: 22.4px;
+    /* 28 * 0.80 */
   }
 
   .oficinas-location {
-    font-size: 16px;   /* 20 * 0.80 */
+    font-size: 16px;
+    /* 20 * 0.80 */
   }
 }
