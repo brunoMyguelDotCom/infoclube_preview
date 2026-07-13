@@ -365,8 +365,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Carrossel automatico do hero: alterna a classe .is-active a cada 5s.
   // Pausa quando a aba esta oculta para economizar recursos.
+  // Tambem sincroniza a camada de fundo desfocado (.hero-bg-blur) com o
+  // slide ativo: o src do slide vira o background-image de uma das duas
+  // camadas .hero-bg-blur (a que esta oculta), e em seguida a classe
+  // .is-active e transferida para essa camada. Como a transicao de
+  // opacidade e a mesma (1.6s ease) usada pelos <img> do slide, o
+  // "letterbox" desfocado da imagem atual faz o mesmo cross-fade que
+  // o slide principal — sem corte, sem borda preta, em sincronia.
   const heroSlides = Array.from(document.querySelectorAll('.cover-hero .hero-slide'));
-  if (heroSlides.length > 1) {
+  const heroBgLayers = Array.from(document.querySelectorAll('.cover-hero .hero-bg-blur'));
+  if (heroSlides.length > 1 && heroBgLayers.length > 0) {
     let heroIndex = heroSlides.findIndex(function (slide) {
       return slide.classList.contains('is-active');
     });
@@ -374,11 +382,52 @@ document.addEventListener('DOMContentLoaded', function () {
       heroIndex = 0;
       heroSlides[0].classList.add('is-active');
     }
+
+    // Slot atual = indice da camada que esta visivel neste momento.
+    let heroBgSlot = 0;
+    function setHeroBgOnLayer(layer, slide) {
+      const src = slide.getAttribute('src');
+      if (!src) return;
+      layer.style.setProperty('--hero-bg', 'url("' + src + '")');
+      // Alinha a posicao do blur com a do slide (mesmo object-position
+      // lido do inline style --hero-position), para que imagem e blur
+      // fiquem centrados na mesma linha. Sem isso, o blur ficaria
+      // sempre alinhado ao topo enquanto a imagem pode estar em
+      // "center 35%" por exemplo.
+      const heroPos = slide.style.getPropertyValue('--hero-position');
+      if (heroPos) {
+        layer.style.setProperty('--hero-blur-position', heroPos);
+        // A origem do scale tambem segue o alinhamento vertical do slide,
+        // para que o scale(1.18) estoure igualmente nas laterais e
+        // mantenha a simetria do "letterbox" lateral.
+        const y = heroPos.split(' ')[1] || heroPos;
+        layer.style.setProperty('--hero-blur-origin', 'center ' + y);
+      } else {
+        layer.style.setProperty('--hero-blur-position', 'center top');
+        layer.style.setProperty('--hero-blur-origin', 'center top');
+      }
+    }
+    // Estado inicial: slot 0 mostra o slide inicial, slot 1 fica em espera.
+    setHeroBgOnLayer(heroBgLayers[0], heroSlides[heroIndex]);
+    heroBgLayers[0].classList.add('is-active');
+
     let heroTimer = null;
     function advanceHero() {
       heroSlides[heroIndex].classList.remove('is-active');
       heroIndex = (heroIndex + 1) % heroSlides.length;
       heroSlides[heroIndex].classList.add('is-active');
+
+      // Proxima camada a ser exibida = oposta da atual.
+      const nextSlot = 1 - heroBgSlot;
+      const prevSlot = heroBgSlot;
+      // Define a nova imagem NA camada que vai entrar (ela esta com
+      // opacidade 0, entao a troca de background-image nao e visivel
+      // ate o cross-fade comecar).
+      setHeroBgOnLayer(heroBgLayers[nextSlot], heroSlides[heroIndex]);
+      // Inicia o cross-fade: a camada nova entra (is-active), a antiga sai.
+      heroBgLayers[nextSlot].classList.add('is-active');
+      heroBgLayers[prevSlot].classList.remove('is-active');
+      heroBgSlot = nextSlot;
     }
     function startHero() {
       if (heroTimer !== null) return;
