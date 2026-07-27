@@ -444,7 +444,7 @@ nav.is-menu-open .nav-toggle span:nth-child(3) {
   overflow: hidden;
   pointer-events: none;
   height: 100%;
-  object-fit: fill;
+  object-fit: contain;
 }
 
 .hero-slide {
@@ -458,6 +458,7 @@ nav.is-menu-open .nav-toggle span:nth-child(3) {
   object-position: center top;
   filter: none;
   pointer-events: none;
+  z-index: 0;
 }
 
 .hero-slide.is-active {
