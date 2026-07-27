@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'cinegrafistas',
     'fotografos',
     'produtoras',
-    'revelacao',
+    'loja',
     'oficinas'
   ]);
   const servicesLink = navLinks.find(function (link) {
@@ -124,97 +124,55 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===================================================================
-  // Scroll do menu: vai para o destino normal (topo da section, já
-  // compensando a altura do navbar fixo) e desce mais uma "linha de
-  // scroll" extra (EXTRA_SCROLL_PX) — exceto nas sections de Parceiros
-  // (.p-section), que já estavam corretas e não devem receber esse
-  // ajuste extra. A section "Monóculo" é um caso especial: precisa de
-  // duas linhas de scroll extra em vez de uma.
+  // Scroll do menu: posiciona cada section no MESMO ponto vertical
+  // (alinhado ao topo, logo abaixo do navbar fixo, com o mesmo respiro
+  // extra usado pela primeira section do site). Esse respiro é
+  // STABLE_TOP_PX e é aplicado uniformemente para TODAS as sections
+  // (principais, mídias, parceiros, monóculo etc.), em TODAS as
+  // resoluções — incluindo mobile e as faixas intermediárias 1300-1430
+  // e 1431-1500. Antes existiam exceções por seção/classe/breakpoint
+  // que faziam o título de cada section começar em pontos diferentes
+  // (algumas rentes ao topo, outras no centro da tela). Agora todos os
+  // títulos alinham no mesmo Y, independente da largura da viewport.
   //
-  // IMPORTANTE: esse ajuste extra (EXTRA_SCROLL_PX) foi calibrado e
-  // corrigido apenas para DESKTOP. No MOBILE (<= 1180px, mesmo
-  // breakpoint usado em todo o resto do JS/CSS) esse extra não deve
-  // ser aplicado, pois estava empurrando o scroll uma linha além do
-  // topo correto da section. Por isso o extra é zerado quando
-  // isMobileViewport() é true, sem alterar nada do comportamento
-  // já corrigido em desktop.
+  // Exceções simétricas (mantidas para preservar a calibragem visual
+  // que existia antes):
+  //   - Jingles: sobe 1 "scroll" extra (STABLE_TOP_PX), aproximando o
+  //     título do topo/header.
+  //   - Monóculo: desce 1 "scroll" extra (STABLE_TOP_PX), aproximando o
+  //     título do rodapé.
+  //   - Parceiros (cinegrafistas, fotógrafos, produtoras, loja, oficinas):
+  //     sobem 1 "scroll" extra (STABLE_TOP_PX), aproximando o título
+  //     do topo/header.
   // ===================================================================
-  const EXTRA_SCROLL_PX = 90; // equivalente a uma "linha" de scroll extra para baixo
-
-  function isMobileViewport() {
-    return window.matchMedia('(max-width: 1180px)').matches;
-  }
-
-  // Faixa 1440x900 (1431px–1500px): o EXTRA_SCROLL_PX empurra o scroll
-  // 1 linha além do topo correto das sections principais. Aqui zeramos
-  // o extra APENAS para sections principais (não parceiras) nessa faixa,
-  // mantendo o comportamento original em todas as outras larguras.
-  function is1440RangeSection(target) {
-    return window.matchMedia('(min-width: 1431px) and (max-width: 1500px)').matches
-      && !target.classList.contains('p-section');
-  }
-
-  // Faixa 1300px–1430px: o conteúdo interno das sections foi reduzido
-  // (ver media query correspondente no style.css), então a section fica
-  // visualmente menor que a viewport. Em vez de alinhar pelo topo
-  // (que deixa um buraco embaixo), centralizamos a section na viewport
-  // para que 100% do conteúdo fique visível sem cortar topo/rodapé.
-  // Não se aplica a Parceiros (já estavam corretos nessa faixa).
-  function shouldCenterSection(target) {
-    return window.matchMedia('(min-width: 1300px) and (max-width: 1430px)').matches
-      && !target.classList.contains('p-section');
-  }
-
-  // 1366x768 (laptops comuns): o scroll dos Parceiros ficava muito
-  // "centralizado" visualmente. Subimos a posição 30px acima para
-  // des-centralizar e aproximar o conteúdo do topo da viewport.
-  function is1366PartnerSection(target) {
-    return window.matchMedia('(max-width: 1366px) and (min-width: 1300px)').matches
-      && target.classList.contains('p-section');
-  }
+  const STABLE_TOP_PX = 90;
 
   function scrollToTarget(target) {
     const navHeight = nav.offsetHeight;
     const sectionTop = target.getBoundingClientRect().top + window.pageYOffset;
-    const sectionHeight = target.offsetHeight;
-    const isPartnerSection = target.classList.contains('p-section');
-    const mobile = isMobileViewport();
 
-    let extra = isPartnerSection ? 0 : EXTRA_SCROLL_PX;
+    // Mesmo cálculo para todas as sections, em qualquer resolução:
+    // sectionTop - navHeight coloca o topo da section rente ao navbar;
+    // + STABLE_TOP_PX adiciona o respiro padronizado que mantém o título
+    // sempre na mesma linha vertical em todas as seções do site.
+    let scrollTarget = sectionTop - navHeight + STABLE_TOP_PX;
+
+    // Jingles: empurra 1 scroll extra para cima (título mais perto do
+    // header/navbar), oposto ao Monóculo.
+    if (target.id === 'jingles') {
+      scrollTarget -= STABLE_TOP_PX;
+    }
+
+    // Monóculo: empurra 1 scroll extra para baixo (título mais perto do
+    // rodapé), equivalente a ~uma linha de scroll.
     if (target.id === 'monoculo') {
-      extra = EXTRA_SCROLL_PX * 2;
+      scrollTarget += STABLE_TOP_PX;
     }
 
-    // No mobile, o extra de compensação não se aplica (apenas no desktop).
-    if (mobile) {
-      extra = 0;
-    }
-
-    // Faixa 1440x900: zera o extra APENAS para sections principais.
-    // Parceiros (isPartnerSection) já têm extra=0 e mantêm o comportamento.
-    if (is1440RangeSection(target)) {
-      extra = 0;
-    }
-
-    let scrollTarget = sectionTop - navHeight + extra;
-
-    // 1366x768 Parceiros: desce -30px no scroll para des-centralizar
-    // (aproxima o conteúdo do topo, subindo 30px em relação ao atual).
-    if (is1366PartnerSection(target)) {
-      scrollTarget += 35;
-    }
-
-    // Faixa 1300px–1430px: centraliza a section verticalmente na viewport,
-    // respeitando a altura do navbar fixo e o limite inferior da página.
-    if (shouldCenterSection(target)) {
-      const viewportHeight = window.innerHeight;
-      const centeredTop = sectionTop - navHeight
-        + (sectionHeight - (viewportHeight - navHeight)) / 2;
-      const maxScroll = Math.max(
-        document.documentElement.scrollHeight - viewportHeight,
-        0
-      );
-      scrollTarget = Math.max(0, Math.min(centeredTop, maxScroll));
+    // Parceiros: empurra 1 scroll extra para cima (título mais perto
+    // do header/navbar).
+    if (typeof partnerSectionIds !== 'undefined' && partnerSectionIds.has(target.id)) {
+      scrollTarget -= STABLE_TOP_PX;
     }
 
     window.scrollTo({ top: Math.max(scrollTarget, 0), behavior: 'smooth' });
