@@ -374,6 +374,47 @@ document.addEventListener('DOMContentLoaded', function () {
   // o slide principal — sem corte, sem borda preta, em sincronia.
   const heroSlides = Array.from(document.querySelectorAll('.cover-hero .hero-slide'));
   const heroBgLayers = Array.from(document.querySelectorAll('.cover-hero .hero-bg-blur'));
+  const heroContainer = document.querySelector('.cover-hero .hero-carousel');
+
+  // Calcula a altura que a imagem realmente ocupa dentro do container
+  // (mesma matemática do object-fit: contain), para que a blur nunca
+  // "sobre" embaixo da imagem — apenas nas laterais quando necessário.
+  function getRenderedImageHeight(img, containerWidth, containerHeight) {
+    const naturalWidth = img.naturalWidth;
+    const naturalHeight = img.naturalHeight;
+    if (!naturalWidth || !naturalHeight || !containerWidth || !containerHeight) {
+      return containerHeight;
+    }
+    const containerAspect = containerWidth / containerHeight;
+    const imageAspect = naturalWidth / naturalHeight;
+    if (imageAspect > containerAspect) {
+      // Imagem mais "larga" que o container: a largura e o fator
+      // limitante do contain, sobra espaco vertical embaixo (pois a
+      // imagem fica colada no topo). A blur deve parar exatamente aqui.
+      return Math.round(containerWidth / imageAspect);
+    }
+    // Imagem mais "alta"/estreita que o container: a altura e o fator
+    // limitante, a imagem preenche 100% da altura (sobra so lateral).
+    return containerHeight;
+  }
+
+  function syncHeroBlurHeight(layer, img) {
+    if (!layer || !img || !heroContainer) return;
+    const containerWidth = heroContainer.clientWidth;
+    const containerHeight = heroContainer.clientHeight;
+
+    function applyHeight() {
+      const height = getRenderedImageHeight(img, containerWidth, containerHeight);
+      layer.style.height = height + 'px';
+    }
+
+    if (img.complete && img.naturalWidth) {
+      applyHeight();
+    } else {
+      layer.style.height = containerHeight + 'px';
+      img.addEventListener('load', applyHeight, { once: true });
+    }
+  }
   if (heroSlides.length > 1 && heroBgLayers.length > 0) {
     let heroIndex = heroSlides.findIndex(function (slide) {
       return slide.classList.contains('is-active');
@@ -388,6 +429,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function setHeroBgOnLayer(layer, slide) {
       const src = slide.getAttribute('src');
       if (!src) return;
+      syncHeroBlurHeight(layer, slide);
       layer.style.setProperty('--hero-bg', 'url("' + src + '")');
       // Alinha a posicao do blur com a do slide (mesmo object-position
       // lido do inline style --hero-position), para que imagem e blur
@@ -439,6 +481,9 @@ document.addEventListener('DOMContentLoaded', function () {
       heroTimer = null;
     }
     startHero();
+    window.addEventListener('resize', function () {
+      syncHeroBlurHeight(heroBgLayers[heroBgSlot], heroSlides[heroIndex]);
+    }, { passive: true });
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) {
         stopHero();

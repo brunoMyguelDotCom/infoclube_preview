@@ -447,24 +447,26 @@ nav.is-menu-open .nav-toggle span:nth-child(3) {
   object-fit: contain;
 }
 
-/* Camada de fundo desfocada: espelha a imagem do slide ATIVO e a
-   preenche por completo (cobrindo as areas laterais que ficariam
-   vazias por causa de object-fit: contain no slide principal).
-   A imagem ativa e definida via JS em .hero-bg-blur[style*="--bg"] */
 .hero-bg-blur {
-  position: absolute;
-  inset: 0;
-  background-color: #050B14;
-  background-image: var(--hero-bg, none);
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  filter: blur(38px) saturate(1.15);
-  transform: scale(1.18);
-  opacity: 0;
-  transition: opacity 1.6s ease;
-  pointer-events: none;
-  z-index: -1;
+    position: absolute;
+    inset: 0;
+
+    background-color: #050B14;
+    background-image: var(--hero-bg, none);
+    background-size: cover;
+    background-position: var(--hero-blur-position, center center);
+    background-repeat: no-repeat;
+
+    filter: blur(38px) saturate(1.15);
+
+    transform: scale(1.18);
+    transform-origin: var(--hero-blur-origin, center center);
+
+    opacity: 0;
+    transition: opacity 1.6s ease;
+
+    pointer-events: none;
+    z-index: -1;
 }
 
 .hero-bg-blur.is-active {
