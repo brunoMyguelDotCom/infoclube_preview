@@ -173,6 +173,12 @@ document.addEventListener('DOMContentLoaded', function () {
       scrollTarget -= STABLE_TOP_PX;
     }
 
+    // Revelação: empurra 1 scroll extra para baixo (90px) para que o
+    // título "REVELAÇÃO" não fique cortado no topo.
+    if (target.id === 'revelacao') {
+      scrollTarget -= STABLE_TOP_PX;
+    }
+
     window.scrollTo({ top: Math.max(scrollTarget, 0), behavior: 'smooth' });
   }
 
