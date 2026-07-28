@@ -22,8 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'cinegrafistas',
     'fotografos',
     'produtoras',
-    'revelacao',
-    'oficinas'
+    'revelacao'
   ];
   const sections = observedSectionIds
     .map(function (sectionId) { return document.getElementById(sectionId); })
@@ -48,8 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'cinegrafistas',
     'fotografos',
     'produtoras',
-    'loja',
-    'oficinas'
+    'loja'
   ]);
   const servicesLink = navLinks.find(function (link) {
     return link.getAttribute('href') === '#videos';
@@ -141,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
   //     título do topo/header.
   //   - Monóculo: desce 1 "scroll" extra (STABLE_TOP_PX), aproximando o
   //     título do rodapé.
-  //   - Parceiros (cinegrafistas, fotógrafos, produtoras, loja, oficinas):
+  //   - Parceiros (cinegrafistas, fotógrafos, produtoras, loja):
   //     sobem 1 "scroll" extra (STABLE_TOP_PX), aproximando o título
   //     do topo/header.
   // ===================================================================
